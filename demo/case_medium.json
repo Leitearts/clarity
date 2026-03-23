@@ -1,0 +1,29 @@
+{
+  "trace_id": "demo-medium-001",
+  "caller_id": "clarity-demo",
+  "capability": "clinical_risk_analysis",
+  "payload": {
+    "patient_id": "SYNTH-DEMO-002",
+    "case_id": "DEMO-CASE-MEDIUM",
+    "context": {
+      "age": 58, "sex": "female",
+      "care_setting": "outpatient",
+      "comorbidities": ["hypertension", "type 2 diabetes"],
+      "allergies": []
+    },
+    "diagnoses": [
+      {"code": "E11.9", "description": "Type 2 diabetes, uncontrolled", "is_primary": true},
+      {"code": "I10",   "description": "Essential hypertension", "is_primary": false}
+    ],
+    "medications": [
+      {"name": "clopidogrel", "dose_mg": 75.0,  "frequency": "once daily",  "route": "oral"},
+      {"name": "omeprazole",  "dose_mg": 20.0,  "frequency": "once daily",  "route": "oral"},
+      {"name": "metformin",   "dose_mg": 500.0, "frequency": "twice daily", "route": "oral"},
+      {"name": "lisinopril",  "dose_mg": 5.0,   "frequency": "once daily",  "route": "oral"}
+    ],
+    "lab_results": [
+      {"test_name": "creatinine", "value": 1.8,   "unit": "mg/dL", "reference_low": 0.5,  "reference_high": 1.1},
+      {"test_name": "glucose",    "value": 210.0, "unit": "mg/dL", "reference_low": 70.0, "reference_high": 100.0}
+    ]
+  }
+}

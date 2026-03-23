@@ -1,0 +1,43 @@
+services:
+  clarity:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    image: clarity:latest
+    container_name: clarity
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      CLARITY_ANTHROPIC_API_KEY: ${CLARITY_ANTHROPIC_API_KEY}
+      CLARITY_LLM_MODEL: ${CLARITY_LLM_MODEL:-claude-sonnet-4-20250514}
+      CLARITY_LLM_MAX_TOKENS: ${CLARITY_LLM_MAX_TOKENS:-1024}
+      CLARITY_LLM_TIMEOUT_SECONDS: ${CLARITY_LLM_TIMEOUT_SECONDS:-30}
+      CLARITY_RISK_WEIGHT_PRESET: ${CLARITY_RISK_WEIGHT_PRESET:-default}
+      CLARITY_WEIGHT_DIAGNOSIS: ${CLARITY_WEIGHT_DIAGNOSIS:-0.40}
+      CLARITY_WEIGHT_MEDICATION: ${CLARITY_WEIGHT_MEDICATION:-0.35}
+      CLARITY_WEIGHT_LAB: ${CLARITY_WEIGHT_LAB:-0.25}
+      CLARITY_THRESHOLD_LOW: ${CLARITY_THRESHOLD_LOW:-0.35}
+      CLARITY_THRESHOLD_HIGH: ${CLARITY_THRESHOLD_HIGH:-0.65}
+      CLARITY_THRESHOLD_CRITICAL: ${CLARITY_THRESHOLD_CRITICAL:-0.85}
+      CLARITY_AGENT_TIMEOUT_SECONDS: ${CLARITY_AGENT_TIMEOUT_SECONDS:-20}
+      CLARITY_DEBUG: ${CLARITY_DEBUG:-false}
+      CLARITY_AUDIT_LOG_PATH: /app/logs/audit.jsonl
+      WORKERS: ${WORKERS:-4}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    volumes:
+      - ./logs:/app/logs
+    healthcheck:
+      test: ["CMD", "python", "-c",
+             "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M

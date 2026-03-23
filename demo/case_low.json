@@ -1,0 +1,25 @@
+{
+  "trace_id": "demo-low-001",
+  "caller_id": "clarity-demo",
+  "capability": "clinical_risk_analysis",
+  "payload": {
+    "patient_id": "SYNTH-DEMO-003",
+    "case_id": "DEMO-CASE-LOW",
+    "context": {
+      "age": 42, "sex": "male",
+      "care_setting": "primary_care",
+      "comorbidities": [],
+      "allergies": []
+    },
+    "diagnoses": [
+      {"code": "J06.9", "description": "Acute upper respiratory infection", "is_primary": true, "onset_days": 3}
+    ],
+    "medications": [
+      {"name": "amoxicillin", "dose_mg": 500.0, "frequency": "three times daily", "route": "oral"}
+    ],
+    "lab_results": [
+      {"test_name": "WBC",       "value": 11.2, "unit": "K/uL",   "reference_low": 4.5,  "reference_high": 11.0},
+      {"test_name": "vitamin D", "value": 18.0, "unit": "ng/mL",  "reference_low": 20.0, "reference_high": 50.0}
+    ]
+  }
+}

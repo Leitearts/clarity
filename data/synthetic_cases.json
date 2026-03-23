@@ -1,0 +1,153 @@
+[
+  {
+    "_meta": {
+      "case_name": "critical_ami_ddi",
+      "expected_risk_level": "critical",
+      "expected_score_min": 0.80,
+      "notes": "Acute MI + Warfarin/Amiodarone DDI + critical labs. Always CRITICAL."
+    },
+    "patient_id": "SYNTH-001",
+    "case_id": "CASE-CRITICAL-001",
+    "context": {
+      "age": 71, "sex": "male", "weight_kg": 82.0,
+      "care_setting": "icu",
+      "comorbidities": ["heart failure", "chronic kidney disease", "type 2 diabetes"],
+      "allergies": ["penicillin"]
+    },
+    "diagnoses": [
+      {"code": "I21.9", "description": "Acute MI, unspecified", "is_primary": true, "onset_days": 1},
+      {"code": "I50.9", "description": "Heart failure, unspecified", "is_primary": false}
+    ],
+    "medications": [
+      {"name": "warfarin",   "dose_mg": 5.0,    "frequency": "once daily",  "route": "oral"},
+      {"name": "amiodarone", "dose_mg": 200.0,  "frequency": "twice daily", "route": "oral"},
+      {"name": "aspirin",    "dose_mg": 81.0,   "frequency": "once daily",  "route": "oral"},
+      {"name": "lisinopril", "dose_mg": 10.0,   "frequency": "once daily",  "route": "oral"},
+      {"name": "metformin",  "dose_mg": 1000.0, "frequency": "twice daily", "route": "oral"}
+    ],
+    "lab_results": [
+      {"test_name": "troponin",   "value": 2.1, "unit": "ng/mL", "reference_low": 0.0,  "reference_high": 0.04},
+      {"test_name": "potassium",  "value": 6.2, "unit": "mEq/L", "reference_low": 3.5,  "reference_high": 5.0},
+      {"test_name": "INR",        "value": 4.8, "unit": "ratio", "reference_low": 0.8,  "reference_high": 1.2},
+      {"test_name": "creatinine", "value": 3.8, "unit": "mg/dL", "reference_low": 0.7,  "reference_high": 1.3},
+      {"test_name": "hemoglobin", "value": 6.8, "unit": "g/dL",  "reference_low": 13.5, "reference_high": 17.5}
+    ]
+  },
+  {
+    "_meta": {
+      "case_name": "high_sepsis_polypharmacy",
+      "expected_risk_level": "high",
+      "expected_score_min": 0.65,
+      "notes": "Sepsis + polypharmacy + abnormal labs. HIGH."
+    },
+    "patient_id": "SYNTH-002",
+    "case_id": "CASE-HIGH-001",
+    "context": {
+      "age": 64, "sex": "female", "weight_kg": 70.0,
+      "care_setting": "inpatient",
+      "comorbidities": ["diabetes", "hypertension"],
+      "allergies": []
+    },
+    "diagnoses": [
+      {"code": "A41.9", "description": "Sepsis, unspecified", "is_primary": true, "onset_days": 2},
+      {"code": "J18.9", "description": "Pneumonia, unspecified", "is_primary": false, "onset_days": 2}
+    ],
+    "medications": [
+      {"name": "vancomycin",    "dose_mg": 1000.0, "frequency": "twice daily",    "route": "IV"},
+      {"name": "piperacillin",  "dose_mg": 3375.0, "frequency": "every 6 hours", "route": "IV"},
+      {"name": "metronidazole", "dose_mg": 500.0,  "frequency": "three times daily", "route": "IV"},
+      {"name": "metformin",     "dose_mg": 500.0,  "frequency": "twice daily",    "route": "oral"},
+      {"name": "lisinopril",    "dose_mg": 5.0,    "frequency": "once daily",     "route": "oral"},
+      {"name": "furosemide",    "dose_mg": 40.0,   "frequency": "once daily",     "route": "oral"}
+    ],
+    "lab_results": [
+      {"test_name": "lactate",    "value": 3.8,  "unit": "mmol/L", "reference_low": 0.5,  "reference_high": 2.0},
+      {"test_name": "WBC",        "value": 18.5, "unit": "K/uL",   "reference_low": 4.5,  "reference_high": 11.0},
+      {"test_name": "creatinine", "value": 2.1,  "unit": "mg/dL",  "reference_low": 0.5,  "reference_high": 1.1},
+      {"test_name": "sodium",     "value": 128.0,"unit": "mEq/L",  "reference_low": 136.0,"reference_high": 145.0}
+    ]
+  },
+  {
+    "_meta": {
+      "case_name": "medium_diabetes_ddi",
+      "expected_risk_level": "medium",
+      "expected_score_min": 0.35,
+      "expected_score_max": 0.64,
+      "notes": "Controlled chronic conditions + moderate DDI. MEDIUM."
+    },
+    "patient_id": "SYNTH-003",
+    "case_id": "CASE-MEDIUM-001",
+    "context": {
+      "age": 58, "sex": "female", "weight_kg": 75.0,
+      "care_setting": "outpatient",
+      "comorbidities": ["type 2 diabetes", "hypertension"],
+      "allergies": []
+    },
+    "diagnoses": [
+      {"code": "E11.9", "description": "Type 2 diabetes mellitus, uncontrolled", "is_primary": true},
+      {"code": "I10",   "description": "Essential hypertension", "is_primary": false}
+    ],
+    "medications": [
+      {"name": "clopidogrel", "dose_mg": 75.0,  "frequency": "once daily",  "route": "oral"},
+      {"name": "omeprazole",  "dose_mg": 20.0,  "frequency": "once daily",  "route": "oral"},
+      {"name": "metformin",   "dose_mg": 500.0, "frequency": "twice daily", "route": "oral"},
+      {"name": "lisinopril",  "dose_mg": 5.0,   "frequency": "once daily",  "route": "oral"}
+    ],
+    "lab_results": [
+      {"test_name": "glucose",    "value": 210.0, "unit": "mg/dL", "reference_low": 70.0,  "reference_high": 100.0},
+      {"test_name": "creatinine", "value": 1.8,   "unit": "mg/dL", "reference_low": 0.5,   "reference_high": 1.1},
+      {"test_name": "hemoglobin", "value": 11.2,  "unit": "g/dL",  "reference_low": 12.0,  "reference_high": 16.0}
+    ]
+  },
+  {
+    "_meta": {
+      "case_name": "low_uri_routine",
+      "expected_risk_level": "low",
+      "expected_score_max": 0.34,
+      "notes": "Routine URI. Should always score LOW."
+    },
+    "patient_id": "SYNTH-004",
+    "case_id": "CASE-LOW-001",
+    "context": {
+      "age": 34, "sex": "female",
+      "care_setting": "primary_care",
+      "comorbidities": [],
+      "allergies": []
+    },
+    "diagnoses": [
+      {"code": "J06.9", "description": "Acute upper respiratory infection, unspecified",
+       "is_primary": true, "onset_days": 3}
+    ],
+    "medications": [
+      {"name": "amoxicillin", "dose_mg": 500.0, "frequency": "three times daily", "route": "oral"}
+    ],
+    "lab_results": [
+      {"test_name": "WBC", "value": 11.2, "unit": "K/uL", "reference_low": 4.5, "reference_high": 11.0}
+    ]
+  },
+  {
+    "_meta": {
+      "case_name": "allergy_conflict",
+      "expected_risk_level": "critical",
+      "expected_score_min": 0.80,
+      "notes": "Penicillin allergy + amoxicillin. Must always flag CRITICAL allergy conflict."
+    },
+    "patient_id": "SYNTH-005",
+    "case_id": "CASE-ALLERGY-001",
+    "context": {
+      "age": 45, "sex": "male",
+      "care_setting": "emergency",
+      "comorbidities": [],
+      "allergies": ["penicillin", "amoxicillin"]
+    },
+    "diagnoses": [
+      {"code": "J18.9", "description": "Pneumonia, unspecified", "is_primary": true, "onset_days": 1}
+    ],
+    "medications": [
+      {"name": "amoxicillin", "dose_mg": 875.0, "frequency": "twice daily", "route": "oral"}
+    ],
+    "lab_results": [
+      {"test_name": "WBC", "value": 14.2, "unit": "K/uL", "reference_low": 4.5, "reference_high": 11.0}
+    ]
+  }
+]

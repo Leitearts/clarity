@@ -1,0 +1,34 @@
+{
+  "trace_id": "demo-live-001",
+  "caller_id": "clarity-demo",
+  "capability": "clinical_risk_analysis",
+  "payload": {
+    "patient_id": "SYNTH-DEMO-001",
+    "case_id": "DEMO-CASE-CRITICAL",
+    "context": {
+      "age": 71, "sex": "male", "weight_kg": 82.0,
+      "care_setting": "icu",
+      "comorbidities": ["heart failure", "chronic kidney disease", "type 2 diabetes"],
+      "allergies": ["penicillin"]
+    },
+    "diagnoses": [
+      {"code": "I21.9", "description": "Acute myocardial infarction, unspecified", "is_primary": true, "onset_days": 1},
+      {"code": "I50.9", "description": "Heart failure, unspecified", "is_primary": false, "onset_days": 180}
+    ],
+    "medications": [
+      {"name": "warfarin",   "dose_mg": 5.0,    "frequency": "once daily",  "route": "oral"},
+      {"name": "amiodarone", "dose_mg": 200.0,  "frequency": "twice daily", "route": "oral"},
+      {"name": "metformin",  "dose_mg": 1000.0, "frequency": "twice daily", "route": "oral"},
+      {"name": "lisinopril", "dose_mg": 10.0,   "frequency": "once daily",  "route": "oral"},
+      {"name": "aspirin",    "dose_mg": 81.0,   "frequency": "once daily",  "route": "oral"}
+    ],
+    "lab_results": [
+      {"test_name": "troponin",   "value": 2.1, "unit": "ng/mL", "reference_low": 0.0,  "reference_high": 0.04, "collected_hours_ago": 2},
+      {"test_name": "potassium",  "value": 6.2, "unit": "mEq/L", "reference_low": 3.5,  "reference_high": 5.0,  "collected_hours_ago": 2},
+      {"test_name": "creatinine", "value": 3.8, "unit": "mg/dL", "reference_low": 0.7,  "reference_high": 1.3,  "collected_hours_ago": 2},
+      {"test_name": "INR",        "value": 4.8, "unit": "ratio", "reference_low": 0.8,  "reference_high": 1.2,  "collected_hours_ago": 3},
+      {"test_name": "hemoglobin", "value": 6.8, "unit": "g/dL",  "reference_low": 13.5, "reference_high": 17.5, "collected_hours_ago": 2}
+    ],
+    "clinical_notes": "Patient admitted via ED with crushing chest pain. ECG shows ST elevation. Urgent cath lab activation."
+  }
+}
