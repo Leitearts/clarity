@@ -21,9 +21,11 @@ class RiskScore(BaseModel):
     diagnosis_score: float = Field(..., ge=0.0, le=1.0)
     medication_score: float = Field(..., ge=0.0, le=1.0)
     lab_score: float = Field(..., ge=0.0, le=1.0)
-    w_diagnosis: float = Field(default=0.40)
-    w_medication: float = Field(default=0.35)
-    w_lab: float = Field(default=0.25)
+    vitals_score: float = Field(..., ge=0.0, le=1.0)
+    w_diagnosis: float = Field(default=0.30)
+    w_medication: float = Field(default=0.25)
+    w_lab: float = Field(default=0.20)
+    w_vitals: float = Field(default=0.25)
     context_multiplier: float = Field(default=1.0, ge=0.5, le=1.5)
 
     @computed_field
@@ -33,6 +35,7 @@ class RiskScore(BaseModel):
             self.w_diagnosis * self.diagnosis_score
             + self.w_medication * self.medication_score
             + self.w_lab * self.lab_score
+            + self.w_vitals * self.vitals_score
         )
         return round(min(1.0, raw * self.context_multiplier), 4)
 

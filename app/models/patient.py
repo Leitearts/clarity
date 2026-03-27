@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import Optional
-from pydantic import BaseModel, Field, field_validator, model_config
+from pydantic import BaseModel, Field, field_validator, ConfigDict
 import re
 
 
@@ -44,6 +44,23 @@ class LabResult(BaseModel):
         return False
 
 
+class VitalSign(BaseModel):
+    sign_name: str = Field(..., min_length=1, max_length=50)
+    value: float
+    unit: str = Field(..., min_length=1, max_length=30)
+    reference_low: Optional[float] = None
+    reference_high: Optional[float] = None
+    measured_minutes_ago: Optional[int] = Field(default=None, ge=0)
+
+    @property
+    def is_abnormal(self) -> bool:
+        if self.reference_low is not None and self.value < self.reference_low:
+            return True
+        if self.reference_high is not None and self.value > self.reference_high:
+            return True
+        return False
+
+
 class PatientContext(BaseModel):
     age: int = Field(..., ge=0, le=130)
     sex: str = Field(..., pattern="^(male|female|other)$")
@@ -57,7 +74,7 @@ class PatientContext(BaseModel):
 
 
 class PatientCase(BaseModel):
-    model_config = model_config(extra="ignore")
+    model_config = ConfigDict(extra="ignore")
 
     patient_id: str = Field(..., min_length=1, max_length=64)
     case_id: str = Field(..., min_length=1, max_length=64)
@@ -65,6 +82,7 @@ class PatientCase(BaseModel):
     diagnoses: list[Diagnosis] = Field(..., min_length=1)
     medications: list[Medication] = Field(default_factory=list)
     lab_results: list[LabResult] = Field(default_factory=list)
+    vitals_results: list[VitalSign] = Field(default_factory=list)
     clinical_notes: Optional[str] = Field(default=None, max_length=2000)
 
     @field_validator("diagnoses")

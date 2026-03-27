@@ -8,6 +8,7 @@ class AgentType(str, Enum):
     DIAGNOSIS = "diagnosis"
     DRUG_INTERACTION = "drug_interaction"
     LAB_ANALYSIS = "lab_analysis"
+    VITALS = "vitals"
     PATIENT_CONTEXT = "patient_context"
 
 

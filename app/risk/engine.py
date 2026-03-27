@@ -14,20 +14,21 @@ class WeightPreset:
     w_diagnosis: float
     w_medication: float
     w_lab: float
+    w_vitals: float
     description: str
 
 
 WEIGHT_PRESETS: dict[str, WeightPreset] = {
-    "default": WeightPreset("default", 0.40, 0.35, 0.25,
+    "default": WeightPreset("default", 0.30, 0.25, 0.20, 0.25,
                             "Balanced weights for general inpatient use."),
-    "icu": WeightPreset("icu", 0.35, 0.30, 0.35,
+    "icu": WeightPreset("icu", 0.25, 0.20, 0.30, 0.25,
                         "ICU: lab results weighted higher."),
-    "outpatient": WeightPreset("outpatient", 0.50, 0.35, 0.15,
+    "outpatient": WeightPreset("outpatient", 0.40, 0.30, 0.15, 0.15,
                                "Outpatient: diagnosis dominant, labs often stale."),
-    "pharmacy_review": WeightPreset("pharmacy_review", 0.25, 0.60, 0.15,
+    "pharmacy_review": WeightPreset("pharmacy_review", 0.20, 0.50, 0.15, 0.15,
                                     "Pharmacy-focused: medication safety dominant."),
-    "emergency": WeightPreset("emergency", 0.35, 0.25, 0.40,
-                              "ED: acute labs most time-sensitive."),
+    "emergency": WeightPreset("emergency", 0.25, 0.20, 0.30, 0.25,
+                              "ED: acute labs most time-sensitive. Vitals critical."),
 }
 
 
@@ -35,13 +36,16 @@ class ScoreBreakdown(NamedTuple):
     diagnosis_score: float
     medication_score: float
     lab_score: float
+    vitals_score: float
     context_multiplier: float
     w_diagnosis: float
     w_medication: float
     w_lab: float
+    w_vitals: float
     diagnosis_contribution: float
     medication_contribution: float
     lab_contribution: float
+    vitals_contribution: float
     weighted_sum: float
     raw_total: float
     final_score: float
@@ -54,17 +58,19 @@ class RiskEngine:
     def __init__(self, preset: str | None = None,
                  w_diagnosis: float | None = None,
                  w_medication: float | None = None,
-                 w_lab: float | None = None):
+                 w_lab: float | None = None,
+                 w_vitals: float | None = None):
         if preset is not None:
             if preset not in WEIGHT_PRESETS:
                 raise ValueError(f"Unknown preset '{preset}'. Available: {list(WEIGHT_PRESETS)}")
             p = WEIGHT_PRESETS[preset]
-            self._w_d, self._w_m, self._w_l = p.w_diagnosis, p.w_medication, p.w_lab
+            self._w_d, self._w_m, self._w_l, self._w_v = p.w_diagnosis, p.w_medication, p.w_lab, p.w_vitals
             self._preset_name = preset
         else:
             self._w_d = w_diagnosis if w_diagnosis is not None else settings.weight_diagnosis
             self._w_m = w_medication if w_medication is not None else settings.weight_medication
             self._w_l = w_lab if w_lab is not None else settings.weight_lab
+            self._w_v = w_vitals if w_vitals is not None else 0.25
             self._preset_name = "custom"
         self._validate_weights()
 
@@ -76,26 +82,28 @@ class RiskEngine:
             )
 
     def score(self, diagnosis_score: float, medication_score: float,
-              lab_score: float, context_multiplier: float = 1.0) -> RiskScore:
-        bd = self._compute(diagnosis_score, medication_score, lab_score, context_multiplier)
-        logger.debug("risk preset=%s D=%.3f M=%.3f L=%.3f C=%.2f -> R=%.4f [%s]",
+              lab_score: float, vitals_score: float, context_multiplier: float = 1.0) -> RiskScore:
+        bd = self._compute(diagnosis_score, medication_score, lab_score, vitals_score, context_multiplier)
+        logger.debug("risk preset=%s D=%.3f M=%.3f L=%.3f V=%.3f C=%.2f -> R=%.4f [%s]",
                      self._preset_name, diagnosis_score, medication_score,
-                     lab_score, context_multiplier, bd.final_score, bd.level.value)
+                     lab_score, vitals_score, context_multiplier, bd.final_score, bd.level.value)
         return RiskScore(
             diagnosis_score=bd.diagnosis_score, medication_score=bd.medication_score,
-            lab_score=bd.lab_score, w_diagnosis=bd.w_diagnosis,
-            w_medication=bd.w_medication, w_lab=bd.w_lab,
+            lab_score=bd.lab_score, vitals_score=bd.vitals_score,
+            w_diagnosis=bd.w_diagnosis,
+            w_medication=bd.w_medication, w_lab=bd.w_lab, w_vitals=bd.w_vitals,
             context_multiplier=bd.context_multiplier,
         )
 
     def score_with_breakdown(self, diagnosis_score: float, medication_score: float,
-                              lab_score: float, context_multiplier: float = 1.0
+                              lab_score: float, vitals_score: float, context_multiplier: float = 1.0
                               ) -> tuple[RiskScore, ScoreBreakdown]:
-        bd = self._compute(diagnosis_score, medication_score, lab_score, context_multiplier)
+        bd = self._compute(diagnosis_score, medication_score, lab_score, vitals_score, context_multiplier)
         risk = RiskScore(
             diagnosis_score=bd.diagnosis_score, medication_score=bd.medication_score,
-            lab_score=bd.lab_score, w_diagnosis=bd.w_diagnosis,
-            w_medication=bd.w_medication, w_lab=bd.w_lab,
+            lab_score=bd.lab_score, vitals_score=bd.vitals_score,
+            w_diagnosis=bd.w_diagnosis,
+            w_medication=bd.w_medication, w_lab=bd.w_lab, w_vitals=bd.w_vitals,
             context_multiplier=bd.context_multiplier,
         )
         return risk, bd
