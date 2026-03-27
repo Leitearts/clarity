@@ -1,5 +1,5 @@
 from __future__ import annotations
-from app.models.patient import Diagnosis, Medication, LabResult, PatientContext
+from app.models.patient import Diagnosis, Medication, LabResult, PatientContext, VitalSign
 
 DIAGNOSIS_SYSTEM = """\
 You are a clinical decision support AI specialized in diagnosis risk assessment.
@@ -33,6 +33,18 @@ You compare values against reference ranges and flag abnormalities.
 CRITICAL RULES:
 - Output ONLY a valid JSON object. No preamble, no explanation, no markdown.
 - Never diagnose based on lab results alone.
+- risk_score must be a float between 0.0 and 1.0.
+- reasoning must be 1-3 sentences maximum.
+"""
+
+VITALS_SYSTEM = """\
+You are a clinical monitoring AI specialized in vital sign interpretation.
+You assess heart rate, blood pressure, temperature, SpO2, respiratory rate, and oxygen delivery.
+
+CRITICAL RULES:
+- Output ONLY a valid JSON object. No preamble, no explanation, no markdown.
+- Never recommend specific interventions or medication changes.
+- Flag concerning trends and abnormal values only.
 - risk_score must be a float between 0.0 and 1.0.
 - reasoning must be 1-3 sentences maximum.
 """
@@ -129,6 +141,33 @@ Return a JSON object with EXACTLY this structure:
   ],
   "abnormal_values": [<list of test names that are abnormal but not critical>],
   "pattern_concerns": "<brief or null>",
+  "reasoning": "<1-3 sentences>",
+  "confidence": <float 0.0-1.0>
+}}"""
+
+
+def build_vitals_prompt(vitals: list[VitalSign], context: PatientContext) -> str:
+    vitals_list = "\n".join(
+        f"  - {v.sign_name}: {v.value} {v.unit} (ref: {v.reference_low}-{v.reference_high})"
+        for v in vitals
+    ) or "  None provided"
+    return f"""\
+Analyze the following vital signs for clinical significance and hemodynamic stability.
+
+VITAL SIGNS:
+{vitals_list}
+
+PATIENT CONTEXT: Age {context.age}, Sex {context.sex}, Care setting {context.care_setting}
+
+Return a JSON object with EXACTLY this structure:
+{{
+  "risk_score": <float 0.0-1.0>,
+  "critical_vitals": [
+    {{"sign": "<name>", "value": <number>, "unit": "<unit>", "direction": <"high"|"low">, "clinical_significance": "<note>"}}
+  ],
+  "abnormal_vitals": [<list of vital sign names that are abnormal but not critical>],
+  "trend_concerns": "<brief or null>",
+  "hemodynamic_risk": <"stable"|"at_risk"|"unstable">,
   "reasoning": "<1-3 sentences>",
   "confidence": <float 0.0-1.0>
 }}"""
