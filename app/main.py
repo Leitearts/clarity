@@ -42,8 +42,8 @@ app = FastAPI(
 )
 
 PREFIX = f"/api/{settings.api_version}"
-app.include_router(core_router,   prefix=PREFIX)
-app.include_router(a2a_router,    prefix=PREFIX)
+app.include_router(core_router, prefix=PREFIX)
+app.include_router(a2a_router, prefix=PREFIX)
 app.include_router(impact_router, prefix=PREFIX)
 
 
