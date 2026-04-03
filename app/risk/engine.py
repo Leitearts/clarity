@@ -70,15 +70,15 @@ class RiskEngine:
             self._w_d = w_diagnosis if w_diagnosis is not None else settings.weight_diagnosis
             self._w_m = w_medication if w_medication is not None else settings.weight_medication
             self._w_l = w_lab if w_lab is not None else settings.weight_lab
-            self._w_v = w_vitals if w_vitals is not None else 0.25
+            self._w_v = w_vitals if w_vitals is not None else 0.0
             self._preset_name = "custom"
         self._validate_weights()
 
     def _validate_weights(self) -> None:
-        total = self._w_d + self._w_m + self._w_l
+        total = self._w_d + self._w_m + self._w_l + self._w_v
         if abs(total - 1.0) > 0.001:
             raise ValueError(
-                f"Risk weights must sum to 1.0. Got: {self._w_d}+{self._w_m}+{self._w_l}={total:.4f}"
+                f"Risk weights must sum to 1.0. Got: {self._w_d}+{self._w_m}+{self._w_l}+{self._w_v}={total:.4f}"
             )
 
     def score(self, diagnosis_score: float, medication_score: float,
@@ -109,28 +109,31 @@ class RiskEngine:
         return risk, bd
 
     def _compute(self, diagnosis_score: float, medication_score: float,
-                 lab_score: float, context_multiplier: float) -> ScoreBreakdown:
+                 lab_score: float, vitals_score: float = 0.0,
+                 context_multiplier: float = 1.0) -> ScoreBreakdown:
         d = max(0.0, min(1.0, float(diagnosis_score)))
         m = max(0.0, min(1.0, float(medication_score)))
         l = max(0.0, min(1.0, float(lab_score)))
+        v = max(0.0, min(1.0, float(vitals_score)))
         c = max(0.5, min(1.5, float(context_multiplier)))
         d_c = round(self._w_d * d, 6)
         m_c = round(self._w_m * m, 6)
         l_c = round(self._w_l * l, 6)
-        ws = round(d_c + m_c + l_c, 6)
+        v_c = round(self._w_v * v, 6)
+        ws = round(d_c + m_c + l_c + v_c, 6)
         raw = round(ws * c, 6)
         final = round(max(0.0, min(1.0, raw)), 4)
         level = _classify(final)
-        return ScoreBreakdown(d, m, l, c, self._w_d, self._w_m, self._w_l,
-                              d_c, m_c, l_c, ws, raw, final, level,
+        return ScoreBreakdown(d, m, l, v, c, self._w_d, self._w_m, self._w_l, self._w_v,
+                              d_c, m_c, l_c, v_c, ws, raw, final, level,
                               self._preset_name, True)
 
     def sensitivity_analysis(self, diagnosis_score: float, medication_score: float,
                               lab_score: float, context_multiplier: float = 1.0) -> dict:
-        base = self._compute(diagnosis_score, medication_score, lab_score, context_multiplier)
+        base = self._compute(diagnosis_score, medication_score, lab_score, 0.0, context_multiplier)
         def delta(d_b=0, m_b=0, l_b=0):
             a = self._compute(diagnosis_score + d_b, medication_score + m_b,
-                              lab_score + l_b, context_multiplier)
+                              lab_score + l_b, 0.0, context_multiplier)
             return round(a.final_score - base.final_score, 4)
         return {
             "base_score": base.final_score, "base_level": base.level.value,
@@ -145,7 +148,7 @@ class RiskEngine:
         results = []
         for name, preset in WEIGHT_PRESETS.items():
             engine = RiskEngine(preset=name)
-            bd = engine._compute(base_diagnosis, base_medication, base_lab, 1.0)
+            bd = engine._compute(base_diagnosis, base_medication, base_lab, 0.0, 1.0)
             results.append({
                 "preset": name, "description": preset.description,
                 "final_score": bd.final_score, "level": bd.level.value,

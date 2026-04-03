@@ -64,6 +64,7 @@ class Orchestrator:
             diagnosis_score=diagnosis_resp.risk_score,
             medication_score=drug_resp.risk_score,
             lab_score=lab_resp.risk_score,
+            vitals_score=0.0,
             context_multiplier=context_multiplier,
         )
 
