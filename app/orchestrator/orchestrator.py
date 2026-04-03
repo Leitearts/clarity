@@ -23,33 +23,56 @@ logger = logging.getLogger(__name__)
 class Orchestrator:
     def __init__(self):
         preset = settings.risk_weight_preset
-        self._risk_engine = (RiskEngine(preset=preset)
-                             if preset in WEIGHT_PRESETS else RiskEngine())
-        self._context_agent  = PatientContextAgent(timeout_seconds=settings.agent_timeout_seconds)
-        self._diagnosis_agent = DiagnosisAgent(timeout_seconds=settings.agent_timeout_seconds)
-        self._drug_agent     = DrugInteractionAgent(timeout_seconds=settings.agent_timeout_seconds)
-        self._lab_agent      = LabAnalysisAgent(timeout_seconds=settings.agent_timeout_seconds)
-        self._explainer      = ExplanationBuilder()
-        self._audit_logger   = AuditLogger()
+        self._risk_engine = (
+            RiskEngine(preset=preset) if preset in WEIGHT_PRESETS else RiskEngine()
+        )
+        self._context_agent = PatientContextAgent(
+            timeout_seconds=settings.agent_timeout_seconds
+        )
+        self._diagnosis_agent = DiagnosisAgent(
+            timeout_seconds=settings.agent_timeout_seconds
+        )
+        self._drug_agent = DrugInteractionAgent(
+            timeout_seconds=settings.agent_timeout_seconds
+        )
+        self._lab_agent = LabAnalysisAgent(
+            timeout_seconds=settings.agent_timeout_seconds
+        )
+        self._explainer = ExplanationBuilder()
+        self._audit_logger = AuditLogger()
 
     async def analyze(self, case: PatientCase) -> AnalysisResponse:
         validate_input(case)
         start = time.monotonic()
-        logger.info("orchestrator.start case=%s patient=%s", case.case_id, case.patient_id)
+        logger.info(
+            "orchestrator.start case=%s patient=%s", case.case_id, case.patient_id
+        )
 
-        context_req  = self._make_request(case, AgentType.PATIENT_CONTEXT,
-                                          {"context": case.context.model_dump()})
-        diagnosis_req = self._make_request(case, AgentType.DIAGNOSIS,
-                                           {"diagnoses": [d.model_dump() for d in case.diagnoses]})
-        drug_req     = self._make_request(case, AgentType.DRUG_INTERACTION, {
-            "medications": [m.model_dump() for m in case.medications],
-            "allergies": case.context.allergies,
-            "diagnoses": [d.model_dump() for d in case.diagnoses],
-        })
-        lab_req      = self._make_request(case, AgentType.LAB_ANALYSIS, {
-            "lab_results": [l.model_dump() for l in case.lab_results],
-            "context": case.context.model_dump(),
-        })
+        context_req = self._make_request(
+            case, AgentType.PATIENT_CONTEXT, {"context": case.context.model_dump()}
+        )
+        diagnosis_req = self._make_request(
+            case,
+            AgentType.DIAGNOSIS,
+            {"diagnoses": [d.model_dump() for d in case.diagnoses]},
+        )
+        drug_req = self._make_request(
+            case,
+            AgentType.DRUG_INTERACTION,
+            {
+                "medications": [m.model_dump() for m in case.medications],
+                "allergies": case.context.allergies,
+                "diagnoses": [d.model_dump() for d in case.diagnoses],
+            },
+        )
+        lab_req = self._make_request(
+            case,
+            AgentType.LAB_ANALYSIS,
+            {
+                "lab_results": [l.model_dump() for l in case.lab_results],
+                "context": case.context.model_dump(),
+            },
+        )
 
         results: list[AgentResponse] = await asyncio.gather(
             self._context_agent.run(context_req),
@@ -70,11 +93,14 @@ class Orchestrator:
 
         recommended_actions = self._recommend_actions(risk_score, results)
         import uuid
+
         analysis_id = str(uuid.uuid4())
 
         explanation_payload = self._explainer.build(
-            analysis_id=analysis_id, risk=risk_score,
-            agent_responses=results, recommended_actions=recommended_actions,
+            analysis_id=analysis_id,
+            risk=risk_score,
+            agent_responses=results,
+            recommended_actions=recommended_actions,
         )
 
         elapsed_ms = int((time.monotonic() - start) * 1000)
@@ -93,25 +119,41 @@ class Orchestrator:
         response = sanitize_output(response)
         response = append_disclaimer(response)
 
-        asyncio.create_task(self._audit_logger.log(
-            response=response, case=case,
-            had_errors=any(r.error is not None for r in results),
-        ))
+        asyncio.create_task(
+            self._audit_logger.log(
+                response=response,
+                case=case,
+                had_errors=any(r.error is not None for r in results),
+            )
+        )
 
-        logger.info("orchestrator.done case=%s risk=%s score=%.3f ms=%d",
-                    case.case_id, risk_score.level.value, risk_score.total_score, elapsed_ms)
+        logger.info(
+            "orchestrator.done case=%s risk=%s score=%.3f ms=%d",
+            case.case_id,
+            risk_score.level.value,
+            risk_score.total_score,
+            elapsed_ms,
+        )
         return response
 
     @staticmethod
-    def _make_request(case: PatientCase, agent_type: AgentType,
-                      payload: dict[str, Any]) -> AgentRequest:
-        return AgentRequest(agent_type=agent_type, case_id=case.case_id,
-                            patient_id=case.patient_id, payload=payload)
+    def _make_request(
+        case: PatientCase, agent_type: AgentType, payload: dict[str, Any]
+    ) -> AgentRequest:
+        return AgentRequest(
+            agent_type=agent_type,
+            case_id=case.case_id,
+            patient_id=case.patient_id,
+            payload=payload,
+        )
 
     @staticmethod
-    def _recommend_actions(risk: RiskScore, responses: list[AgentResponse]) -> list[str]:
+    def _recommend_actions(
+        risk: RiskScore, responses: list[AgentResponse]
+    ) -> list[str]:
         from app.models.risk import RiskLevel
         from app.models.agent import FindingSeverity
+
         actions = []
         if risk.level == RiskLevel.CRITICAL:
             actions.append("Immediate clinical review required — CRITICAL risk level.")

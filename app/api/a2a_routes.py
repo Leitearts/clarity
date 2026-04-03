@@ -55,6 +55,7 @@ async def a2a_invoke(
 async def get_schema():
     """Returns the JSON Schema for PatientCase — the expected payload structure."""
     from app.models.patient import PatientCase
+
     return JSONResponse(content=PatientCase.model_json_schema())
 
 
@@ -70,6 +71,7 @@ async def get_capabilities():
 @router.get("/a2a/health", summary="Detailed health check with agent status")
 async def a2a_health():
     from app.config import settings
+
     return {
         "status": "ok",
         "agent_id": _AGENT_CARD.agent_id,
@@ -77,12 +79,14 @@ async def a2a_health():
         "llm_available": bool(settings.anthropic_api_key),
         "llm_model": settings.llm_model if settings.anthropic_api_key else None,
         "agents": {
-            "diagnosis":        {"status": "ok", "fallback_available": True},
+            "diagnosis": {"status": "ok", "fallback_available": True},
             "drug_interaction": {"status": "ok", "fallback_available": True},
-            "lab_analysis":     {"status": "ok", "fallback_available": True},
-            "patient_context":  {"status": "ok", "fallback_available": True},
+            "lab_analysis": {"status": "ok", "fallback_available": True},
+            "patient_context": {"status": "ok", "fallback_available": True},
         },
-        "risk_presets": list(__import__(
-            "app.risk.engine", fromlist=["WEIGHT_PRESETS"]
-        ).WEIGHT_PRESETS.keys()),
+        "risk_presets": list(
+            __import__(
+                "app.risk.engine", fromlist=["WEIGHT_PRESETS"]
+            ).WEIGHT_PRESETS.keys()
+        ),
     }
