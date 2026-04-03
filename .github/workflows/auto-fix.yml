@@ -1,0 +1,58 @@
+# Runs ruff auto-fix on pushes to feature branches and opens a pull request
+# if any code-style changes are produced.
+
+name: Auto-fix code style
+
+on:
+  push:
+    branches-ignore:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  ruff-fix:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install ruff
+        run: pip install ruff
+
+      - name: Run ruff auto-fix
+        run: ruff check --fix app/ tests/ || true
+
+      - name: Run ruff format
+        run: ruff format app/ tests/ || true
+
+      - name: Sanitize branch name
+        id: branch
+        run: |
+          safe=$(echo "${{ github.ref_name }}" | sed 's/[^a-zA-Z0-9._-]/-/g')
+          echo "name=auto-fix/${safe}" >> "$GITHUB_OUTPUT"
+
+      - name: Create pull request with fixes
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "style: apply ruff auto-fixes"
+          branch: ${{ steps.branch.outputs.name }}
+          title: "style: auto-fix code style on ${{ github.ref_name }}"
+          body: |
+            Automated pull request created by the **Auto-fix code style** workflow.
+
+            Applied `ruff check --fix` and `ruff format` to `app/` and `tests/`.
+          labels: |
+            automated
+            code style
+          delete-branch: true
