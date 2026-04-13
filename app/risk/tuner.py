@@ -16,6 +16,7 @@ Labeled case format (extend synthetic_cases.json with true_level):
 Outputs the weight combination with the highest classification accuracy
 across the labeled dataset, ready to paste into .env.
 """
+
 from __future__ import annotations
 
 import itertools
@@ -42,6 +43,7 @@ def tune(cases_path: str, step: float = 0.05) -> TuningResult:
 
     for w_d, w_m, w_l in candidates:
         from app.risk.engine import RiskEngine
+
         engine = RiskEngine(w_diagnosis=w_d, w_medication=w_m, w_lab=w_l)
         correct = 0
         confusion: dict[str, int] = {}
@@ -81,21 +83,22 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="CLARITY weight tuner")
     parser.add_argument("--cases", required=True, help="Path to labeled cases JSON")
-    parser.add_argument("--step", type=float, default=0.05,
-                        help="Grid step size (default: 0.05)")
+    parser.add_argument(
+        "--step", type=float, default=0.05, help="Grid step size (default: 0.05)"
+    )
     args = parser.parse_args()
 
     result = tune(args.cases, step=args.step)
 
-    print(f"\nBest weights found:")
+    print("\nBest weights found:")
     print(f"  w_diagnosis  = {result.w_diagnosis}")
     print(f"  w_medication = {result.w_medication}")
     print(f"  w_lab        = {result.w_lab}")
     print(f"  Accuracy     = {result.accuracy:.2%}")
-    print(f"\nConfusion matrix (true->predicted):")
+    print("\nConfusion matrix (true->predicted):")
     for k, v in sorted(result.confusion.items()):
         print(f"  {k}: {v}")
-    print(f"\nPaste into .env:")
+    print("\nPaste into .env:")
     print(f"  CLARITY_WEIGHT_DIAGNOSIS={result.w_diagnosis}")
     print(f"  CLARITY_WEIGHT_MEDICATION={result.w_medication}")
     print(f"  CLARITY_WEIGHT_LAB={result.w_lab}")

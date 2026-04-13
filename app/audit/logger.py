@@ -20,8 +20,13 @@ class AuditLogger:
         self._path.parent.mkdir(parents=True, exist_ok=True)
         self._lock = asyncio.Lock()
 
-    async def log(self, response: AnalysisResponse, case: PatientCase,
-                  had_errors: bool = False, error_details: str | None = None) -> str:
+    async def log(
+        self,
+        response: AnalysisResponse,
+        case: PatientCase,
+        had_errors: bool = False,
+        error_details: str | None = None,
+    ) -> str:
         record = _build_record(response, case, had_errors, error_details)
         async with self._lock:
             try:
@@ -62,8 +67,12 @@ class AuditLogger:
                     logger.warning("audit.parse_error: %s", exc)
 
 
-def _build_record(response: AnalysisResponse, case: PatientCase,
-                  had_errors: bool, error_details: str | None) -> AuditRecord:
+def _build_record(
+    response: AnalysisResponse,
+    case: PatientCase,
+    had_errors: bool,
+    error_details: str | None,
+) -> AuditRecord:
     return AuditRecord(
         analysis_id=response.analysis_id,
         case_id=case.case_id,
@@ -78,7 +87,9 @@ def _build_record(response: AnalysisResponse, case: PatientCase,
         context_multiplier=response.risk.context_multiplier,
         total_risk_score=response.risk.total_score,
         risk_level=response.risk.level.value,
-        agent_reasoning={r.agent_type.value: r.reasoning for r in response.agent_responses},
+        agent_reasoning={
+            r.agent_type.value: r.reasoning for r in response.agent_responses
+        },
         model_version=response.model_version,
         processing_time_ms=response.processing_time_ms,
         had_errors=had_errors,

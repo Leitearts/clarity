@@ -7,9 +7,9 @@ from pydantic import BaseModel, Field
 
 
 class A2AStatus(str, Enum):
-    SUCCESS  = "success"
-    PARTIAL  = "partial"
-    ERROR    = "error"
+    SUCCESS = "success"
+    PARTIAL = "partial"
+    ERROR = "error"
     REJECTED = "rejected"
 
 
@@ -35,26 +35,41 @@ class AgentCard(BaseModel):
     invocation_method: str = "POST"
     health_endpoint: str = "/api/v1/health"
     schema_version: str = "1.0"
-    capabilities: list[A2ACapability] = Field(default_factory=lambda: [
-        A2ACapability(
-            name="clinical_risk_analysis",
-            description="Full multi-agent risk analysis: diagnosis, drug, lab, context.",
-            input_fields=["patient_id", "case_id", "context", "diagnoses", "medications", "lab_results"],
-            output_fields=["risk_score", "risk_level", "findings", "explanation", "agent_breakdown"],
-        ),
-        A2ACapability(
-            name="drug_interaction_check",
-            description="Drug-drug interaction and allergy conflict screening.",
-            input_fields=["medications", "allergies"],
-            output_fields=["interactions", "allergy_conflicts", "risk_score"],
-        ),
-        A2ACapability(
-            name="lab_interpretation",
-            description="Lab result interpretation against reference ranges.",
-            input_fields=["lab_results", "patient_age", "patient_sex"],
-            output_fields=["critical_values", "abnormal_values", "risk_score"],
-        ),
-    ])
+    capabilities: list[A2ACapability] = Field(
+        default_factory=lambda: [
+            A2ACapability(
+                name="clinical_risk_analysis",
+                description="Full multi-agent risk analysis: diagnosis, drug, lab, context.",
+                input_fields=[
+                    "patient_id",
+                    "case_id",
+                    "context",
+                    "diagnoses",
+                    "medications",
+                    "lab_results",
+                ],
+                output_fields=[
+                    "risk_score",
+                    "risk_level",
+                    "findings",
+                    "explanation",
+                    "agent_breakdown",
+                ],
+            ),
+            A2ACapability(
+                name="drug_interaction_check",
+                description="Drug-drug interaction and allergy conflict screening.",
+                input_fields=["medications", "allergies"],
+                output_fields=["interactions", "allergy_conflicts", "risk_score"],
+            ),
+            A2ACapability(
+                name="lab_interpretation",
+                description="Lab result interpretation against reference ranges.",
+                input_fields=["lab_results", "patient_age", "patient_sex"],
+                output_fields=["critical_values", "abnormal_values", "risk_score"],
+            ),
+        ]
+    )
     max_diagnoses: int = 20
     max_medications: int = 50
     max_lab_results: int = 100
@@ -63,8 +78,14 @@ class AgentCard(BaseModel):
     phi_accepted: bool = False
     expected_latency_ms: int = 3000
     timeout_ms: int = 30000
-    tags: list[str] = ["healthcare", "clinical-decision-support", "risk-scoring",
-                       "drug-safety", "lab-analysis", "explainable-ai"]
+    tags: list[str] = [
+        "healthcare",
+        "clinical-decision-support",
+        "risk-scoring",
+        "drug-safety",
+        "lab-analysis",
+        "explainable-ai",
+    ]
 
 
 class A2ARequest(BaseModel):
