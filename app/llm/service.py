@@ -14,6 +14,7 @@ def get_client():
     global _client
     if _client is None:
         import anthropic
+
         _client = anthropic.AsyncAnthropic(api_key=settings.anthropic_api_key)
     return _client
 
@@ -47,19 +48,24 @@ class LLMService:
                 return LLMResponse(data=parsed, raw_text=raw, token_usage={})
             except (json.JSONDecodeError, KeyError, ValueError) as exc:
                 last_error = exc
-                logger.warning("llm.parse_fail attempt=%d/%d error=%s",
-                               attempt + 1, self.MAX_RETRIES + 1, exc)
+                logger.warning(
+                    "llm.parse_fail attempt=%d/%d error=%s",
+                    attempt + 1,
+                    self.MAX_RETRIES + 1,
+                    exc,
+                )
                 if attempt < self.MAX_RETRIES:
                     user_prompt = (
-                        user_prompt
-                        + f"\n\nPREVIOUS ATTEMPT FAILED: {exc}. "
+                        user_prompt + f"\n\nPREVIOUS ATTEMPT FAILED: {exc}. "
                         "Return ONLY a valid JSON object. No markdown, no explanation."
                     )
         raise LLMServiceError(
             f"LLM failed after {self.MAX_RETRIES + 1} attempts. Last: {last_error}"
         )
 
-    async def _call_api(self, system_prompt: str, user_prompt: str, temperature: float) -> str:
+    async def _call_api(
+        self, system_prompt: str, user_prompt: str, temperature: float
+    ) -> str:
         client = get_client()
         message = await client.messages.create(
             model=settings.llm_model,

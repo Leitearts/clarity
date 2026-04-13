@@ -4,7 +4,6 @@ from app.models.risk import RiskLevel
 
 
 class TestRiskEngine:
-
     def test_formula_correctness(self):
         engine = RiskEngine()
         score = engine.score(0.8, 0.6, 0.4, 1.0)
@@ -13,7 +12,7 @@ class TestRiskEngine:
 
     def test_context_multiplier_applied(self):
         engine = RiskEngine()
-        base   = engine.score(0.5, 0.5, 0.5, 1.0)
+        base = engine.score(0.5, 0.5, 0.5, 1.0)
         scaled = engine.score(0.5, 0.5, 0.5, 1.2)
         assert abs(scaled.total_score - min(1.0, base.total_score * 1.2)) < 0.001
 
@@ -62,7 +61,8 @@ class TestRiskEngine:
         contrib_sum = round(
             breakdown.diagnosis_contribution
             + breakdown.medication_contribution
-            + breakdown.lab_contribution, 4
+            + breakdown.lab_contribution,
+            4,
         )
         assert abs(contrib_sum - breakdown.weighted_sum) < 0.0001
 

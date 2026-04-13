@@ -1,5 +1,11 @@
 from __future__ import annotations
-from app.models.patient import Diagnosis, Medication, LabResult, PatientContext, VitalSign
+from app.models.patient import (
+    Diagnosis,
+    Medication,
+    LabResult,
+    PatientContext,
+    VitalSign,
+)
 
 DIAGNOSIS_SYSTEM = """\
 You are a clinical decision support AI specialized in diagnosis risk assessment.
@@ -92,8 +98,7 @@ def build_drug_prompt(
     diagnoses: list[Diagnosis],
 ) -> str:
     med_list = "\n".join(
-        f"  - {m.name} {m.dose_mg}mg {m.frequency} ({m.route})"
-        for m in medications
+        f"  - {m.name} {m.dose_mg}mg {m.frequency} ({m.route})" for m in medications
     )
     allergy_str = ", ".join(allergies) if allergies else "None documented"
     diag_codes = ", ".join(d.code for d in diagnoses)
@@ -121,10 +126,13 @@ Return a JSON object with EXACTLY this structure:
 
 
 def build_lab_prompt(lab_results: list[LabResult], context: PatientContext) -> str:
-    lab_list = "\n".join(
-        f"  - {l.test_name}: {l.value} {l.unit} (ref: {l.reference_low}-{l.reference_high})"
-        for l in lab_results
-    ) or "  None provided"
+    lab_list = (
+        "\n".join(
+            f"  - {l.test_name}: {l.value} {l.unit} (ref: {l.reference_low}-{l.reference_high})"
+            for l in lab_results
+        )
+        or "  None provided"
+    )
     return f"""\
 Analyze the following lab results for clinical significance.
 
@@ -147,10 +155,13 @@ Return a JSON object with EXACTLY this structure:
 
 
 def build_vitals_prompt(vitals: list[VitalSign], context: PatientContext) -> str:
-    vitals_list = "\n".join(
-        f"  - {v.sign_name}: {v.value} {v.unit} (ref: {v.reference_low}-{v.reference_high})"
-        for v in vitals
-    ) or "  None provided"
+    vitals_list = (
+        "\n".join(
+            f"  - {v.sign_name}: {v.value} {v.unit} (ref: {v.reference_low}-{v.reference_high})"
+            for v in vitals
+        )
+        or "  None provided"
+    )
     return f"""\
 Analyze the following vital signs for clinical significance and hemodynamic stability.
 
@@ -174,7 +185,9 @@ Return a JSON object with EXACTLY this structure:
 
 
 def build_context_prompt(context: PatientContext) -> str:
-    comorbidity_str = ", ".join(context.comorbidities) if context.comorbidities else "None"
+    comorbidity_str = (
+        ", ".join(context.comorbidities) if context.comorbidities else "None"
+    )
     allergy_str = ", ".join(context.allergies) if context.allergies else "None"
     return f"""\
 Evaluate patient context for risk stratification.
@@ -182,7 +195,7 @@ Evaluate patient context for risk stratification.
 PATIENT DEMOGRAPHICS:
   Age: {context.age}
   Sex: {context.sex}
-  Weight: {context.weight_kg or 'unknown'} kg
+  Weight: {context.weight_kg or "unknown"} kg
   Care setting: {context.care_setting}
   Comorbidities: {comorbidity_str}
   Known allergies: {allergy_str}
