@@ -129,17 +129,19 @@ class RiskEngine:
                               self._preset_name, True)
 
     def sensitivity_analysis(self, diagnosis_score: float, medication_score: float,
-                              lab_score: float, context_multiplier: float = 1.0) -> dict:
-        base = self._compute(diagnosis_score, medication_score, lab_score, 0.0, context_multiplier)
-        def delta(d_b=0, m_b=0, l_b=0):
+                              lab_score: float, vitals_score: float = 0.0,
+                              context_multiplier: float = 1.0) -> dict:
+        base = self._compute(diagnosis_score, medication_score, lab_score, vitals_score, context_multiplier)
+        def delta(d_b=0, m_b=0, l_b=0, v_b=0):
             a = self._compute(diagnosis_score + d_b, medication_score + m_b,
-                              lab_score + l_b, 0.0, context_multiplier)
+                              lab_score + l_b, vitals_score + v_b, context_multiplier)
             return round(a.final_score - base.final_score, 4)
         return {
             "base_score": base.final_score, "base_level": base.level.value,
             "delta_if_diagnosis_plus_0.1": delta(d_b=0.1),
             "delta_if_medication_plus_0.1": delta(m_b=0.1),
             "delta_if_lab_plus_0.1": delta(l_b=0.1),
+            "delta_if_vitals_plus_0.1": delta(v_b=0.1),
             "dominant_factor": _dominant_factor(base),
         }
 
@@ -171,5 +173,6 @@ def _classify(score: float) -> RiskLevel:
 def _dominant_factor(bd: ScoreBreakdown) -> str:
     contribs = {"diagnosis": bd.diagnosis_contribution,
                 "medication": bd.medication_contribution,
-                "lab": bd.lab_contribution}
+                "lab": bd.lab_contribution,
+                "vitals": bd.vitals_contribution}
     return max(contribs, key=contribs.get)

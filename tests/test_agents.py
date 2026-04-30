@@ -4,6 +4,7 @@ from app.agents.diagnosis import DiagnosisAgent
 from app.agents.drug_interaction import DrugInteractionAgent
 from app.agents.lab_analysis import LabAnalysisAgent
 from app.agents.patient_context import PatientContextAgent
+from app.agents.vitals import VitalsAgent
 from app.models.agent import AgentRequest, AgentType, FindingSeverity
 from app.models.patient import Diagnosis
 
@@ -292,3 +293,110 @@ class TestPatientContextAgent:
         }})
         response = await agent.run(request)
         assert response.risk_score == 0.0
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# VITALS AGENT
+# ══════════════════════════════════════════════════════════════════════════════
+
+class TestVitalsAgent:
+
+    def _ctx(self, age=50, sex="male", setting="inpatient"):
+        return {"age": age, "sex": sex, "care_setting": setting,
+                "comorbidities": [], "allergies": []}
+
+    @pytest.mark.asyncio
+    async def test_critical_spo2_scores_high(self, mock_llm):
+        agent = VitalsAgent()
+        request = make_request(AgentType.VITALS, {
+            "vitals_results": [
+                {"sign_name": "spo2", "value": 89, "unit": "%",
+                 "reference_low": 95, "reference_high": 100}
+            ],
+            "context": self._ctx(age=65, setting="icu"),
+        })
+        response = await agent.run(request)
+        assert response.risk_score >= 0.4
+        critical = [f for f in response.findings if f.severity == FindingSeverity.CRITICAL]
+        assert len(critical) >= 1
+
+    @pytest.mark.asyncio
+    async def test_critical_tachycardia_flagged(self, mock_llm):
+        agent = VitalsAgent()
+        request = make_request(AgentType.VITALS, {
+            "vitals_results": [
+                {"sign_name": "heart_rate", "value": 138, "unit": "bpm",
+                 "reference_low": 60, "reference_high": 100}
+            ],
+            "context": self._ctx(age=70, setting="inpatient"),
+        })
+        response = await agent.run(request)
+        assert response.risk_score >= 0.4
+        critical = [f for f in response.findings if f.severity == FindingSeverity.CRITICAL]
+        assert len(critical) >= 1
+
+    @pytest.mark.asyncio
+    async def test_empty_vitals_returns_minimal_risk(self, mock_llm):
+        agent = VitalsAgent()
+        request = make_request(AgentType.VITALS, {
+            "vitals_results": [],
+            "context": self._ctx(),
+        })
+        response = await agent.run(request)
+        assert response.risk_score <= 0.1
+        assert response.error is None
+
+    @pytest.mark.asyncio
+    async def test_normal_vitals_score_low(self, mock_llm):
+        agent = VitalsAgent()
+        request = make_request(AgentType.VITALS, {
+            "vitals_results": [
+                {"sign_name": "heart_rate", "value": 75, "unit": "bpm",
+                 "reference_low": 60, "reference_high": 100},
+                {"sign_name": "spo2", "value": 98, "unit": "%",
+                 "reference_low": 95, "reference_high": 100},
+            ],
+            "context": self._ctx(age=40, setting="outpatient"),
+        })
+        response = await agent.run(request)
+        assert response.risk_score < 0.20
+
+    @pytest.mark.asyncio
+    async def test_multi_critical_vitals_score_higher_than_single(self, mock_llm):
+        agent = VitalsAgent()
+        single = make_request(AgentType.VITALS, {
+            "vitals_results": [
+                {"sign_name": "spo2", "value": 89, "unit": "%",
+                 "reference_low": 95, "reference_high": 100},
+            ],
+            "context": self._ctx(age=65, setting="icu"),
+        })
+        multi = make_request(AgentType.VITALS, {
+            "vitals_results": [
+                {"sign_name": "spo2", "value": 89, "unit": "%",
+                 "reference_low": 95, "reference_high": 100},
+                {"sign_name": "heart_rate", "value": 138, "unit": "bpm",
+                 "reference_low": 60, "reference_high": 100},
+            ],
+            "context": self._ctx(age=65, setting="icu"),
+        })
+        r_single = await agent.run(single)
+        r_multi = await agent.run(multi)
+        assert r_multi.risk_score >= r_single.risk_score
+
+    @pytest.mark.asyncio
+    async def test_agent_returns_valid_response_structure(self, mock_llm):
+        agent = VitalsAgent()
+        request = make_request(AgentType.VITALS, {
+            "vitals_results": [
+                {"sign_name": "heart_rate", "value": 90, "unit": "bpm",
+                 "reference_low": 60, "reference_high": 100}
+            ],
+            "context": self._ctx(),
+        })
+        response = await agent.run(request)
+        assert 0.0 <= response.risk_score <= 1.0
+        assert response.agent_type == AgentType.VITALS
+        assert response.case_id == "TEST-001"
+        assert isinstance(response.findings, list)
+        assert len(response.reasoning) >= 10

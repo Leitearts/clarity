@@ -2,11 +2,13 @@ from __future__ import annotations
 import asyncio
 import logging
 import time
+import uuid
 from typing import Any
 from app.agents.diagnosis import DiagnosisAgent
 from app.agents.drug_interaction import DrugInteractionAgent
 from app.agents.lab_analysis import LabAnalysisAgent
 from app.agents.patient_context import PatientContextAgent
+from app.agents.vitals import VitalsAgent
 from app.audit.explainer import ExplanationBuilder
 from app.audit.logger import AuditLogger
 from app.config import settings
@@ -29,6 +31,7 @@ class Orchestrator:
         self._diagnosis_agent = DiagnosisAgent(timeout_seconds=settings.agent_timeout_seconds)
         self._drug_agent     = DrugInteractionAgent(timeout_seconds=settings.agent_timeout_seconds)
         self._lab_agent      = LabAnalysisAgent(timeout_seconds=settings.agent_timeout_seconds)
+        self._vitals_agent   = VitalsAgent(timeout_seconds=settings.agent_timeout_seconds)
         self._explainer      = ExplanationBuilder()
         self._audit_logger   = AuditLogger()
 
@@ -50,26 +53,30 @@ class Orchestrator:
             "lab_results": [l.model_dump() for l in case.lab_results],
             "context": case.context.model_dump(),
         })
+        vitals_req   = self._make_request(case, AgentType.VITALS, {
+            "vitals_results": [v.model_dump() for v in case.vitals_results],
+            "context": case.context.model_dump(),
+        })
 
         results: list[AgentResponse] = await asyncio.gather(
             self._context_agent.run(context_req),
             self._diagnosis_agent.run(diagnosis_req),
             self._drug_agent.run(drug_req),
             self._lab_agent.run(lab_req),
+            self._vitals_agent.run(vitals_req),
         )
-        context_resp, diagnosis_resp, drug_resp, lab_resp = results
+        context_resp, diagnosis_resp, drug_resp, lab_resp, vitals_resp = results
 
         context_multiplier = context_resp.metadata.get("context_multiplier", 1.0)
         risk_score = self._risk_engine.score(
             diagnosis_score=diagnosis_resp.risk_score,
             medication_score=drug_resp.risk_score,
             lab_score=lab_resp.risk_score,
-            vitals_score=0.0,
+            vitals_score=vitals_resp.risk_score,
             context_multiplier=context_multiplier,
         )
 
         recommended_actions = self._recommend_actions(risk_score, results)
-        import uuid
         analysis_id = str(uuid.uuid4())
 
         explanation_payload = self._explainer.build(

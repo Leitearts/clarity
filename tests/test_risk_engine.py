@@ -13,8 +13,8 @@ class TestRiskEngine:
 
     def test_context_multiplier_applied(self):
         engine = RiskEngine()
-        base   = engine.score(0.5, 0.5, 0.5, 1.0)
-        scaled = engine.score(0.5, 0.5, 0.5, 1.2)
+        base   = engine.score(0.5, 0.5, 0.5, 0.0, context_multiplier=1.0)
+        scaled = engine.score(0.5, 0.5, 0.5, 0.0, context_multiplier=1.2)
         assert abs(scaled.total_score - min(1.0, base.total_score * 1.2)) < 0.001
 
     def test_score_never_exceeds_1(self):

@@ -59,12 +59,14 @@ class ExplanationBuilder:
             AgentType.DIAGNOSIS: risk.w_diagnosis,
             AgentType.DRUG_INTERACTION: risk.w_medication,
             AgentType.LAB_ANALYSIS: risk.w_lab,
+            AgentType.VITALS: risk.w_vitals,
             AgentType.PATIENT_CONTEXT: 0.0,
         }
         weighted_sum = max(
             risk.w_diagnosis * risk.diagnosis_score
             + risk.w_medication * risk.medication_score
-            + risk.w_lab * risk.lab_score, 1e-9
+            + risk.w_lab * risk.lab_score
+            + risk.w_vitals * risk.vitals_score, 1e-9
         )
         agent_explanations: list[AgentExplanation] = []
         for resp in agent_responses:
