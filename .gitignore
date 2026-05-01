@@ -23,6 +23,9 @@ htmlcov/
 # Logs (keep dir, ignore content)
 logs/*.jsonl
 logs/*.jsonl.gz
+logs/*.db
+logs/*.db-wal
+logs/*.db-shm
 
 # Docker
 *.tar
