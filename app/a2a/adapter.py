@@ -147,7 +147,8 @@ class A2AAdapter:
 
 
 def _score_to_level(score: float) -> str:
-    if score >= 0.85: return "critical"
-    if score >= 0.65: return "high"
-    if score >= 0.35: return "medium"
+    from app.config import settings
+    if score >= settings.threshold_critical: return "critical"
+    if score >= settings.threshold_high: return "high"
+    if score >= settings.threshold_low: return "medium"
     return "low"

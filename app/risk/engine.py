@@ -5,6 +5,42 @@ from typing import NamedTuple
 from app.config import settings
 from app.models.risk import RiskLevel, RiskScore
 
+
+def normalize_weights(
+    w_diagnosis: float,
+    w_medication: float,
+    w_lab: float,
+    w_vitals: float,
+    *,
+    active_diagnosis: bool = True,
+    active_medication: bool = True,
+    active_lab: bool = True,
+    active_vitals: bool = True,
+) -> tuple[float, float, float, float]:
+    """Redistribute weights of inactive agents proportionally to active agents.
+
+    When all agents are active the original weights are returned unchanged
+    (assuming they already sum to 1.0).  When one or more agents are inactive
+    (active=False) their weight share is redistributed proportionally so that
+    the weights of the active agents always sum to 1.0.
+
+    Raises ValueError if no agent is active.
+    """
+    active_sum = (
+        (w_diagnosis if active_diagnosis else 0.0)
+        + (w_medication if active_medication else 0.0)
+        + (w_lab if active_lab else 0.0)
+        + (w_vitals if active_vitals else 0.0)
+    )
+    if active_sum < 1e-9:
+        raise ValueError("At least one agent must be active for weight normalization.")
+    return (
+        round(w_diagnosis / active_sum, 6) if active_diagnosis else 0.0,
+        round(w_medication / active_sum, 6) if active_medication else 0.0,
+        round(w_lab / active_sum, 6) if active_lab else 0.0,
+        round(w_vitals / active_sum, 6) if active_vitals else 0.0,
+    )
+
 logger = logging.getLogger(__name__)
 
 
@@ -82,11 +118,13 @@ class RiskEngine:
             )
 
     def score(self, diagnosis_score: float, medication_score: float,
-              lab_score: float, vitals_score: float, context_multiplier: float = 1.0) -> RiskScore:
+              lab_score: float, vitals_score: float | None = None,
+              context_multiplier: float = 1.0) -> RiskScore:
         bd = self._compute(diagnosis_score, medication_score, lab_score, vitals_score, context_multiplier)
-        logger.debug("risk preset=%s D=%.3f M=%.3f L=%.3f V=%.3f C=%.2f -> R=%.4f [%s]",
+        logger.debug("risk preset=%s D=%.3f M=%.3f L=%.3f V=%s C=%.2f -> R=%.4f [%s]",
                      self._preset_name, diagnosis_score, medication_score,
-                     lab_score, vitals_score, context_multiplier, bd.final_score, bd.level.value)
+                     lab_score, f"{vitals_score:.3f}" if vitals_score is not None else "absent",
+                     context_multiplier, bd.final_score, bd.level.value)
         return RiskScore(
             diagnosis_score=bd.diagnosis_score, medication_score=bd.medication_score,
             lab_score=bd.lab_score, vitals_score=bd.vitals_score,
@@ -96,7 +134,8 @@ class RiskEngine:
         )
 
     def score_with_breakdown(self, diagnosis_score: float, medication_score: float,
-                              lab_score: float, vitals_score: float, context_multiplier: float = 1.0
+                              lab_score: float, vitals_score: float | None = None,
+                              context_multiplier: float = 1.0
                               ) -> tuple[RiskScore, ScoreBreakdown]:
         bd = self._compute(diagnosis_score, medication_score, lab_score, vitals_score, context_multiplier)
         risk = RiskScore(
@@ -109,32 +148,38 @@ class RiskEngine:
         return risk, bd
 
     def _compute(self, diagnosis_score: float, medication_score: float,
-                 lab_score: float, vitals_score: float = 0.0,
+                 lab_score: float, vitals_score: float | None = None,
                  context_multiplier: float = 1.0) -> ScoreBreakdown:
+        active_v = vitals_score is not None
+        w_d, w_m, w_l, w_v = normalize_weights(
+            self._w_d, self._w_m, self._w_l, self._w_v,
+            active_vitals=active_v,
+        )
         d = max(0.0, min(1.0, float(diagnosis_score)))
         m = max(0.0, min(1.0, float(medication_score)))
         l = max(0.0, min(1.0, float(lab_score)))
-        v = max(0.0, min(1.0, float(vitals_score)))
+        v = max(0.0, min(1.0, float(vitals_score))) if active_v else 0.0
         c = max(0.5, min(1.5, float(context_multiplier)))
-        d_c = round(self._w_d * d, 6)
-        m_c = round(self._w_m * m, 6)
-        l_c = round(self._w_l * l, 6)
-        v_c = round(self._w_v * v, 6)
+        d_c = round(w_d * d, 6)
+        m_c = round(w_m * m, 6)
+        l_c = round(w_l * l, 6)
+        v_c = round(w_v * v, 6)
         ws = round(d_c + m_c + l_c + v_c, 6)
         raw = round(ws * c, 6)
         final = round(max(0.0, min(1.0, raw)), 4)
         level = _classify(final)
-        return ScoreBreakdown(d, m, l, v, c, self._w_d, self._w_m, self._w_l, self._w_v,
+        return ScoreBreakdown(d, m, l, v, c, w_d, w_m, w_l, w_v,
                               d_c, m_c, l_c, v_c, ws, raw, final, level,
                               self._preset_name, True)
 
     def sensitivity_analysis(self, diagnosis_score: float, medication_score: float,
-                              lab_score: float, vitals_score: float = 0.0,
+                              lab_score: float, vitals_score: float | None = None,
                               context_multiplier: float = 1.0) -> dict:
         base = self._compute(diagnosis_score, medication_score, lab_score, vitals_score, context_multiplier)
         def delta(d_b=0, m_b=0, l_b=0, v_b=0):
+            v = None if vitals_score is None else vitals_score + v_b
             a = self._compute(diagnosis_score + d_b, medication_score + m_b,
-                              lab_score + l_b, vitals_score + v_b, context_multiplier)
+                              lab_score + l_b, v, context_multiplier)
             return round(a.final_score - base.final_score, 4)
         return {
             "base_score": base.final_score, "base_level": base.level.value,

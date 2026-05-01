@@ -1,14 +1,15 @@
 import pytest
-from app.risk.engine import RiskEngine, WEIGHT_PRESETS
+from app.risk.engine import RiskEngine, WEIGHT_PRESETS, normalize_weights
 from app.models.risk import RiskLevel
 
 
 class TestRiskEngine:
 
     def test_formula_correctness(self):
-        engine = RiskEngine()
+        # Use the production "default" preset weights to verify the formula.
+        engine = RiskEngine(preset="default")
         score = engine.score(0.8, 0.6, 0.4, 1.0)
-        expected = round(0.4 * 0.8 + 0.35 * 0.6 + 0.25 * 0.4, 4)
+        expected = round(0.30 * 0.8 + 0.25 * 0.6 + 0.20 * 0.4 + 0.25 * 1.0, 4)
         assert abs(score.total_score - expected) < 0.0001
 
     def test_context_multiplier_applied(self):
@@ -72,3 +73,25 @@ class TestRiskEngine:
         results = engine.simulate_scenarios(0.7, 0.5, 0.4)
         preset_names = {r["preset"] for r in results}
         assert preset_names == set(WEIGHT_PRESETS.keys())
+
+    def test_max_score_reaches_1_without_context_multiplier(self):
+        """All-max agent scores with vitals absent must reach exactly 1.0 and CRITICAL."""
+        engine = RiskEngine(preset="default")
+        score = engine.score(1.0, 1.0, 1.0, None)  # vitals absent → weights redistributed
+        assert score.total_score == 1.0
+        assert score.level == RiskLevel.CRITICAL
+
+    def test_normalize_weights_inactive_vitals(self):
+        """Inactive vitals weight is redistributed; remaining weights sum to 1.0."""
+        w_d, w_m, w_l, w_v = normalize_weights(0.30, 0.25, 0.20, 0.25, active_vitals=False)
+        assert abs(w_d + w_m + w_l + w_v - 1.0) < 1e-6
+        assert w_v == 0.0
+        assert w_d > 0.30  # received a share of the redistributed vitals weight
+
+    def test_normalize_weights_all_active_unchanged(self):
+        """When all agents are active, weights are returned unchanged."""
+        w_d, w_m, w_l, w_v = normalize_weights(0.30, 0.25, 0.20, 0.25)
+        assert abs(w_d - 0.30) < 1e-6
+        assert abs(w_m - 0.25) < 1e-6
+        assert abs(w_l - 0.20) < 1e-6
+        assert abs(w_v - 0.25) < 1e-6
