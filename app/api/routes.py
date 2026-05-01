@@ -38,7 +38,7 @@ async def health():
     tags=["audit"],
 )
 async def get_audit(analysis_id: str, request: Request):
-    record = request.app.state.audit_logger.get(analysis_id)
+    record = await request.app.state.audit_logger.get(analysis_id)
     if not record:
         raise HTTPException(status_code=404, detail=f"Audit record not found: {analysis_id}")
     return record
@@ -51,7 +51,7 @@ async def get_audit(analysis_id: str, request: Request):
     tags=["audit"],
 )
 async def get_case_audit(case_id: str, request: Request):
-    return request.app.state.audit_logger.get_by_case(case_id)
+    return await request.app.state.audit_logger.get_by_case(case_id)
 
 
 @router.get(
@@ -67,8 +67,8 @@ async def list_audit(
 ):
     logger = request.app.state.audit_logger
     if level:
-        return logger.get_by_level(level)[-limit:]
-    return logger.get_recent(limit)
+        return (await logger.get_by_level(level))[-limit:]
+    return await logger.get_recent(limit)
 
 
 @router.get(
@@ -77,7 +77,7 @@ async def list_audit(
     tags=["explainability"],
 )
 async def get_reasoning(analysis_id: str, request: Request):
-    record = request.app.state.audit_logger.get(analysis_id)
+    record = await request.app.state.audit_logger.get(analysis_id)
     if not record:
         raise HTTPException(status_code=404, detail="Analysis not found")
     return {
