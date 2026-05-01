@@ -40,9 +40,11 @@ class AuditRecord(BaseModel):
     input_diagnosis_count: int
     input_medication_count: int
     input_lab_count: int
+    input_vitals_count: int = Field(default=0)
     diagnosis_score: float
     medication_score: float
     lab_score: float
+    vitals_score: float = Field(default=0.0)
     context_multiplier: float
     total_risk_score: float
     risk_level: str

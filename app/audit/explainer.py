@@ -90,7 +90,8 @@ class ExplanationBuilder:
         formula_trace = (
             f"R = ({risk.w_diagnosis:.2f} × {risk.diagnosis_score:.4f}"
             f" + {risk.w_medication:.2f} × {risk.medication_score:.4f}"
-            f" + {risk.w_lab:.2f} × {risk.lab_score:.4f})"
+            f" + {risk.w_lab:.2f} × {risk.lab_score:.4f}"
+            f" + {risk.w_vitals:.2f} × {risk.vitals_score:.4f})"
             f" × {risk.context_multiplier:.2f}"
             f" = {risk.total_score:.4f}"
         )
@@ -107,7 +108,8 @@ class ExplanationBuilder:
 
 def _display_name(agent_type: AgentType) -> str:
     return {AgentType.DIAGNOSIS: "diagnosis", AgentType.DRUG_INTERACTION: "drug interaction",
-            AgentType.LAB_ANALYSIS: "lab analysis", AgentType.PATIENT_CONTEXT: "patient context"
+            AgentType.LAB_ANALYSIS: "lab analysis", AgentType.PATIENT_CONTEXT: "patient context",
+            AgentType.VITALS: "vitals",
             }.get(agent_type, agent_type.value)
 
 

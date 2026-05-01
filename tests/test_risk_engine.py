@@ -62,7 +62,8 @@ class TestRiskEngine:
         contrib_sum = round(
             breakdown.diagnosis_contribution
             + breakdown.medication_contribution
-            + breakdown.lab_contribution, 4
+            + breakdown.lab_contribution
+            + breakdown.vitals_contribution, 4
         )
         assert abs(contrib_sum - breakdown.weighted_sum) < 0.0001
 
