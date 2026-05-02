@@ -29,6 +29,13 @@ class SafetyError(Exception):
 
 
 def validate_input(case: PatientCase) -> None:
+    """Validate structural limits on a patient case.
+
+    Prompt-injection sanitization is enforced earlier, at Pydantic model
+    validation time (see ``app/safety/sanitize.py`` and the validators in
+    ``app/models/patient.py``).  This function checks list-size limits that
+    fall outside Pydantic's per-field scope.
+    """
     if len(case.medications) > MAX_MEDICATIONS:
         raise SafetyError(f"Medication count {len(case.medications)} exceeds maximum {MAX_MEDICATIONS}.")
     if len(case.diagnoses) > MAX_DIAGNOSES:
