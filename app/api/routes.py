@@ -1,6 +1,9 @@
 from __future__ import annotations
 import time
-from fastapi import APIRouter, HTTPException, Request, Query
+from fastapi import APIRouter, Depends, HTTPException, Request, Query
+from app.api.auth import require_api_key
+from app.api.limiter import limiter
+from app.config import settings
 from app.models.patient import PatientCase
 from app.models.response import AnalysisResponse, AuditRecord
 
@@ -12,7 +15,9 @@ router = APIRouter()
     response_model=AnalysisResponse,
     summary="Analyze a patient case for clinical risk",
     tags=["analysis"],
+    dependencies=[Depends(require_api_key)],
 )
+@limiter.limit(lambda: settings.rate_limit_analyze)
 async def analyze(case: PatientCase, request: Request) -> AnalysisResponse:
     """
     Submit a patient case for multi-agent risk analysis.
@@ -36,7 +41,9 @@ async def health():
     response_model=AuditRecord,
     summary="Retrieve audit record by analysis ID",
     tags=["audit"],
+    dependencies=[Depends(require_api_key)],
 )
+@limiter.limit(lambda: settings.rate_limit_audit)
 async def get_audit(analysis_id: str, request: Request):
     record = await request.app.state.audit_logger.get(analysis_id)
     if not record:
@@ -49,7 +56,9 @@ async def get_audit(analysis_id: str, request: Request):
     response_model=list[AuditRecord],
     summary="All audit records for a case",
     tags=["audit"],
+    dependencies=[Depends(require_api_key)],
 )
+@limiter.limit(lambda: settings.rate_limit_audit)
 async def get_case_audit(case_id: str, request: Request):
     return await request.app.state.audit_logger.get_by_case(case_id)
 
@@ -59,7 +68,9 @@ async def get_case_audit(case_id: str, request: Request):
     response_model=list[AuditRecord],
     summary="List recent audit records",
     tags=["audit"],
+    dependencies=[Depends(require_api_key)],
 )
+@limiter.limit(lambda: settings.rate_limit_audit)
 async def list_audit(
     request: Request,
     limit: int = Query(default=20, ge=1, le=200),
@@ -75,7 +86,9 @@ async def list_audit(
     "/reasoning/{analysis_id}",
     summary="Full LLM reasoning trace for an analysis",
     tags=["explainability"],
+    dependencies=[Depends(require_api_key)],
 )
+@limiter.limit(lambda: settings.rate_limit_audit)
 async def get_reasoning(analysis_id: str, request: Request):
     record = await request.app.state.audit_logger.get(analysis_id)
     if not record:

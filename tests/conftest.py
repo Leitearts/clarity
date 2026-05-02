@@ -7,6 +7,7 @@ import pytest
 import pytest_asyncio
 from httpx import AsyncClient, ASGITransport
 
+from app.config import settings
 from app.main import app
 from app.models.patient import PatientCase
 
@@ -209,6 +210,21 @@ def mock_llm():
         
         mock.side_effect = side_effect
         yield mock
+
+
+@pytest.fixture(autouse=True)
+def disable_rate_limiting():
+    """Disable rate limiting for all tests.
+
+    The limiter key function returns a static sentinel key when
+    ``settings.rate_limit_enabled`` is False, so no request will be counted
+    against any bucket.  This prevents test interference without requiring any
+    storage manipulation.
+    """
+    original = settings.rate_limit_enabled
+    settings.rate_limit_enabled = False
+    yield
+    settings.rate_limit_enabled = original
 
 
 @pytest_asyncio.fixture

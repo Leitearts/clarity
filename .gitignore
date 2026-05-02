@@ -26,6 +26,9 @@ logs/*.jsonl.gz
 logs/*.db
 logs/*.db-wal
 logs/*.db-shm
+*.db
+*.db-wal
+*.db-shm
 
 # Docker
 *.tar

@@ -1,11 +1,12 @@
 from __future__ import annotations
 from collections import Counter
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Depends, Request
+from app.api.auth import require_api_key
 
 router = APIRouter(tags=["impact"])
 
 
-@router.get("/impact", summary="Real-time CLARITY usage and impact statistics")
+@router.get("/impact", summary="Real-time CLARITY usage and impact statistics", dependencies=[Depends(require_api_key)])
 async def get_impact(request: Request):
     """
     Live statistics computed from the audit log.

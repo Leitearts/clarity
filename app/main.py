@@ -1,8 +1,13 @@
 import logging
 from contextlib import asynccontextmanager
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
+from slowapi import _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.middleware import SlowAPIMiddleware
 
+from app.api.limiter import limiter
 from app.api.routes import router as core_router
 from app.api.a2a_routes import router as a2a_router
 from app.api.impact import router as impact_router
@@ -40,6 +45,10 @@ app = FastAPI(
     version="1.0.0",
     lifespan=lifespan,
 )
+
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+app.add_middleware(SlowAPIMiddleware)
 
 PREFIX = f"/api/{settings.api_version}"
 app.include_router(core_router,   prefix=PREFIX)
