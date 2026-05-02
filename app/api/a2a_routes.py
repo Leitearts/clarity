@@ -1,8 +1,9 @@
 from __future__ import annotations
 import time
-from fastapi import APIRouter, Query, Request
+from fastapi import APIRouter, Depends, Query, Request
 from fastapi.responses import JSONResponse
 from app.a2a.models import A2ARequest, A2AResponse, AgentCard
+from app.api.auth import require_api_key
 
 router = APIRouter(tags=["a2a"])
 
@@ -27,6 +28,7 @@ async def get_agent_card() -> AgentCard:
     "/a2a/invoke",
     response_model=A2AResponse,
     summary="Invoke CLARITY via A2A protocol",
+    dependencies=[Depends(require_api_key)],
 )
 async def a2a_invoke(
     request_body: A2ARequest,

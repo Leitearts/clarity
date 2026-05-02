@@ -35,5 +35,9 @@ class Settings(BaseSettings):
     api_version: str = "v1"
     debug: bool = False
 
+    # Auth — set CLARITY_API_KEY in the environment to enforce authentication.
+    # When empty (default), authentication is disabled (development mode).
+    api_key: str = Field(default="")
+
 
 settings = Settings()
