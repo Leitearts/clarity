@@ -17,6 +17,8 @@ from app.main import app
 from app.config import settings
 
 
+# Intentionally simple value for test assertions only.
+# Production keys must be cryptographically secure random strings (e.g. `openssl rand -hex 32`).
 _TEST_KEY = "test-secret-key-12345"
 
 # ---------------------------------------------------------------------------
