@@ -39,5 +39,12 @@ class Settings(BaseSettings):
     # When empty (default), authentication is disabled (development mode).
     api_key: str = Field(default="")
 
+    # Rate limiting — set CLARITY_RATE_LIMIT_ENABLED=false to disable (e.g. in tests).
+    # Limits are expressed in slowapi format: "<count>/<period>" (e.g. "10/minute").
+    rate_limit_enabled: bool = True
+    rate_limit_analyze: str = "10/minute"
+    rate_limit_audit: str = "30/minute"
+    rate_limit_a2a: str = "20/minute"
+
 
 settings = Settings()

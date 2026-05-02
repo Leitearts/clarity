@@ -4,6 +4,8 @@ from fastapi import APIRouter, Depends, Query, Request
 from fastapi.responses import JSONResponse
 from app.a2a.models import A2ARequest, A2AResponse, AgentCard
 from app.api.auth import require_api_key
+from app.api.limiter import limiter
+from app.config import settings
 
 router = APIRouter(tags=["a2a"])
 
@@ -30,6 +32,7 @@ async def get_agent_card() -> AgentCard:
     summary="Invoke CLARITY via A2A protocol",
     dependencies=[Depends(require_api_key)],
 )
+@limiter.limit(lambda: settings.rate_limit_a2a)
 async def a2a_invoke(
     request_body: A2ARequest,
     request: Request,
