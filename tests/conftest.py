@@ -7,6 +7,7 @@ import pytest
 import pytest_asyncio
 from httpx import AsyncClient, ASGITransport
 
+from app.config import settings
 from app.main import app
 from app.models.patient import PatientCase
 
@@ -78,6 +79,10 @@ def mock_llm():
                 "comorbidity_burden": "none",
                 "high_risk_comorbidities": [],
                 "care_setting_acuity": "routine",
+                "critical_vitals": [],
+                "abnormal_vitals": [],
+                "trend_concerns": None,
+                "hemodynamic_risk": "stable",
             }
             
             # Determine agent type from system prompt keywords
@@ -85,6 +90,7 @@ def mock_llm():
             is_drug = "drug safety analysis" in system_prompt.lower()
             is_lab = "lab result interpretation" in system_prompt.lower()
             is_context = "risk stratification" in system_prompt.lower()
+            is_vitals = "vital sign interpretation" in system_prompt.lower()
             
             # DIAGNOSIS AGENT
             if is_diagnosis:
@@ -176,12 +182,49 @@ def mock_llm():
                     if any(age_str in prompt_text for age_str in ["71", "64", "65", "78"]):
                         data["context_multiplier"] = 1.15
                         data["age_risk_flag"] = True
+
+            # VITALS AGENT
+            elif is_vitals:
+                if "138" in prompt_text and "heart_rate" in prompt_text.lower():
+                    # Critical tachycardia (e.g., anaphylaxis / allergy conflict case)
+                    data["risk_score"] = 0.90
+                    data["critical_vitals"] = [{"sign": "heart_rate", "value": 138, "unit": "bpm",
+                                                "direction": "high",
+                                                "clinical_significance": "Severe tachycardia."}]
+                    data["hemodynamic_risk"] = "unstable"
+                elif "spo2" in prompt_text.lower() and any(
+                        v in prompt_text for v in ["88", "89", "90", "91", "92"]):
+                    # Hypoxemia (e.g., AMI / respiratory compromise)
+                    data["risk_score"] = 0.85
+                    data["critical_vitals"] = [{"sign": "spo2", "value": 89, "unit": "%",
+                                                "direction": "low",
+                                                "clinical_significance": "Hypoxemia."}]
+                    data["hemodynamic_risk"] = "at_risk"
+                else:
+                    # Normal or absent vitals
+                    data["risk_score"] = 0.05
+                    data["critical_vitals"] = []
             
             resp = LLMResponse(data=data, raw_text=json.dumps(data), token_usage={})
             return resp
         
         mock.side_effect = side_effect
         yield mock
+
+
+@pytest.fixture(autouse=True)
+def disable_rate_limiting():
+    """Disable rate limiting for all tests.
+
+    The limiter key function returns a static sentinel key when
+    ``settings.rate_limit_enabled`` is False, so no request will be counted
+    against any bucket.  This prevents test interference without requiring any
+    storage manipulation.
+    """
+    original = settings.rate_limit_enabled
+    settings.rate_limit_enabled = False
+    yield
+    settings.rate_limit_enabled = original
 
 
 @pytest_asyncio.fixture

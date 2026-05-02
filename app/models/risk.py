@@ -65,4 +65,7 @@ class RiskScore(BaseModel):
             AgentContribution(agent_type="lab_analysis", raw_score=self.lab_score,
                               weight=self.w_lab,
                               weighted_score=round(self.w_lab * self.lab_score, 4)),
+            AgentContribution(agent_type="vitals", raw_score=self.vitals_score,
+                              weight=self.w_vitals,
+                              weighted_score=round(self.w_vitals * self.vitals_score, 4)),
         ]

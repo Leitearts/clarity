@@ -48,10 +48,13 @@ class A2AAdapter:
         status = A2AStatus.PARTIAL if had_errors else A2AStatus.SUCCESS
         weight_map = {"diagnosis": analysis.risk.w_diagnosis,
                       "drug_interaction": analysis.risk.w_medication,
-                      "lab_analysis": analysis.risk.w_lab, "patient_context": 0.0}
+                      "lab_analysis": analysis.risk.w_lab,
+                      "vitals": analysis.risk.w_vitals,
+                      "patient_context": 0.0}
         ws = max(analysis.risk.w_diagnosis * analysis.risk.diagnosis_score
                  + analysis.risk.w_medication * analysis.risk.medication_score
-                 + analysis.risk.w_lab * analysis.risk.lab_score, 1e-9)
+                 + analysis.risk.w_lab * analysis.risk.lab_score
+                 + analysis.risk.w_vitals * analysis.risk.vitals_score, 1e-9)
         agent_contributions = [
             AgentContributionSummary(
                 agent=r.agent_type.value,
@@ -144,7 +147,8 @@ class A2AAdapter:
 
 
 def _score_to_level(score: float) -> str:
-    if score >= 0.85: return "critical"
-    if score >= 0.65: return "high"
-    if score >= 0.35: return "medium"
+    from app.config import settings
+    if score >= settings.threshold_critical: return "critical"
+    if score >= settings.threshold_high: return "high"
+    if score >= settings.threshold_low: return "medium"
     return "low"

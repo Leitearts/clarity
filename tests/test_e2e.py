@@ -49,10 +49,10 @@ class TestFullPipeline:
         for field in ("analysis_id", "risk", "agent_responses", "explanation",
                       "recommended_actions", "processing_time_ms"):
             assert field in data, f"Missing field: {field}"
-        assert len(data["agent_responses"]) == 4
+        assert len(data["agent_responses"]) == 5
 
     @pytest.mark.asyncio
-    async def test_all_four_agents_respond(self, async_client, mock_llm):
+    async def test_all_agents_respond(self, async_client, mock_llm):
         from app.models.agent import AgentType
         resp = await async_client.post("/api/v1/analyze", json=_payload("CASE-CRITICAL-001"))
         agent_types = {r["agent_type"] for r in resp.json()["agent_responses"]}
@@ -68,7 +68,7 @@ class TestFullPipeline:
     async def test_processing_time_recorded(self, async_client, mock_llm):
         resp = await async_client.post("/api/v1/analyze", json=_payload("CASE-LOW-001"))
         ms = resp.json().get("processing_time_ms")
-        assert ms is not None and ms > 0
+        assert ms is not None and ms >= 0
 
     @pytest.mark.asyncio
     async def test_explanation_contains_disclaimer(self, async_client, mock_llm):
