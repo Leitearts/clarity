@@ -4,7 +4,6 @@ from app.models.risk import RiskLevel
 
 
 class TestRiskEngine:
-
     def test_formula_correctness(self):
         # Use the production "default" preset weights to verify the formula.
         engine = RiskEngine(preset="default")
@@ -14,7 +13,7 @@ class TestRiskEngine:
 
     def test_context_multiplier_applied(self):
         engine = RiskEngine()
-        base   = engine.score(0.5, 0.5, 0.5, 0.0, context_multiplier=1.0)
+        base = engine.score(0.5, 0.5, 0.5, 0.0, context_multiplier=1.0)
         scaled = engine.score(0.5, 0.5, 0.5, 0.0, context_multiplier=1.2)
         assert abs(scaled.total_score - min(1.0, base.total_score * 1.2)) < 0.001
 
@@ -64,7 +63,8 @@ class TestRiskEngine:
             breakdown.diagnosis_contribution
             + breakdown.medication_contribution
             + breakdown.lab_contribution
-            + breakdown.vitals_contribution, 4
+            + breakdown.vitals_contribution,
+            4,
         )
         assert abs(contrib_sum - breakdown.weighted_sum) < 0.0001
 
@@ -77,13 +77,17 @@ class TestRiskEngine:
     def test_max_score_reaches_1_without_context_multiplier(self):
         """All-max agent scores with vitals absent must reach exactly 1.0 and CRITICAL."""
         engine = RiskEngine(preset="default")
-        score = engine.score(1.0, 1.0, 1.0, None)  # vitals absent → weights redistributed
+        score = engine.score(
+            1.0, 1.0, 1.0, None
+        )  # vitals absent → weights redistributed
         assert score.total_score == 1.0
         assert score.level == RiskLevel.CRITICAL
 
     def test_normalize_weights_inactive_vitals(self):
         """Inactive vitals weight is redistributed; remaining weights sum to 1.0."""
-        w_d, w_m, w_l, w_v = normalize_weights(0.30, 0.25, 0.20, 0.25, active_vitals=False)
+        w_d, w_m, w_l, w_v = normalize_weights(
+            0.30, 0.25, 0.20, 0.25, active_vitals=False
+        )
         assert abs(w_d + w_m + w_l + w_v - 1.0) < 1e-6
         assert w_v == 0.0
         assert w_d > 0.30  # received a share of the redistributed vitals weight

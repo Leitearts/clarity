@@ -1,8 +1,7 @@
 import logging
 from contextlib import asynccontextmanager
 import uvicorn
-from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
@@ -51,8 +50,8 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(SlowAPIMiddleware)
 
 PREFIX = f"/api/{settings.api_version}"
-app.include_router(core_router,   prefix=PREFIX)
-app.include_router(a2a_router,    prefix=PREFIX)
+app.include_router(core_router, prefix=PREFIX)
+app.include_router(a2a_router, prefix=PREFIX)
 app.include_router(impact_router, prefix=PREFIX)
 
 
