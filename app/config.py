@@ -39,6 +39,11 @@ class Settings(BaseSettings):
     # When empty (default), authentication is disabled (development mode).
     api_key: str = Field(default="")
 
+    # Trusted sender domains — comma-separated list of domains whose senders
+    # are considered trusted (e.g. "company.com,partner.org").
+    # An empty value means no senders are trusted.
+    trusted_sender_domains: str = Field(default="")
+
     # Rate limiting — set CLARITY_RATE_LIMIT_ENABLED=false to disable (e.g. in tests).
     # Limits are expressed in slowapi format: "<count>/<period>" (e.g. "10/minute").
     rate_limit_enabled: bool = True
