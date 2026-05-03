@@ -1,7 +1,11 @@
 from __future__ import annotations
+import logging
 from app.agents.base import BaseAgent
+from app.errors import log_error, CATEGORY_DETECTION, CATEGORY_INIT
 from app.models.agent import AgentRequest, AgentResponse, AgentType, Finding, FindingSeverity
 from app.models.patient import LabResult, PatientContext
+
+logger = logging.getLogger(__name__)
 
 
 class LabAnalysisAgent(BaseAgent):
@@ -15,6 +19,8 @@ class LabAnalysisAgent(BaseAgent):
             from app.llm.service import LLMService
             self._llm = LLMService()
         except Exception:
+            log_error(logger, CATEGORY_INIT, "LabAnalysisAgent.__init__",
+                      "LLM service unavailable; agent will use rule-based analysis only")
             self._llm = None
 
     async def _analyze(self, request: AgentRequest) -> AgentResponse:
@@ -73,7 +79,8 @@ class LabAnalysisAgent(BaseAgent):
                     metadata={"llm_raw": result.data},
                 )
             except Exception:
-                pass
+                log_error(logger, CATEGORY_DETECTION, "LabAnalysisAgent._analyze",
+                          "LLM lab-analysis failed; falling back to rule-based scoring")
 
         from app.agents._lab_rules import lab_rules
         return lab_rules(request, labs, self)
