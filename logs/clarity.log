@@ -1,0 +1,1298 @@
+2026-05-03 18:24:29,520 INFO app.agents.base agent=diagnosis case=TEST-001 score=0.800 ms=1
+2026-05-03 18:24:29,522 INFO app.agents.base agent=diagnosis case=TEST-001 score=0.850 ms=0
+2026-05-03 18:24:29,524 INFO app.agents.base agent=diagnosis case=TEST-001 score=0.150 ms=0
+2026-05-03 18:24:29,525 INFO app.agents.base agent=diagnosis case=TEST-001 score=0.800 ms=0
+2026-05-03 18:24:29,526 INFO app.agents.base agent=diagnosis case=TEST-001 score=0.800 ms=0
+2026-05-03 18:24:29,528 INFO app.agents.base agent=diagnosis case=TEST-001 score=0.300 ms=0
+2026-05-03 18:24:29,530 INFO app.agents.base agent=drug_interaction case=TEST-001 score=0.950 ms=0
+2026-05-03 18:24:29,531 INFO app.agents.base agent=drug_interaction case=TEST-001 score=0.950 ms=0
+2026-05-03 18:24:29,533 INFO app.agents.base agent=drug_interaction case=TEST-001 score=0.650 ms=0
+2026-05-03 18:24:29,535 INFO app.agents.base agent=drug_interaction case=TEST-001 score=0.050 ms=0
+2026-05-03 18:24:29,536 INFO app.agents.base agent=drug_interaction case=TEST-001 score=0.850 ms=0
+2026-05-03 18:24:29,538 INFO app.agents.base agent=lab_analysis case=TEST-001 score=0.900 ms=0
+2026-05-03 18:24:29,540 INFO app.agents.base agent=lab_analysis case=TEST-001 score=0.850 ms=0
+2026-05-03 18:24:29,541 INFO app.agents.base agent=lab_analysis case=TEST-001 score=0.050 ms=0
+2026-05-03 18:24:29,543 INFO app.agents.base agent=lab_analysis case=TEST-001 score=0.900 ms=0
+2026-05-03 18:24:29,543 INFO app.agents.base agent=lab_analysis case=TEST-001 score=0.900 ms=0
+2026-05-03 18:24:29,544 INFO app.agents.base agent=lab_analysis case=TEST-001 score=0.050 ms=0
+2026-05-03 18:24:29,546 INFO app.agents.base agent=patient_context case=TEST-001 score=0.000 ms=0
+2026-05-03 18:24:29,548 INFO app.agents.base agent=patient_context case=TEST-001 score=0.000 ms=0
+2026-05-03 18:24:29,549 INFO app.agents.base agent=patient_context case=TEST-001 score=0.000 ms=0
+2026-05-03 18:24:29,551 INFO app.agents.base agent=patient_context case=TEST-001 score=0.000 ms=0
+2026-05-03 18:24:29,552 INFO app.agents.base agent=vitals case=TEST-001 score=0.850 ms=0
+2026-05-03 18:24:29,554 INFO app.agents.base agent=vitals case=TEST-001 score=0.900 ms=0
+2026-05-03 18:24:29,555 INFO app.agents.base agent=vitals case=TEST-001 score=0.050 ms=0
+2026-05-03 18:24:29,557 INFO app.agents.base agent=vitals case=TEST-001 score=0.050 ms=0
+2026-05-03 18:24:29,559 INFO app.agents.base agent=vitals case=TEST-001 score=0.850 ms=0
+2026-05-03 18:24:29,559 INFO app.agents.base agent=vitals case=TEST-001 score=0.900 ms=0
+2026-05-03 18:24:29,560 INFO app.agents.base agent=vitals case=TEST-001 score=0.850 ms=0
+2026-05-03 18:24:29,784 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 403 Forbidden"
+2026-05-03 18:24:29,788 INFO httpx HTTP Request: GET http://test/api/v1/audit "HTTP/1.1 403 Forbidden"
+2026-05-03 18:24:29,792 INFO httpx HTTP Request: GET http://test/api/v1/audit/some-id "HTTP/1.1 403 Forbidden"
+2026-05-03 18:24:29,796 INFO httpx HTTP Request: GET http://test/api/v1/audit/case/some-case "HTTP/1.1 403 Forbidden"
+2026-05-03 18:24:29,800 INFO httpx HTTP Request: GET http://test/api/v1/reasoning/some-id "HTTP/1.1 403 Forbidden"
+2026-05-03 18:24:29,804 INFO httpx HTTP Request: POST http://test/api/v1/a2a/invoke "HTTP/1.1 403 Forbidden"
+2026-05-03 18:24:29,808 INFO httpx HTTP Request: GET http://test/api/v1/impact "HTTP/1.1 403 Forbidden"
+2026-05-03 18:24:29,812 INFO httpx HTTP Request: GET http://test/api/v1/audit "HTTP/1.1 403 Forbidden"
+2026-05-03 18:24:29,816 INFO app.orchestrator.orchestrator orchestrator.start case=auth-test-case-001 patient=auth-test-patient
+2026-05-03 18:24:29,817 INFO app.agents.base agent=patient_context case=auth-test-case-001 score=0.000 ms=1
+2026-05-03 18:24:29,818 INFO app.agents.base agent=diagnosis case=auth-test-case-001 score=0.100 ms=0
+2026-05-03 18:24:29,819 INFO app.agents.base agent=drug_interaction case=auth-test-case-001 score=0.050 ms=0
+2026-05-03 18:24:29,819 INFO app.agents.base agent=lab_analysis case=auth-test-case-001 score=0.050 ms=0
+2026-05-03 18:24:29,819 INFO app.agents.base agent=vitals case=auth-test-case-001 score=0.050 ms=0
+2026-05-03 18:24:29,819 INFO app.orchestrator.orchestrator orchestrator.done case=auth-test-case-001 risk=low score=0.065 ms=3
+2026-05-03 18:24:29,820 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:29,825 INFO httpx HTTP Request: GET http://test/api/v1/audit "HTTP/1.1 200 OK"
+2026-05-03 18:24:29,830 INFO app.a2a.adapter a2a.invoke trace_id=auth-test-001 caller=pytest-auth capability=clinical_risk_analysis
+2026-05-03 18:24:29,830 INFO app.orchestrator.orchestrator orchestrator.start case=auth-test-case-001 patient=auth-test-patient
+2026-05-03 18:24:29,830 INFO app.agents.base agent=patient_context case=auth-test-case-001 score=0.000 ms=0
+2026-05-03 18:24:29,831 INFO app.agents.base agent=diagnosis case=auth-test-case-001 score=0.100 ms=0
+2026-05-03 18:24:29,831 INFO app.agents.base agent=drug_interaction case=auth-test-case-001 score=0.050 ms=0
+2026-05-03 18:24:29,831 INFO app.agents.base agent=lab_analysis case=auth-test-case-001 score=0.050 ms=0
+2026-05-03 18:24:29,831 INFO app.agents.base agent=vitals case=auth-test-case-001 score=0.050 ms=0
+2026-05-03 18:24:29,831 INFO app.orchestrator.orchestrator orchestrator.done case=auth-test-case-001 risk=low score=0.065 ms=1
+2026-05-03 18:24:29,832 INFO httpx HTTP Request: POST http://test/api/v1/a2a/invoke "HTTP/1.1 200 OK"
+2026-05-03 18:24:29,837 INFO httpx HTTP Request: GET http://test/api/v1/impact "HTTP/1.1 200 OK"
+2026-05-03 18:24:29,841 INFO httpx HTTP Request: GET http://test/api/v1/health "HTTP/1.1 200 OK"
+2026-05-03 18:24:29,845 INFO httpx HTTP Request: GET http://test/api/v1/agent-card "HTTP/1.1 200 OK"
+2026-05-03 18:24:29,852 INFO httpx HTTP Request: GET http://test/api/v1/a2a/schema "HTTP/1.1 200 OK"
+2026-05-03 18:24:29,856 INFO httpx HTTP Request: GET http://test/api/v1/a2a/capabilities "HTTP/1.1 200 OK"
+2026-05-03 18:24:29,860 INFO httpx HTTP Request: GET http://test/api/v1/a2a/health "HTTP/1.1 200 OK"
+2026-05-03 18:24:29,864 INFO app.orchestrator.orchestrator orchestrator.start case=auth-test-case-001 patient=auth-test-patient
+2026-05-03 18:24:29,864 INFO app.agents.base agent=patient_context case=auth-test-case-001 score=0.000 ms=0
+2026-05-03 18:24:29,865 INFO app.agents.base agent=diagnosis case=auth-test-case-001 score=0.100 ms=0
+2026-05-03 18:24:29,865 INFO app.agents.base agent=drug_interaction case=auth-test-case-001 score=0.050 ms=0
+2026-05-03 18:24:29,865 INFO app.agents.base agent=lab_analysis case=auth-test-case-001 score=0.050 ms=0
+2026-05-03 18:24:29,865 INFO app.agents.base agent=vitals case=auth-test-case-001 score=0.050 ms=0
+2026-05-03 18:24:29,865 INFO app.orchestrator.orchestrator orchestrator.done case=auth-test-case-001 risk=low score=0.065 ms=1
+2026-05-03 18:24:29,866 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:29,872 INFO httpx HTTP Request: GET http://test/api/v1/audit "HTTP/1.1 200 OK"
+2026-05-03 18:24:29,877 INFO app.a2a.adapter a2a.invoke trace_id=auth-test-001 caller=pytest-auth capability=clinical_risk_analysis
+2026-05-03 18:24:29,877 INFO app.orchestrator.orchestrator orchestrator.start case=auth-test-case-001 patient=auth-test-patient
+2026-05-03 18:24:29,877 INFO app.agents.base agent=patient_context case=auth-test-case-001 score=0.000 ms=0
+2026-05-03 18:24:29,877 INFO app.agents.base agent=diagnosis case=auth-test-case-001 score=0.100 ms=0
+2026-05-03 18:24:29,877 INFO app.agents.base agent=drug_interaction case=auth-test-case-001 score=0.050 ms=0
+2026-05-03 18:24:29,878 INFO app.agents.base agent=lab_analysis case=auth-test-case-001 score=0.050 ms=0
+2026-05-03 18:24:29,878 INFO app.agents.base agent=vitals case=auth-test-case-001 score=0.050 ms=0
+2026-05-03 18:24:29,878 INFO app.orchestrator.orchestrator orchestrator.done case=auth-test-case-001 risk=low score=0.065 ms=1
+2026-05-03 18:24:29,879 INFO httpx HTTP Request: POST http://test/api/v1/a2a/invoke "HTTP/1.1 200 OK"
+2026-05-03 18:24:29,890 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:30,326 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:30,328 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=5
+2026-05-03 18:24:30,328 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=437
+2026-05-03 18:24:30,330 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=6
+2026-05-03 18:24:30,331 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=6
+2026-05-03 18:24:30,331 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=441
+2026-05-03 18:24:30,332 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:30,344 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:30,345 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:30,345 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:30,346 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:30,346 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:30,347 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:30,347 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:30,348 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:30,360 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:30,361 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:30,361 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:30,362 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:30,362 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:30,362 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:30,363 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:30,363 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:30,374 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:30,375 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:30,375 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:30,376 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:30,376 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:30,377 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:30,377 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:30,378 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:30,391 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:30,392 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:30,393 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:30,393 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:30,394 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:30,394 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:30,394 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:30,395 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:30,408 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:30,409 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:30,409 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:30,410 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:30,410 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:30,411 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:30,411 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:30,412 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:30,424 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:30,424 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:30,425 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:30,425 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:30,426 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:30,426 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:30,426 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:30,427 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:30,438 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:30,439 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:30,439 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:30,440 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:30,440 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:30,440 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:30,441 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:30,442 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:30,455 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:30,456 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:30,457 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:30,457 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:30,458 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:30,458 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:30,458 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:30,459 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:30,662 INFO httpx HTTP Request: GET http://test/api/v1/audit/2a58da53-0894-4d4f-bae9-f391679473dd "HTTP/1.1 200 OK"
+2026-05-03 18:24:30,673 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:30,674 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:30,674 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:30,675 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:30,675 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:30,675 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:30,676 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:30,676 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:30,879 INFO httpx HTTP Request: GET http://test/api/v1/audit/b841fbf1-6190-498e-8c61-b9d837812c29 "HTTP/1.1 200 OK"
+2026-05-03 18:24:30,891 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:30,892 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:30,892 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:30,893 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:30,893 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:30,894 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:30,894 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:30,895 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:31,098 INFO httpx HTTP Request: GET http://test/api/v1/audit/80429303-e772-49a5-8095-d124b5949cb0 "HTTP/1.1 200 OK"
+2026-05-03 18:24:31,108 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:31,109 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:31,109 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:31,110 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:31,110 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:31,111 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:31,111 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:31,112 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:31,314 INFO httpx HTTP Request: GET http://test/api/v1/audit/94a91319-d3c8-432a-afb6-09d6276c2d0e "HTTP/1.1 200 OK"
+2026-05-03 18:24:31,324 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:31,324 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:31,325 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:31,325 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:31,326 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:31,326 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:31,327 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:31,327 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:31,530 INFO httpx HTTP Request: GET http://test/api/v1/audit/5852f7ff-9b52-4425-98b9-3f49222cf6d7 "HTTP/1.1 200 OK"
+2026-05-03 18:24:31,540 INFO app.orchestrator.orchestrator orchestrator.start case=IMMUTABLE-TEST-7d74c8 patient=DEPLOY-TEST-001
+2026-05-03 18:24:31,541 INFO app.agents.base agent=patient_context case=IMMUTABLE-TEST-7d74c8 score=0.000 ms=0
+2026-05-03 18:24:31,541 INFO app.agents.base agent=diagnosis case=IMMUTABLE-TEST-7d74c8 score=0.850 ms=0
+2026-05-03 18:24:31,542 INFO app.agents.base agent=drug_interaction case=IMMUTABLE-TEST-7d74c8 score=0.750 ms=0
+2026-05-03 18:24:31,542 INFO app.agents.base agent=lab_analysis case=IMMUTABLE-TEST-7d74c8 score=1.000 ms=0
+2026-05-03 18:24:31,542 INFO app.agents.base agent=vitals case=IMMUTABLE-TEST-7d74c8 score=0.050 ms=0
+2026-05-03 18:24:31,543 INFO app.orchestrator.orchestrator orchestrator.done case=IMMUTABLE-TEST-7d74c8 risk=critical score=0.950 ms=2
+2026-05-03 18:24:31,544 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:31,746 INFO app.orchestrator.orchestrator orchestrator.start case=IMMUTABLE-TEST-7d74c8 patient=DEPLOY-TEST-001
+2026-05-03 18:24:31,747 INFO app.agents.base agent=patient_context case=IMMUTABLE-TEST-7d74c8 score=0.000 ms=0
+2026-05-03 18:24:31,748 INFO app.agents.base agent=diagnosis case=IMMUTABLE-TEST-7d74c8 score=0.850 ms=0
+2026-05-03 18:24:31,748 INFO app.agents.base agent=drug_interaction case=IMMUTABLE-TEST-7d74c8 score=0.750 ms=0
+2026-05-03 18:24:31,749 INFO app.agents.base agent=lab_analysis case=IMMUTABLE-TEST-7d74c8 score=1.000 ms=0
+2026-05-03 18:24:31,749 INFO app.agents.base agent=vitals case=IMMUTABLE-TEST-7d74c8 score=0.050 ms=0
+2026-05-03 18:24:31,749 INFO app.orchestrator.orchestrator orchestrator.done case=IMMUTABLE-TEST-7d74c8 risk=critical score=0.950 ms=2
+2026-05-03 18:24:31,750 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:31,952 INFO httpx HTTP Request: GET http://test/api/v1/audit/5add8534-689e-43a2-9252-42fc1f6d1b61 "HTTP/1.1 200 OK"
+2026-05-03 18:24:31,953 INFO httpx HTTP Request: GET http://test/api/v1/audit/85e8e972-01c2-4554-b8b2-592ce8f75d0b "HTTP/1.1 200 OK"
+2026-05-03 18:24:31,963 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:31,964 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:31,965 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:31,965 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:31,966 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:31,966 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:31,966 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:31,967 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:32,169 INFO httpx HTTP Request: GET http://test/api/v1/reasoning/8c0c3759-b016-48f2-b786-46780f1db573 "HTTP/1.1 200 OK"
+2026-05-03 18:24:32,180 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:32,181 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:32,181 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:32,182 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:32,182 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:32,182 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:32,183 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:32,184 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:32,386 INFO httpx HTTP Request: GET http://test/api/v1/reasoning/f8ff2b5c-205d-44a6-94da-2900e3e62a48 "HTTP/1.1 200 OK"
+2026-05-03 18:24:32,396 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:32,397 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:32,397 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:32,398 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:32,398 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:32,398 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:32,399 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:32,400 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:32,602 INFO httpx HTTP Request: GET http://test/api/v1/reasoning/61671b51-4f15-41c7-bc24-a5f35d6e64e3 "HTTP/1.1 200 OK"
+2026-05-03 18:24:32,612 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:32,613 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:32,613 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:32,614 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:32,615 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:32,615 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:32,615 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:32,616 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:32,819 INFO httpx HTTP Request: GET http://test/api/v1/reasoning/960f4391-9ec7-4dd4-b1ed-3c3305b779e8 "HTTP/1.1 200 OK"
+2026-05-03 18:24:32,829 INFO httpx HTTP Request: GET http://test/api/v1/reasoning/non-existent-id-999 "HTTP/1.1 404 Not Found"
+2026-05-03 18:24:32,840 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:32,840 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:32,840 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:32,841 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:32,841 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:32,841 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:32,842 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=1
+2026-05-03 18:24:32,842 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:32,854 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:32,855 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:32,855 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:32,856 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:32,856 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:32,856 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:32,856 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=1
+2026-05-03 18:24:32,857 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:32,868 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:32,868 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:32,868 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:32,869 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:32,869 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:32,869 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:32,870 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=1
+2026-05-03 18:24:32,870 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:32,883 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:32,883 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:32,883 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:32,884 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:32,884 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:32,885 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:32,885 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=1
+2026-05-03 18:24:32,886 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:32,898 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:32,898 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:32,899 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:32,900 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=1
+2026-05-03 18:24:32,900 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:32,900 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:32,901 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:32,901 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:32,913 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 422 Unprocessable Entity"
+2026-05-03 18:24:32,924 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 422 Unprocessable Entity"
+2026-05-03 18:24:32,934 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 422 Unprocessable Entity"
+2026-05-03 18:24:32,945 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 422 Unprocessable Entity"
+2026-05-03 18:24:32,956 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 422 Unprocessable Entity"
+2026-05-03 18:24:32,966 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 422 Unprocessable Entity"
+2026-05-03 18:24:32,977 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 422 Unprocessable Entity"
+2026-05-03 18:24:32,986 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 422 Unprocessable Entity"
+2026-05-03 18:24:33,188 INFO httpx HTTP Request: GET http://test/api/v1/audit?limit=5 "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,207 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-0c2055df patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,208 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-7a47e9e0 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,208 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-b8dac104 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,208 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-6b35dabe patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,210 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-e926e505 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,210 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-5cceecbc patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,210 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-8a7e637e patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,211 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-880a7605 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,211 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-6b90cbc3 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,211 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-2dd7e57c patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,212 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-b8822ceb patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,212 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-ff7a3d58 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,213 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-b6b22fd4 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,213 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-221d9ce8 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,213 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-4f81bc0c patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,214 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-13310ca2 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,214 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-4877deba patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,214 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-10057b99 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,215 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-e4a76d03 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,215 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-e60ee67c patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,216 INFO app.agents.base agent=patient_context case=CONC-0c2055df score=0.000 ms=0
+2026-05-03 18:24:33,216 INFO app.agents.base agent=diagnosis case=CONC-0c2055df score=0.100 ms=0
+2026-05-03 18:24:33,216 INFO app.agents.base agent=drug_interaction case=CONC-0c2055df score=0.050 ms=0
+2026-05-03 18:24:33,216 INFO app.agents.base agent=lab_analysis case=CONC-0c2055df score=0.050 ms=0
+2026-05-03 18:24:33,217 INFO app.agents.base agent=vitals case=CONC-0c2055df score=0.050 ms=0
+2026-05-03 18:24:33,217 INFO app.agents.base agent=patient_context case=CONC-7a47e9e0 score=0.000 ms=0
+2026-05-03 18:24:33,217 INFO app.agents.base agent=diagnosis case=CONC-7a47e9e0 score=0.100 ms=0
+2026-05-03 18:24:33,218 INFO app.agents.base agent=drug_interaction case=CONC-7a47e9e0 score=0.050 ms=0
+2026-05-03 18:24:33,218 INFO app.agents.base agent=lab_analysis case=CONC-7a47e9e0 score=0.050 ms=0
+2026-05-03 18:24:33,218 INFO app.agents.base agent=vitals case=CONC-7a47e9e0 score=0.050 ms=0
+2026-05-03 18:24:33,218 INFO app.agents.base agent=patient_context case=CONC-b8dac104 score=0.000 ms=0
+2026-05-03 18:24:33,219 INFO app.agents.base agent=diagnosis case=CONC-b8dac104 score=0.100 ms=0
+2026-05-03 18:24:33,219 INFO app.agents.base agent=drug_interaction case=CONC-b8dac104 score=0.050 ms=0
+2026-05-03 18:24:33,219 INFO app.agents.base agent=lab_analysis case=CONC-b8dac104 score=0.050 ms=0
+2026-05-03 18:24:33,219 INFO app.agents.base agent=vitals case=CONC-b8dac104 score=0.050 ms=0
+2026-05-03 18:24:33,219 INFO app.agents.base agent=patient_context case=CONC-6b35dabe score=0.000 ms=0
+2026-05-03 18:24:33,220 INFO app.agents.base agent=diagnosis case=CONC-6b35dabe score=0.100 ms=0
+2026-05-03 18:24:33,220 INFO app.agents.base agent=drug_interaction case=CONC-6b35dabe score=0.050 ms=0
+2026-05-03 18:24:33,220 INFO app.agents.base agent=lab_analysis case=CONC-6b35dabe score=0.050 ms=0
+2026-05-03 18:24:33,220 INFO app.agents.base agent=vitals case=CONC-6b35dabe score=0.050 ms=0
+2026-05-03 18:24:33,220 INFO app.agents.base agent=patient_context case=CONC-e926e505 score=0.000 ms=0
+2026-05-03 18:24:33,221 INFO app.agents.base agent=diagnosis case=CONC-e926e505 score=0.100 ms=0
+2026-05-03 18:24:33,221 INFO app.agents.base agent=drug_interaction case=CONC-e926e505 score=0.050 ms=0
+2026-05-03 18:24:33,221 INFO app.agents.base agent=lab_analysis case=CONC-e926e505 score=0.050 ms=0
+2026-05-03 18:24:33,221 INFO app.agents.base agent=vitals case=CONC-e926e505 score=0.050 ms=0
+2026-05-03 18:24:33,221 INFO app.agents.base agent=patient_context case=CONC-5cceecbc score=0.000 ms=0
+2026-05-03 18:24:33,222 INFO app.agents.base agent=diagnosis case=CONC-5cceecbc score=0.100 ms=0
+2026-05-03 18:24:33,222 INFO app.agents.base agent=drug_interaction case=CONC-5cceecbc score=0.050 ms=0
+2026-05-03 18:24:33,222 INFO app.agents.base agent=lab_analysis case=CONC-5cceecbc score=0.050 ms=0
+2026-05-03 18:24:33,222 INFO app.agents.base agent=vitals case=CONC-5cceecbc score=0.050 ms=0
+2026-05-03 18:24:33,223 INFO app.agents.base agent=patient_context case=CONC-8a7e637e score=0.000 ms=0
+2026-05-03 18:24:33,223 INFO app.agents.base agent=diagnosis case=CONC-8a7e637e score=0.100 ms=0
+2026-05-03 18:24:33,223 INFO app.agents.base agent=drug_interaction case=CONC-8a7e637e score=0.050 ms=0
+2026-05-03 18:24:33,223 INFO app.agents.base agent=lab_analysis case=CONC-8a7e637e score=0.050 ms=0
+2026-05-03 18:24:33,223 INFO app.agents.base agent=vitals case=CONC-8a7e637e score=0.050 ms=0
+2026-05-03 18:24:33,224 INFO app.agents.base agent=patient_context case=CONC-880a7605 score=0.000 ms=0
+2026-05-03 18:24:33,224 INFO app.agents.base agent=diagnosis case=CONC-880a7605 score=0.100 ms=0
+2026-05-03 18:24:33,224 INFO app.agents.base agent=drug_interaction case=CONC-880a7605 score=0.050 ms=0
+2026-05-03 18:24:33,224 INFO app.agents.base agent=lab_analysis case=CONC-880a7605 score=0.050 ms=0
+2026-05-03 18:24:33,224 INFO app.agents.base agent=vitals case=CONC-880a7605 score=0.050 ms=0
+2026-05-03 18:24:33,225 INFO app.agents.base agent=patient_context case=CONC-6b90cbc3 score=0.000 ms=0
+2026-05-03 18:24:33,225 INFO app.agents.base agent=diagnosis case=CONC-6b90cbc3 score=0.100 ms=0
+2026-05-03 18:24:33,225 INFO app.agents.base agent=drug_interaction case=CONC-6b90cbc3 score=0.050 ms=0
+2026-05-03 18:24:33,225 INFO app.agents.base agent=lab_analysis case=CONC-6b90cbc3 score=0.050 ms=0
+2026-05-03 18:24:33,225 INFO app.agents.base agent=vitals case=CONC-6b90cbc3 score=0.050 ms=0
+2026-05-03 18:24:33,226 INFO app.agents.base agent=patient_context case=CONC-2dd7e57c score=0.000 ms=0
+2026-05-03 18:24:33,226 INFO app.agents.base agent=diagnosis case=CONC-2dd7e57c score=0.100 ms=0
+2026-05-03 18:24:33,226 INFO app.agents.base agent=drug_interaction case=CONC-2dd7e57c score=0.050 ms=0
+2026-05-03 18:24:33,226 INFO app.agents.base agent=lab_analysis case=CONC-2dd7e57c score=0.050 ms=0
+2026-05-03 18:24:33,226 INFO app.agents.base agent=vitals case=CONC-2dd7e57c score=0.050 ms=0
+2026-05-03 18:24:33,227 INFO app.agents.base agent=patient_context case=CONC-b8822ceb score=0.000 ms=0
+2026-05-03 18:24:33,227 INFO app.agents.base agent=diagnosis case=CONC-b8822ceb score=0.100 ms=0
+2026-05-03 18:24:33,227 INFO app.agents.base agent=drug_interaction case=CONC-b8822ceb score=0.050 ms=0
+2026-05-03 18:24:33,227 INFO app.agents.base agent=lab_analysis case=CONC-b8822ceb score=0.050 ms=0
+2026-05-03 18:24:33,228 INFO app.agents.base agent=vitals case=CONC-b8822ceb score=0.050 ms=0
+2026-05-03 18:24:33,228 INFO app.agents.base agent=patient_context case=CONC-ff7a3d58 score=0.000 ms=0
+2026-05-03 18:24:33,228 INFO app.agents.base agent=diagnosis case=CONC-ff7a3d58 score=0.100 ms=0
+2026-05-03 18:24:33,228 INFO app.agents.base agent=drug_interaction case=CONC-ff7a3d58 score=0.050 ms=0
+2026-05-03 18:24:33,228 INFO app.agents.base agent=lab_analysis case=CONC-ff7a3d58 score=0.050 ms=0
+2026-05-03 18:24:33,229 INFO app.agents.base agent=vitals case=CONC-ff7a3d58 score=0.050 ms=0
+2026-05-03 18:24:33,229 INFO app.agents.base agent=patient_context case=CONC-b6b22fd4 score=0.000 ms=0
+2026-05-03 18:24:33,229 INFO app.agents.base agent=diagnosis case=CONC-b6b22fd4 score=0.100 ms=0
+2026-05-03 18:24:33,229 INFO app.agents.base agent=drug_interaction case=CONC-b6b22fd4 score=0.050 ms=0
+2026-05-03 18:24:33,230 INFO app.agents.base agent=lab_analysis case=CONC-b6b22fd4 score=0.050 ms=0
+2026-05-03 18:24:33,230 INFO app.agents.base agent=vitals case=CONC-b6b22fd4 score=0.050 ms=0
+2026-05-03 18:24:33,230 INFO app.agents.base agent=patient_context case=CONC-221d9ce8 score=0.000 ms=0
+2026-05-03 18:24:33,230 INFO app.agents.base agent=diagnosis case=CONC-221d9ce8 score=0.100 ms=0
+2026-05-03 18:24:33,230 INFO app.agents.base agent=drug_interaction case=CONC-221d9ce8 score=0.050 ms=0
+2026-05-03 18:24:33,231 INFO app.agents.base agent=lab_analysis case=CONC-221d9ce8 score=0.050 ms=0
+2026-05-03 18:24:33,231 INFO app.agents.base agent=vitals case=CONC-221d9ce8 score=0.050 ms=0
+2026-05-03 18:24:33,231 INFO app.agents.base agent=patient_context case=CONC-4f81bc0c score=0.000 ms=0
+2026-05-03 18:24:33,231 INFO app.agents.base agent=diagnosis case=CONC-4f81bc0c score=0.100 ms=0
+2026-05-03 18:24:33,232 INFO app.agents.base agent=drug_interaction case=CONC-4f81bc0c score=0.050 ms=0
+2026-05-03 18:24:33,232 INFO app.agents.base agent=lab_analysis case=CONC-4f81bc0c score=0.050 ms=0
+2026-05-03 18:24:33,232 INFO app.agents.base agent=vitals case=CONC-4f81bc0c score=0.050 ms=0
+2026-05-03 18:24:33,232 INFO app.agents.base agent=patient_context case=CONC-13310ca2 score=0.000 ms=0
+2026-05-03 18:24:33,232 INFO app.agents.base agent=diagnosis case=CONC-13310ca2 score=0.100 ms=0
+2026-05-03 18:24:33,233 INFO app.agents.base agent=drug_interaction case=CONC-13310ca2 score=0.050 ms=0
+2026-05-03 18:24:33,233 INFO app.agents.base agent=lab_analysis case=CONC-13310ca2 score=0.050 ms=0
+2026-05-03 18:24:33,233 INFO app.agents.base agent=vitals case=CONC-13310ca2 score=0.050 ms=0
+2026-05-03 18:24:33,233 INFO app.agents.base agent=patient_context case=CONC-4877deba score=0.000 ms=0
+2026-05-03 18:24:33,234 INFO app.agents.base agent=diagnosis case=CONC-4877deba score=0.100 ms=0
+2026-05-03 18:24:33,234 INFO app.agents.base agent=drug_interaction case=CONC-4877deba score=0.050 ms=0
+2026-05-03 18:24:33,234 INFO app.agents.base agent=lab_analysis case=CONC-4877deba score=0.050 ms=0
+2026-05-03 18:24:33,234 INFO app.agents.base agent=vitals case=CONC-4877deba score=0.050 ms=0
+2026-05-03 18:24:33,234 INFO app.agents.base agent=patient_context case=CONC-10057b99 score=0.000 ms=0
+2026-05-03 18:24:33,235 INFO app.agents.base agent=diagnosis case=CONC-10057b99 score=0.100 ms=0
+2026-05-03 18:24:33,235 INFO app.agents.base agent=drug_interaction case=CONC-10057b99 score=0.050 ms=0
+2026-05-03 18:24:33,235 INFO app.agents.base agent=lab_analysis case=CONC-10057b99 score=0.050 ms=0
+2026-05-03 18:24:33,235 INFO app.agents.base agent=vitals case=CONC-10057b99 score=0.050 ms=0
+2026-05-03 18:24:33,235 INFO app.agents.base agent=patient_context case=CONC-e4a76d03 score=0.000 ms=0
+2026-05-03 18:24:33,236 INFO app.agents.base agent=diagnosis case=CONC-e4a76d03 score=0.100 ms=0
+2026-05-03 18:24:33,236 INFO app.agents.base agent=drug_interaction case=CONC-e4a76d03 score=0.050 ms=0
+2026-05-03 18:24:33,236 INFO app.agents.base agent=lab_analysis case=CONC-e4a76d03 score=0.050 ms=0
+2026-05-03 18:24:33,236 INFO app.agents.base agent=vitals case=CONC-e4a76d03 score=0.050 ms=0
+2026-05-03 18:24:33,236 INFO app.agents.base agent=patient_context case=CONC-e60ee67c score=0.000 ms=0
+2026-05-03 18:24:33,237 INFO app.agents.base agent=diagnosis case=CONC-e60ee67c score=0.100 ms=0
+2026-05-03 18:24:33,237 INFO app.agents.base agent=drug_interaction case=CONC-e60ee67c score=0.050 ms=0
+2026-05-03 18:24:33,237 INFO app.agents.base agent=lab_analysis case=CONC-e60ee67c score=0.050 ms=0
+2026-05-03 18:24:33,237 INFO app.agents.base agent=vitals case=CONC-e60ee67c score=0.050 ms=0
+2026-05-03 18:24:33,238 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-0c2055df risk=low score=0.065 ms=30
+2026-05-03 18:24:33,238 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-7a47e9e0 risk=low score=0.065 ms=30
+2026-05-03 18:24:33,238 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-b8dac104 risk=low score=0.065 ms=30
+2026-05-03 18:24:33,239 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-6b35dabe risk=low score=0.065 ms=30
+2026-05-03 18:24:33,239 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-e926e505 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,240 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-5cceecbc risk=low score=0.065 ms=29
+2026-05-03 18:24:33,240 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-8a7e637e risk=low score=0.065 ms=29
+2026-05-03 18:24:33,240 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-880a7605 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,241 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-6b90cbc3 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,241 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-2dd7e57c risk=low score=0.065 ms=29
+2026-05-03 18:24:33,242 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-b8822ceb risk=low score=0.065 ms=29
+2026-05-03 18:24:33,242 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-ff7a3d58 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,242 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-b6b22fd4 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,243 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-221d9ce8 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,243 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-4f81bc0c risk=low score=0.065 ms=29
+2026-05-03 18:24:33,243 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-13310ca2 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,244 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-4877deba risk=low score=0.065 ms=29
+2026-05-03 18:24:33,244 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-10057b99 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,245 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-e4a76d03 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,245 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-e60ee67c risk=low score=0.065 ms=29
+2026-05-03 18:24:33,249 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,250 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,250 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,251 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,251 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,251 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,252 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,252 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,252 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,252 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,253 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,253 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,253 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,253 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,254 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,254 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,254 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,254 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,255 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,255 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,322 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-c87cac8c patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,323 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-89073095 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,323 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-9f6555c0 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,324 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-6f3b9ce5 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,324 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-9ffb3806 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,324 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-6fb964a5 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,326 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-2f1fa3be patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,326 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-e6b546db patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,326 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-f0327dec patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,327 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-06aaeb28 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,327 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-4ebab9da patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,327 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-e600f9a5 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,328 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-8dc90cc4 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,328 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-d3e718e3 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,329 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-e052d8c9 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,329 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-6dcae6a2 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,329 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-2a0e59f8 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,330 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-c7b9f0cd patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,330 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-58c6e44f patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,330 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-e2fd8b71 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,331 INFO app.agents.base agent=patient_context case=CONC-c87cac8c score=0.000 ms=0
+2026-05-03 18:24:33,331 INFO app.agents.base agent=diagnosis case=CONC-c87cac8c score=0.100 ms=0
+2026-05-03 18:24:33,332 INFO app.agents.base agent=drug_interaction case=CONC-c87cac8c score=0.050 ms=0
+2026-05-03 18:24:33,332 INFO app.agents.base agent=lab_analysis case=CONC-c87cac8c score=0.050 ms=0
+2026-05-03 18:24:33,332 INFO app.agents.base agent=vitals case=CONC-c87cac8c score=0.050 ms=0
+2026-05-03 18:24:33,332 INFO app.agents.base agent=patient_context case=CONC-89073095 score=0.000 ms=0
+2026-05-03 18:24:33,333 INFO app.agents.base agent=diagnosis case=CONC-89073095 score=0.100 ms=0
+2026-05-03 18:24:33,333 INFO app.agents.base agent=drug_interaction case=CONC-89073095 score=0.050 ms=0
+2026-05-03 18:24:33,333 INFO app.agents.base agent=lab_analysis case=CONC-89073095 score=0.050 ms=0
+2026-05-03 18:24:33,333 INFO app.agents.base agent=vitals case=CONC-89073095 score=0.050 ms=0
+2026-05-03 18:24:33,333 INFO app.agents.base agent=patient_context case=CONC-9f6555c0 score=0.000 ms=0
+2026-05-03 18:24:33,334 INFO app.agents.base agent=diagnosis case=CONC-9f6555c0 score=0.100 ms=0
+2026-05-03 18:24:33,334 INFO app.agents.base agent=drug_interaction case=CONC-9f6555c0 score=0.050 ms=0
+2026-05-03 18:24:33,334 INFO app.agents.base agent=lab_analysis case=CONC-9f6555c0 score=0.050 ms=0
+2026-05-03 18:24:33,334 INFO app.agents.base agent=vitals case=CONC-9f6555c0 score=0.050 ms=0
+2026-05-03 18:24:33,335 INFO app.agents.base agent=patient_context case=CONC-6f3b9ce5 score=0.000 ms=0
+2026-05-03 18:24:33,335 INFO app.agents.base agent=diagnosis case=CONC-6f3b9ce5 score=0.100 ms=0
+2026-05-03 18:24:33,335 INFO app.agents.base agent=drug_interaction case=CONC-6f3b9ce5 score=0.050 ms=0
+2026-05-03 18:24:33,335 INFO app.agents.base agent=lab_analysis case=CONC-6f3b9ce5 score=0.050 ms=0
+2026-05-03 18:24:33,335 INFO app.agents.base agent=vitals case=CONC-6f3b9ce5 score=0.050 ms=0
+2026-05-03 18:24:33,336 INFO app.agents.base agent=patient_context case=CONC-9ffb3806 score=0.000 ms=0
+2026-05-03 18:24:33,336 INFO app.agents.base agent=diagnosis case=CONC-9ffb3806 score=0.100 ms=0
+2026-05-03 18:24:33,336 INFO app.agents.base agent=drug_interaction case=CONC-9ffb3806 score=0.050 ms=0
+2026-05-03 18:24:33,336 INFO app.agents.base agent=lab_analysis case=CONC-9ffb3806 score=0.050 ms=0
+2026-05-03 18:24:33,336 INFO app.agents.base agent=vitals case=CONC-9ffb3806 score=0.050 ms=0
+2026-05-03 18:24:33,337 INFO app.agents.base agent=patient_context case=CONC-6fb964a5 score=0.000 ms=0
+2026-05-03 18:24:33,337 INFO app.agents.base agent=diagnosis case=CONC-6fb964a5 score=0.100 ms=0
+2026-05-03 18:24:33,337 INFO app.agents.base agent=drug_interaction case=CONC-6fb964a5 score=0.050 ms=0
+2026-05-03 18:24:33,337 INFO app.agents.base agent=lab_analysis case=CONC-6fb964a5 score=0.050 ms=0
+2026-05-03 18:24:33,338 INFO app.agents.base agent=vitals case=CONC-6fb964a5 score=0.050 ms=0
+2026-05-03 18:24:33,338 INFO app.agents.base agent=patient_context case=CONC-2f1fa3be score=0.000 ms=0
+2026-05-03 18:24:33,338 INFO app.agents.base agent=diagnosis case=CONC-2f1fa3be score=0.100 ms=0
+2026-05-03 18:24:33,338 INFO app.agents.base agent=drug_interaction case=CONC-2f1fa3be score=0.050 ms=0
+2026-05-03 18:24:33,339 INFO app.agents.base agent=lab_analysis case=CONC-2f1fa3be score=0.050 ms=0
+2026-05-03 18:24:33,339 INFO app.agents.base agent=vitals case=CONC-2f1fa3be score=0.050 ms=0
+2026-05-03 18:24:33,339 INFO app.agents.base agent=patient_context case=CONC-e6b546db score=0.000 ms=0
+2026-05-03 18:24:33,339 INFO app.agents.base agent=diagnosis case=CONC-e6b546db score=0.100 ms=0
+2026-05-03 18:24:33,340 INFO app.agents.base agent=drug_interaction case=CONC-e6b546db score=0.050 ms=0
+2026-05-03 18:24:33,340 INFO app.agents.base agent=lab_analysis case=CONC-e6b546db score=0.050 ms=0
+2026-05-03 18:24:33,340 INFO app.agents.base agent=vitals case=CONC-e6b546db score=0.050 ms=0
+2026-05-03 18:24:33,340 INFO app.agents.base agent=patient_context case=CONC-f0327dec score=0.000 ms=0
+2026-05-03 18:24:33,340 INFO app.agents.base agent=diagnosis case=CONC-f0327dec score=0.100 ms=0
+2026-05-03 18:24:33,341 INFO app.agents.base agent=drug_interaction case=CONC-f0327dec score=0.050 ms=0
+2026-05-03 18:24:33,341 INFO app.agents.base agent=lab_analysis case=CONC-f0327dec score=0.050 ms=0
+2026-05-03 18:24:33,341 INFO app.agents.base agent=vitals case=CONC-f0327dec score=0.050 ms=0
+2026-05-03 18:24:33,341 INFO app.agents.base agent=patient_context case=CONC-06aaeb28 score=0.000 ms=0
+2026-05-03 18:24:33,342 INFO app.agents.base agent=diagnosis case=CONC-06aaeb28 score=0.100 ms=0
+2026-05-03 18:24:33,342 INFO app.agents.base agent=drug_interaction case=CONC-06aaeb28 score=0.050 ms=0
+2026-05-03 18:24:33,342 INFO app.agents.base agent=lab_analysis case=CONC-06aaeb28 score=0.050 ms=0
+2026-05-03 18:24:33,342 INFO app.agents.base agent=vitals case=CONC-06aaeb28 score=0.050 ms=0
+2026-05-03 18:24:33,342 INFO app.agents.base agent=patient_context case=CONC-4ebab9da score=0.000 ms=0
+2026-05-03 18:24:33,343 INFO app.agents.base agent=diagnosis case=CONC-4ebab9da score=0.100 ms=0
+2026-05-03 18:24:33,343 INFO app.agents.base agent=drug_interaction case=CONC-4ebab9da score=0.050 ms=0
+2026-05-03 18:24:33,343 INFO app.agents.base agent=lab_analysis case=CONC-4ebab9da score=0.050 ms=0
+2026-05-03 18:24:33,343 INFO app.agents.base agent=vitals case=CONC-4ebab9da score=0.050 ms=0
+2026-05-03 18:24:33,343 INFO app.agents.base agent=patient_context case=CONC-e600f9a5 score=0.000 ms=0
+2026-05-03 18:24:33,344 INFO app.agents.base agent=diagnosis case=CONC-e600f9a5 score=0.100 ms=0
+2026-05-03 18:24:33,344 INFO app.agents.base agent=drug_interaction case=CONC-e600f9a5 score=0.050 ms=0
+2026-05-03 18:24:33,344 INFO app.agents.base agent=lab_analysis case=CONC-e600f9a5 score=0.050 ms=0
+2026-05-03 18:24:33,344 INFO app.agents.base agent=vitals case=CONC-e600f9a5 score=0.050 ms=0
+2026-05-03 18:24:33,344 INFO app.agents.base agent=patient_context case=CONC-8dc90cc4 score=0.000 ms=0
+2026-05-03 18:24:33,345 INFO app.agents.base agent=diagnosis case=CONC-8dc90cc4 score=0.100 ms=0
+2026-05-03 18:24:33,345 INFO app.agents.base agent=drug_interaction case=CONC-8dc90cc4 score=0.050 ms=0
+2026-05-03 18:24:33,345 INFO app.agents.base agent=lab_analysis case=CONC-8dc90cc4 score=0.050 ms=0
+2026-05-03 18:24:33,345 INFO app.agents.base agent=vitals case=CONC-8dc90cc4 score=0.050 ms=0
+2026-05-03 18:24:33,345 INFO app.agents.base agent=patient_context case=CONC-d3e718e3 score=0.000 ms=0
+2026-05-03 18:24:33,346 INFO app.agents.base agent=diagnosis case=CONC-d3e718e3 score=0.100 ms=0
+2026-05-03 18:24:33,346 INFO app.agents.base agent=drug_interaction case=CONC-d3e718e3 score=0.050 ms=0
+2026-05-03 18:24:33,346 INFO app.agents.base agent=lab_analysis case=CONC-d3e718e3 score=0.050 ms=0
+2026-05-03 18:24:33,346 INFO app.agents.base agent=vitals case=CONC-d3e718e3 score=0.050 ms=0
+2026-05-03 18:24:33,346 INFO app.agents.base agent=patient_context case=CONC-e052d8c9 score=0.000 ms=0
+2026-05-03 18:24:33,347 INFO app.agents.base agent=diagnosis case=CONC-e052d8c9 score=0.100 ms=0
+2026-05-03 18:24:33,347 INFO app.agents.base agent=drug_interaction case=CONC-e052d8c9 score=0.050 ms=0
+2026-05-03 18:24:33,347 INFO app.agents.base agent=lab_analysis case=CONC-e052d8c9 score=0.050 ms=0
+2026-05-03 18:24:33,347 INFO app.agents.base agent=vitals case=CONC-e052d8c9 score=0.050 ms=0
+2026-05-03 18:24:33,347 INFO app.agents.base agent=patient_context case=CONC-6dcae6a2 score=0.000 ms=0
+2026-05-03 18:24:33,348 INFO app.agents.base agent=diagnosis case=CONC-6dcae6a2 score=0.100 ms=0
+2026-05-03 18:24:33,348 INFO app.agents.base agent=drug_interaction case=CONC-6dcae6a2 score=0.050 ms=0
+2026-05-03 18:24:33,348 INFO app.agents.base agent=lab_analysis case=CONC-6dcae6a2 score=0.050 ms=0
+2026-05-03 18:24:33,348 INFO app.agents.base agent=vitals case=CONC-6dcae6a2 score=0.050 ms=0
+2026-05-03 18:24:33,349 INFO app.agents.base agent=patient_context case=CONC-2a0e59f8 score=0.000 ms=0
+2026-05-03 18:24:33,349 INFO app.agents.base agent=diagnosis case=CONC-2a0e59f8 score=0.100 ms=0
+2026-05-03 18:24:33,349 INFO app.agents.base agent=drug_interaction case=CONC-2a0e59f8 score=0.050 ms=0
+2026-05-03 18:24:33,349 INFO app.agents.base agent=lab_analysis case=CONC-2a0e59f8 score=0.050 ms=0
+2026-05-03 18:24:33,349 INFO app.agents.base agent=vitals case=CONC-2a0e59f8 score=0.050 ms=0
+2026-05-03 18:24:33,350 INFO app.agents.base agent=patient_context case=CONC-c7b9f0cd score=0.000 ms=0
+2026-05-03 18:24:33,350 INFO app.agents.base agent=diagnosis case=CONC-c7b9f0cd score=0.100 ms=0
+2026-05-03 18:24:33,350 INFO app.agents.base agent=drug_interaction case=CONC-c7b9f0cd score=0.050 ms=0
+2026-05-03 18:24:33,350 INFO app.agents.base agent=lab_analysis case=CONC-c7b9f0cd score=0.050 ms=0
+2026-05-03 18:24:33,350 INFO app.agents.base agent=vitals case=CONC-c7b9f0cd score=0.050 ms=0
+2026-05-03 18:24:33,351 INFO app.agents.base agent=patient_context case=CONC-58c6e44f score=0.000 ms=0
+2026-05-03 18:24:33,351 INFO app.agents.base agent=diagnosis case=CONC-58c6e44f score=0.100 ms=0
+2026-05-03 18:24:33,351 INFO app.agents.base agent=drug_interaction case=CONC-58c6e44f score=0.050 ms=0
+2026-05-03 18:24:33,351 INFO app.agents.base agent=lab_analysis case=CONC-58c6e44f score=0.050 ms=0
+2026-05-03 18:24:33,351 INFO app.agents.base agent=vitals case=CONC-58c6e44f score=0.050 ms=0
+2026-05-03 18:24:33,352 INFO app.agents.base agent=patient_context case=CONC-e2fd8b71 score=0.000 ms=0
+2026-05-03 18:24:33,352 INFO app.agents.base agent=diagnosis case=CONC-e2fd8b71 score=0.100 ms=0
+2026-05-03 18:24:33,352 INFO app.agents.base agent=drug_interaction case=CONC-e2fd8b71 score=0.050 ms=0
+2026-05-03 18:24:33,352 INFO app.agents.base agent=lab_analysis case=CONC-e2fd8b71 score=0.050 ms=0
+2026-05-03 18:24:33,353 INFO app.agents.base agent=vitals case=CONC-e2fd8b71 score=0.050 ms=0
+2026-05-03 18:24:33,353 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-c87cac8c risk=low score=0.065 ms=30
+2026-05-03 18:24:33,353 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-89073095 risk=low score=0.065 ms=30
+2026-05-03 18:24:33,354 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-9f6555c0 risk=low score=0.065 ms=30
+2026-05-03 18:24:33,354 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-6f3b9ce5 risk=low score=0.065 ms=30
+2026-05-03 18:24:33,355 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-9ffb3806 risk=low score=0.065 ms=30
+2026-05-03 18:24:33,355 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-6fb964a5 risk=low score=0.065 ms=30
+2026-05-03 18:24:33,355 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-2f1fa3be risk=low score=0.065 ms=29
+2026-05-03 18:24:33,356 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-e6b546db risk=low score=0.065 ms=29
+2026-05-03 18:24:33,356 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-f0327dec risk=low score=0.065 ms=29
+2026-05-03 18:24:33,357 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-06aaeb28 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,357 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-4ebab9da risk=low score=0.065 ms=29
+2026-05-03 18:24:33,357 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-e600f9a5 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,358 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-8dc90cc4 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,358 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-d3e718e3 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,358 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-e052d8c9 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,359 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-6dcae6a2 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,359 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-2a0e59f8 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,359 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-c7b9f0cd risk=low score=0.065 ms=29
+2026-05-03 18:24:33,360 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-58c6e44f risk=low score=0.065 ms=29
+2026-05-03 18:24:33,360 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-e2fd8b71 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,364 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,365 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,366 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,366 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,366 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,367 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,367 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,367 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,367 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,368 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,368 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,368 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,369 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,369 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,369 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,369 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,370 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,370 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,370 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,370 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,463 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-AUDIT-5d4efdc4 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,463 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-AUDIT-873cd798 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,464 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-AUDIT-2f1589d7 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,464 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-AUDIT-4223d2f9 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,465 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-AUDIT-4eed63d3 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,465 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-AUDIT-d72bd64b patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,466 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-AUDIT-a03deca1 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,467 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-AUDIT-24a8df73 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,467 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-AUDIT-a0c8fa1c patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,467 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-AUDIT-1cf12739 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,468 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-AUDIT-73fb45a3 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,468 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-AUDIT-6f70aa6c patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,469 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-AUDIT-392dd266 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,469 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-AUDIT-17c6d983 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,469 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-AUDIT-62b6e521 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,470 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-AUDIT-de1c62f2 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,470 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-AUDIT-ad57d66a patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,470 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-AUDIT-c28a1d67 patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,471 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-AUDIT-c0e5349a patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,471 INFO app.orchestrator.orchestrator orchestrator.start case=CONC-AUDIT-a72e3a3f patient=DEPLOY-TEST-002
+2026-05-03 18:24:33,472 INFO app.agents.base agent=patient_context case=CONC-AUDIT-5d4efdc4 score=0.000 ms=0
+2026-05-03 18:24:33,472 INFO app.agents.base agent=diagnosis case=CONC-AUDIT-5d4efdc4 score=0.100 ms=0
+2026-05-03 18:24:33,472 INFO app.agents.base agent=drug_interaction case=CONC-AUDIT-5d4efdc4 score=0.050 ms=0
+2026-05-03 18:24:33,472 INFO app.agents.base agent=lab_analysis case=CONC-AUDIT-5d4efdc4 score=0.050 ms=0
+2026-05-03 18:24:33,473 INFO app.agents.base agent=vitals case=CONC-AUDIT-5d4efdc4 score=0.050 ms=0
+2026-05-03 18:24:33,473 INFO app.agents.base agent=patient_context case=CONC-AUDIT-873cd798 score=0.000 ms=0
+2026-05-03 18:24:33,473 INFO app.agents.base agent=diagnosis case=CONC-AUDIT-873cd798 score=0.100 ms=0
+2026-05-03 18:24:33,474 INFO app.agents.base agent=drug_interaction case=CONC-AUDIT-873cd798 score=0.050 ms=0
+2026-05-03 18:24:33,474 INFO app.agents.base agent=lab_analysis case=CONC-AUDIT-873cd798 score=0.050 ms=0
+2026-05-03 18:24:33,474 INFO app.agents.base agent=vitals case=CONC-AUDIT-873cd798 score=0.050 ms=0
+2026-05-03 18:24:33,474 INFO app.agents.base agent=patient_context case=CONC-AUDIT-2f1589d7 score=0.000 ms=0
+2026-05-03 18:24:33,475 INFO app.agents.base agent=diagnosis case=CONC-AUDIT-2f1589d7 score=0.100 ms=0
+2026-05-03 18:24:33,475 INFO app.agents.base agent=drug_interaction case=CONC-AUDIT-2f1589d7 score=0.050 ms=0
+2026-05-03 18:24:33,475 INFO app.agents.base agent=lab_analysis case=CONC-AUDIT-2f1589d7 score=0.050 ms=0
+2026-05-03 18:24:33,475 INFO app.agents.base agent=vitals case=CONC-AUDIT-2f1589d7 score=0.050 ms=0
+2026-05-03 18:24:33,475 INFO app.agents.base agent=patient_context case=CONC-AUDIT-4223d2f9 score=0.000 ms=0
+2026-05-03 18:24:33,476 INFO app.agents.base agent=diagnosis case=CONC-AUDIT-4223d2f9 score=0.100 ms=0
+2026-05-03 18:24:33,476 INFO app.agents.base agent=drug_interaction case=CONC-AUDIT-4223d2f9 score=0.050 ms=0
+2026-05-03 18:24:33,476 INFO app.agents.base agent=lab_analysis case=CONC-AUDIT-4223d2f9 score=0.050 ms=0
+2026-05-03 18:24:33,476 INFO app.agents.base agent=vitals case=CONC-AUDIT-4223d2f9 score=0.050 ms=0
+2026-05-03 18:24:33,476 INFO app.agents.base agent=patient_context case=CONC-AUDIT-4eed63d3 score=0.000 ms=0
+2026-05-03 18:24:33,477 INFO app.agents.base agent=diagnosis case=CONC-AUDIT-4eed63d3 score=0.100 ms=0
+2026-05-03 18:24:33,477 INFO app.agents.base agent=drug_interaction case=CONC-AUDIT-4eed63d3 score=0.050 ms=0
+2026-05-03 18:24:33,477 INFO app.agents.base agent=lab_analysis case=CONC-AUDIT-4eed63d3 score=0.050 ms=0
+2026-05-03 18:24:33,477 INFO app.agents.base agent=vitals case=CONC-AUDIT-4eed63d3 score=0.050 ms=0
+2026-05-03 18:24:33,477 INFO app.agents.base agent=patient_context case=CONC-AUDIT-d72bd64b score=0.000 ms=0
+2026-05-03 18:24:33,478 INFO app.agents.base agent=diagnosis case=CONC-AUDIT-d72bd64b score=0.100 ms=0
+2026-05-03 18:24:33,478 INFO app.agents.base agent=drug_interaction case=CONC-AUDIT-d72bd64b score=0.050 ms=0
+2026-05-03 18:24:33,478 INFO app.agents.base agent=lab_analysis case=CONC-AUDIT-d72bd64b score=0.050 ms=0
+2026-05-03 18:24:33,478 INFO app.agents.base agent=vitals case=CONC-AUDIT-d72bd64b score=0.050 ms=0
+2026-05-03 18:24:33,479 INFO app.agents.base agent=patient_context case=CONC-AUDIT-a03deca1 score=0.000 ms=0
+2026-05-03 18:24:33,479 INFO app.agents.base agent=diagnosis case=CONC-AUDIT-a03deca1 score=0.100 ms=0
+2026-05-03 18:24:33,479 INFO app.agents.base agent=drug_interaction case=CONC-AUDIT-a03deca1 score=0.050 ms=0
+2026-05-03 18:24:33,479 INFO app.agents.base agent=lab_analysis case=CONC-AUDIT-a03deca1 score=0.050 ms=0
+2026-05-03 18:24:33,479 INFO app.agents.base agent=vitals case=CONC-AUDIT-a03deca1 score=0.050 ms=0
+2026-05-03 18:24:33,480 INFO app.agents.base agent=patient_context case=CONC-AUDIT-24a8df73 score=0.000 ms=0
+2026-05-03 18:24:33,480 INFO app.agents.base agent=diagnosis case=CONC-AUDIT-24a8df73 score=0.100 ms=0
+2026-05-03 18:24:33,480 INFO app.agents.base agent=drug_interaction case=CONC-AUDIT-24a8df73 score=0.050 ms=0
+2026-05-03 18:24:33,480 INFO app.agents.base agent=lab_analysis case=CONC-AUDIT-24a8df73 score=0.050 ms=0
+2026-05-03 18:24:33,480 INFO app.agents.base agent=vitals case=CONC-AUDIT-24a8df73 score=0.050 ms=0
+2026-05-03 18:24:33,481 INFO app.agents.base agent=patient_context case=CONC-AUDIT-a0c8fa1c score=0.000 ms=0
+2026-05-03 18:24:33,481 INFO app.agents.base agent=diagnosis case=CONC-AUDIT-a0c8fa1c score=0.100 ms=0
+2026-05-03 18:24:33,481 INFO app.agents.base agent=drug_interaction case=CONC-AUDIT-a0c8fa1c score=0.050 ms=0
+2026-05-03 18:24:33,481 INFO app.agents.base agent=lab_analysis case=CONC-AUDIT-a0c8fa1c score=0.050 ms=0
+2026-05-03 18:24:33,481 INFO app.agents.base agent=vitals case=CONC-AUDIT-a0c8fa1c score=0.050 ms=0
+2026-05-03 18:24:33,482 INFO app.agents.base agent=patient_context case=CONC-AUDIT-1cf12739 score=0.000 ms=0
+2026-05-03 18:24:33,482 INFO app.agents.base agent=diagnosis case=CONC-AUDIT-1cf12739 score=0.100 ms=0
+2026-05-03 18:24:33,482 INFO app.agents.base agent=drug_interaction case=CONC-AUDIT-1cf12739 score=0.050 ms=0
+2026-05-03 18:24:33,482 INFO app.agents.base agent=lab_analysis case=CONC-AUDIT-1cf12739 score=0.050 ms=0
+2026-05-03 18:24:33,482 INFO app.agents.base agent=vitals case=CONC-AUDIT-1cf12739 score=0.050 ms=0
+2026-05-03 18:24:33,483 INFO app.agents.base agent=patient_context case=CONC-AUDIT-73fb45a3 score=0.000 ms=0
+2026-05-03 18:24:33,483 INFO app.agents.base agent=diagnosis case=CONC-AUDIT-73fb45a3 score=0.100 ms=0
+2026-05-03 18:24:33,483 INFO app.agents.base agent=drug_interaction case=CONC-AUDIT-73fb45a3 score=0.050 ms=0
+2026-05-03 18:24:33,483 INFO app.agents.base agent=lab_analysis case=CONC-AUDIT-73fb45a3 score=0.050 ms=0
+2026-05-03 18:24:33,484 INFO app.agents.base agent=vitals case=CONC-AUDIT-73fb45a3 score=0.050 ms=0
+2026-05-03 18:24:33,484 INFO app.agents.base agent=patient_context case=CONC-AUDIT-6f70aa6c score=0.000 ms=0
+2026-05-03 18:24:33,484 INFO app.agents.base agent=diagnosis case=CONC-AUDIT-6f70aa6c score=0.100 ms=0
+2026-05-03 18:24:33,484 INFO app.agents.base agent=drug_interaction case=CONC-AUDIT-6f70aa6c score=0.050 ms=0
+2026-05-03 18:24:33,484 INFO app.agents.base agent=lab_analysis case=CONC-AUDIT-6f70aa6c score=0.050 ms=0
+2026-05-03 18:24:33,485 INFO app.agents.base agent=vitals case=CONC-AUDIT-6f70aa6c score=0.050 ms=0
+2026-05-03 18:24:33,485 INFO app.agents.base agent=patient_context case=CONC-AUDIT-392dd266 score=0.000 ms=0
+2026-05-03 18:24:33,485 INFO app.agents.base agent=diagnosis case=CONC-AUDIT-392dd266 score=0.100 ms=0
+2026-05-03 18:24:33,485 INFO app.agents.base agent=drug_interaction case=CONC-AUDIT-392dd266 score=0.050 ms=0
+2026-05-03 18:24:33,486 INFO app.agents.base agent=lab_analysis case=CONC-AUDIT-392dd266 score=0.050 ms=0
+2026-05-03 18:24:33,486 INFO app.agents.base agent=vitals case=CONC-AUDIT-392dd266 score=0.050 ms=0
+2026-05-03 18:24:33,486 INFO app.agents.base agent=patient_context case=CONC-AUDIT-17c6d983 score=0.000 ms=0
+2026-05-03 18:24:33,486 INFO app.agents.base agent=diagnosis case=CONC-AUDIT-17c6d983 score=0.100 ms=0
+2026-05-03 18:24:33,487 INFO app.agents.base agent=drug_interaction case=CONC-AUDIT-17c6d983 score=0.050 ms=0
+2026-05-03 18:24:33,487 INFO app.agents.base agent=lab_analysis case=CONC-AUDIT-17c6d983 score=0.050 ms=0
+2026-05-03 18:24:33,487 INFO app.agents.base agent=vitals case=CONC-AUDIT-17c6d983 score=0.050 ms=0
+2026-05-03 18:24:33,487 INFO app.agents.base agent=patient_context case=CONC-AUDIT-62b6e521 score=0.000 ms=0
+2026-05-03 18:24:33,487 INFO app.agents.base agent=diagnosis case=CONC-AUDIT-62b6e521 score=0.100 ms=0
+2026-05-03 18:24:33,488 INFO app.agents.base agent=drug_interaction case=CONC-AUDIT-62b6e521 score=0.050 ms=0
+2026-05-03 18:24:33,488 INFO app.agents.base agent=lab_analysis case=CONC-AUDIT-62b6e521 score=0.050 ms=0
+2026-05-03 18:24:33,488 INFO app.agents.base agent=vitals case=CONC-AUDIT-62b6e521 score=0.050 ms=0
+2026-05-03 18:24:33,488 INFO app.agents.base agent=patient_context case=CONC-AUDIT-de1c62f2 score=0.000 ms=0
+2026-05-03 18:24:33,489 INFO app.agents.base agent=diagnosis case=CONC-AUDIT-de1c62f2 score=0.100 ms=0
+2026-05-03 18:24:33,489 INFO app.agents.base agent=drug_interaction case=CONC-AUDIT-de1c62f2 score=0.050 ms=0
+2026-05-03 18:24:33,489 INFO app.agents.base agent=lab_analysis case=CONC-AUDIT-de1c62f2 score=0.050 ms=0
+2026-05-03 18:24:33,489 INFO app.agents.base agent=vitals case=CONC-AUDIT-de1c62f2 score=0.050 ms=0
+2026-05-03 18:24:33,489 INFO app.agents.base agent=patient_context case=CONC-AUDIT-ad57d66a score=0.000 ms=0
+2026-05-03 18:24:33,490 INFO app.agents.base agent=diagnosis case=CONC-AUDIT-ad57d66a score=0.100 ms=0
+2026-05-03 18:24:33,490 INFO app.agents.base agent=drug_interaction case=CONC-AUDIT-ad57d66a score=0.050 ms=0
+2026-05-03 18:24:33,490 INFO app.agents.base agent=lab_analysis case=CONC-AUDIT-ad57d66a score=0.050 ms=0
+2026-05-03 18:24:33,490 INFO app.agents.base agent=vitals case=CONC-AUDIT-ad57d66a score=0.050 ms=0
+2026-05-03 18:24:33,490 INFO app.agents.base agent=patient_context case=CONC-AUDIT-c28a1d67 score=0.000 ms=0
+2026-05-03 18:24:33,491 INFO app.agents.base agent=diagnosis case=CONC-AUDIT-c28a1d67 score=0.100 ms=0
+2026-05-03 18:24:33,491 INFO app.agents.base agent=drug_interaction case=CONC-AUDIT-c28a1d67 score=0.050 ms=0
+2026-05-03 18:24:33,491 INFO app.agents.base agent=lab_analysis case=CONC-AUDIT-c28a1d67 score=0.050 ms=0
+2026-05-03 18:24:33,491 INFO app.agents.base agent=vitals case=CONC-AUDIT-c28a1d67 score=0.050 ms=0
+2026-05-03 18:24:33,491 INFO app.agents.base agent=patient_context case=CONC-AUDIT-c0e5349a score=0.000 ms=0
+2026-05-03 18:24:33,492 INFO app.agents.base agent=diagnosis case=CONC-AUDIT-c0e5349a score=0.100 ms=0
+2026-05-03 18:24:33,492 INFO app.agents.base agent=drug_interaction case=CONC-AUDIT-c0e5349a score=0.050 ms=0
+2026-05-03 18:24:33,492 INFO app.agents.base agent=lab_analysis case=CONC-AUDIT-c0e5349a score=0.050 ms=0
+2026-05-03 18:24:33,492 INFO app.agents.base agent=vitals case=CONC-AUDIT-c0e5349a score=0.050 ms=0
+2026-05-03 18:24:33,493 INFO app.agents.base agent=patient_context case=CONC-AUDIT-a72e3a3f score=0.000 ms=0
+2026-05-03 18:24:33,493 INFO app.agents.base agent=diagnosis case=CONC-AUDIT-a72e3a3f score=0.100 ms=0
+2026-05-03 18:24:33,493 INFO app.agents.base agent=drug_interaction case=CONC-AUDIT-a72e3a3f score=0.050 ms=0
+2026-05-03 18:24:33,493 INFO app.agents.base agent=lab_analysis case=CONC-AUDIT-a72e3a3f score=0.050 ms=0
+2026-05-03 18:24:33,493 INFO app.agents.base agent=vitals case=CONC-AUDIT-a72e3a3f score=0.050 ms=0
+2026-05-03 18:24:33,494 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-AUDIT-5d4efdc4 risk=low score=0.065 ms=30
+2026-05-03 18:24:33,494 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-AUDIT-873cd798 risk=low score=0.065 ms=30
+2026-05-03 18:24:33,495 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-AUDIT-2f1589d7 risk=low score=0.065 ms=30
+2026-05-03 18:24:33,495 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-AUDIT-4223d2f9 risk=low score=0.065 ms=30
+2026-05-03 18:24:33,495 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-AUDIT-4eed63d3 risk=low score=0.065 ms=30
+2026-05-03 18:24:33,496 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-AUDIT-d72bd64b risk=low score=0.065 ms=30
+2026-05-03 18:24:33,496 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-AUDIT-a03deca1 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,496 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-AUDIT-24a8df73 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,497 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-AUDIT-a0c8fa1c risk=low score=0.065 ms=29
+2026-05-03 18:24:33,497 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-AUDIT-1cf12739 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,498 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-AUDIT-73fb45a3 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,498 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-AUDIT-6f70aa6c risk=low score=0.065 ms=29
+2026-05-03 18:24:33,498 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-AUDIT-392dd266 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,499 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-AUDIT-17c6d983 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,499 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-AUDIT-62b6e521 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,499 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-AUDIT-de1c62f2 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,500 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-AUDIT-ad57d66a risk=low score=0.065 ms=29
+2026-05-03 18:24:33,500 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-AUDIT-c28a1d67 risk=low score=0.065 ms=29
+2026-05-03 18:24:33,501 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-AUDIT-c0e5349a risk=low score=0.065 ms=29
+2026-05-03 18:24:33,501 INFO app.orchestrator.orchestrator orchestrator.done case=CONC-AUDIT-a72e3a3f risk=low score=0.065 ms=29
+2026-05-03 18:24:33,505 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,505 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,506 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,507 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,507 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,507 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,508 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,508 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,508 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,509 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,509 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,509 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,510 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,510 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,510 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,511 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,511 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,511 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,512 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:33,512 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,015 INFO httpx HTTP Request: GET http://test/api/v1/audit?limit=25 "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,034 INFO app.orchestrator.orchestrator orchestrator.start case=LATENCY-f100a3f8 patient=DEPLOY-TEST-002
+2026-05-03 18:24:34,035 INFO app.orchestrator.orchestrator orchestrator.start case=LATENCY-3be191fd patient=DEPLOY-TEST-002
+2026-05-03 18:24:34,035 INFO app.orchestrator.orchestrator orchestrator.start case=LATENCY-52a640d7 patient=DEPLOY-TEST-002
+2026-05-03 18:24:34,035 INFO app.orchestrator.orchestrator orchestrator.start case=LATENCY-fc09819f patient=DEPLOY-TEST-002
+2026-05-03 18:24:34,036 INFO app.orchestrator.orchestrator orchestrator.start case=LATENCY-d447d248 patient=DEPLOY-TEST-002
+2026-05-03 18:24:34,036 INFO app.orchestrator.orchestrator orchestrator.start case=LATENCY-d5ff2dfc patient=DEPLOY-TEST-002
+2026-05-03 18:24:34,036 INFO app.orchestrator.orchestrator orchestrator.start case=LATENCY-22b35e70 patient=DEPLOY-TEST-002
+2026-05-03 18:24:34,037 INFO app.orchestrator.orchestrator orchestrator.start case=LATENCY-12ec8f19 patient=DEPLOY-TEST-002
+2026-05-03 18:24:34,038 INFO app.orchestrator.orchestrator orchestrator.start case=LATENCY-72783a06 patient=DEPLOY-TEST-002
+2026-05-03 18:24:34,038 INFO app.orchestrator.orchestrator orchestrator.start case=LATENCY-300c3d29 patient=DEPLOY-TEST-002
+2026-05-03 18:24:34,038 INFO app.orchestrator.orchestrator orchestrator.start case=LATENCY-06acf36d patient=DEPLOY-TEST-002
+2026-05-03 18:24:34,039 INFO app.orchestrator.orchestrator orchestrator.start case=LATENCY-23ebca13 patient=DEPLOY-TEST-002
+2026-05-03 18:24:34,039 INFO app.orchestrator.orchestrator orchestrator.start case=LATENCY-a5a756bd patient=DEPLOY-TEST-002
+2026-05-03 18:24:34,040 INFO app.orchestrator.orchestrator orchestrator.start case=LATENCY-c40fe876 patient=DEPLOY-TEST-002
+2026-05-03 18:24:34,040 INFO app.orchestrator.orchestrator orchestrator.start case=LATENCY-f6955ee5 patient=DEPLOY-TEST-002
+2026-05-03 18:24:34,040 INFO app.orchestrator.orchestrator orchestrator.start case=LATENCY-b37271f5 patient=DEPLOY-TEST-002
+2026-05-03 18:24:34,041 INFO app.orchestrator.orchestrator orchestrator.start case=LATENCY-f881d7b7 patient=DEPLOY-TEST-002
+2026-05-03 18:24:34,041 INFO app.orchestrator.orchestrator orchestrator.start case=LATENCY-a23a1d30 patient=DEPLOY-TEST-002
+2026-05-03 18:24:34,041 INFO app.orchestrator.orchestrator orchestrator.start case=LATENCY-82d844af patient=DEPLOY-TEST-002
+2026-05-03 18:24:34,042 INFO app.orchestrator.orchestrator orchestrator.start case=LATENCY-7be1f4c4 patient=DEPLOY-TEST-002
+2026-05-03 18:24:34,042 INFO app.agents.base agent=patient_context case=LATENCY-f100a3f8 score=0.000 ms=0
+2026-05-03 18:24:34,043 INFO app.agents.base agent=diagnosis case=LATENCY-f100a3f8 score=0.100 ms=0
+2026-05-03 18:24:34,043 INFO app.agents.base agent=drug_interaction case=LATENCY-f100a3f8 score=0.050 ms=0
+2026-05-03 18:24:34,043 INFO app.agents.base agent=lab_analysis case=LATENCY-f100a3f8 score=0.050 ms=0
+2026-05-03 18:24:34,043 INFO app.agents.base agent=vitals case=LATENCY-f100a3f8 score=0.050 ms=0
+2026-05-03 18:24:34,044 INFO app.agents.base agent=patient_context case=LATENCY-3be191fd score=0.000 ms=0
+2026-05-03 18:24:34,044 INFO app.agents.base agent=diagnosis case=LATENCY-3be191fd score=0.100 ms=0
+2026-05-03 18:24:34,044 INFO app.agents.base agent=drug_interaction case=LATENCY-3be191fd score=0.050 ms=0
+2026-05-03 18:24:34,044 INFO app.agents.base agent=lab_analysis case=LATENCY-3be191fd score=0.050 ms=0
+2026-05-03 18:24:34,044 INFO app.agents.base agent=vitals case=LATENCY-3be191fd score=0.050 ms=0
+2026-05-03 18:24:34,045 INFO app.agents.base agent=patient_context case=LATENCY-52a640d7 score=0.000 ms=0
+2026-05-03 18:24:34,045 INFO app.agents.base agent=diagnosis case=LATENCY-52a640d7 score=0.100 ms=0
+2026-05-03 18:24:34,045 INFO app.agents.base agent=drug_interaction case=LATENCY-52a640d7 score=0.050 ms=0
+2026-05-03 18:24:34,045 INFO app.agents.base agent=lab_analysis case=LATENCY-52a640d7 score=0.050 ms=0
+2026-05-03 18:24:34,046 INFO app.agents.base agent=vitals case=LATENCY-52a640d7 score=0.050 ms=0
+2026-05-03 18:24:34,046 INFO app.agents.base agent=patient_context case=LATENCY-fc09819f score=0.000 ms=0
+2026-05-03 18:24:34,046 INFO app.agents.base agent=diagnosis case=LATENCY-fc09819f score=0.100 ms=0
+2026-05-03 18:24:34,046 INFO app.agents.base agent=drug_interaction case=LATENCY-fc09819f score=0.050 ms=0
+2026-05-03 18:24:34,047 INFO app.agents.base agent=lab_analysis case=LATENCY-fc09819f score=0.050 ms=0
+2026-05-03 18:24:34,047 INFO app.agents.base agent=vitals case=LATENCY-fc09819f score=0.050 ms=0
+2026-05-03 18:24:34,047 INFO app.agents.base agent=patient_context case=LATENCY-d447d248 score=0.000 ms=0
+2026-05-03 18:24:34,047 INFO app.agents.base agent=diagnosis case=LATENCY-d447d248 score=0.100 ms=0
+2026-05-03 18:24:34,048 INFO app.agents.base agent=drug_interaction case=LATENCY-d447d248 score=0.050 ms=0
+2026-05-03 18:24:34,048 INFO app.agents.base agent=lab_analysis case=LATENCY-d447d248 score=0.050 ms=0
+2026-05-03 18:24:34,048 INFO app.agents.base agent=vitals case=LATENCY-d447d248 score=0.050 ms=0
+2026-05-03 18:24:34,048 INFO app.agents.base agent=patient_context case=LATENCY-d5ff2dfc score=0.000 ms=0
+2026-05-03 18:24:34,048 INFO app.agents.base agent=diagnosis case=LATENCY-d5ff2dfc score=0.100 ms=0
+2026-05-03 18:24:34,049 INFO app.agents.base agent=drug_interaction case=LATENCY-d5ff2dfc score=0.050 ms=0
+2026-05-03 18:24:34,049 INFO app.agents.base agent=lab_analysis case=LATENCY-d5ff2dfc score=0.050 ms=0
+2026-05-03 18:24:34,049 INFO app.agents.base agent=vitals case=LATENCY-d5ff2dfc score=0.050 ms=0
+2026-05-03 18:24:34,049 INFO app.agents.base agent=patient_context case=LATENCY-22b35e70 score=0.000 ms=0
+2026-05-03 18:24:34,050 INFO app.agents.base agent=diagnosis case=LATENCY-22b35e70 score=0.100 ms=0
+2026-05-03 18:24:34,050 INFO app.agents.base agent=drug_interaction case=LATENCY-22b35e70 score=0.050 ms=0
+2026-05-03 18:24:34,050 INFO app.agents.base agent=lab_analysis case=LATENCY-22b35e70 score=0.050 ms=0
+2026-05-03 18:24:34,050 INFO app.agents.base agent=vitals case=LATENCY-22b35e70 score=0.050 ms=0
+2026-05-03 18:24:34,050 INFO app.agents.base agent=patient_context case=LATENCY-12ec8f19 score=0.000 ms=0
+2026-05-03 18:24:34,051 INFO app.agents.base agent=diagnosis case=LATENCY-12ec8f19 score=0.100 ms=0
+2026-05-03 18:24:34,051 INFO app.agents.base agent=drug_interaction case=LATENCY-12ec8f19 score=0.050 ms=0
+2026-05-03 18:24:34,051 INFO app.agents.base agent=lab_analysis case=LATENCY-12ec8f19 score=0.050 ms=0
+2026-05-03 18:24:34,051 INFO app.agents.base agent=vitals case=LATENCY-12ec8f19 score=0.050 ms=0
+2026-05-03 18:24:34,051 INFO app.agents.base agent=patient_context case=LATENCY-72783a06 score=0.000 ms=0
+2026-05-03 18:24:34,052 INFO app.agents.base agent=diagnosis case=LATENCY-72783a06 score=0.100 ms=0
+2026-05-03 18:24:34,052 INFO app.agents.base agent=drug_interaction case=LATENCY-72783a06 score=0.050 ms=0
+2026-05-03 18:24:34,052 INFO app.agents.base agent=lab_analysis case=LATENCY-72783a06 score=0.050 ms=0
+2026-05-03 18:24:34,052 INFO app.agents.base agent=vitals case=LATENCY-72783a06 score=0.050 ms=0
+2026-05-03 18:24:34,052 INFO app.agents.base agent=patient_context case=LATENCY-300c3d29 score=0.000 ms=0
+2026-05-03 18:24:34,053 INFO app.agents.base agent=diagnosis case=LATENCY-300c3d29 score=0.100 ms=0
+2026-05-03 18:24:34,053 INFO app.agents.base agent=drug_interaction case=LATENCY-300c3d29 score=0.050 ms=0
+2026-05-03 18:24:34,053 INFO app.agents.base agent=lab_analysis case=LATENCY-300c3d29 score=0.050 ms=0
+2026-05-03 18:24:34,053 INFO app.agents.base agent=vitals case=LATENCY-300c3d29 score=0.050 ms=0
+2026-05-03 18:24:34,053 INFO app.agents.base agent=patient_context case=LATENCY-06acf36d score=0.000 ms=0
+2026-05-03 18:24:34,054 INFO app.agents.base agent=diagnosis case=LATENCY-06acf36d score=0.100 ms=0
+2026-05-03 18:24:34,054 INFO app.agents.base agent=drug_interaction case=LATENCY-06acf36d score=0.050 ms=0
+2026-05-03 18:24:34,054 INFO app.agents.base agent=lab_analysis case=LATENCY-06acf36d score=0.050 ms=0
+2026-05-03 18:24:34,054 INFO app.agents.base agent=vitals case=LATENCY-06acf36d score=0.050 ms=0
+2026-05-03 18:24:34,054 INFO app.agents.base agent=patient_context case=LATENCY-23ebca13 score=0.000 ms=0
+2026-05-03 18:24:34,055 INFO app.agents.base agent=diagnosis case=LATENCY-23ebca13 score=0.100 ms=0
+2026-05-03 18:24:34,055 INFO app.agents.base agent=drug_interaction case=LATENCY-23ebca13 score=0.050 ms=0
+2026-05-03 18:24:34,055 INFO app.agents.base agent=lab_analysis case=LATENCY-23ebca13 score=0.050 ms=0
+2026-05-03 18:24:34,055 INFO app.agents.base agent=vitals case=LATENCY-23ebca13 score=0.050 ms=0
+2026-05-03 18:24:34,056 INFO app.agents.base agent=patient_context case=LATENCY-a5a756bd score=0.000 ms=0
+2026-05-03 18:24:34,056 INFO app.agents.base agent=diagnosis case=LATENCY-a5a756bd score=0.100 ms=0
+2026-05-03 18:24:34,056 INFO app.agents.base agent=drug_interaction case=LATENCY-a5a756bd score=0.050 ms=0
+2026-05-03 18:24:34,056 INFO app.agents.base agent=lab_analysis case=LATENCY-a5a756bd score=0.050 ms=0
+2026-05-03 18:24:34,056 INFO app.agents.base agent=vitals case=LATENCY-a5a756bd score=0.050 ms=0
+2026-05-03 18:24:34,057 INFO app.agents.base agent=patient_context case=LATENCY-c40fe876 score=0.000 ms=0
+2026-05-03 18:24:34,057 INFO app.agents.base agent=diagnosis case=LATENCY-c40fe876 score=0.100 ms=0
+2026-05-03 18:24:34,057 INFO app.agents.base agent=drug_interaction case=LATENCY-c40fe876 score=0.050 ms=0
+2026-05-03 18:24:34,057 INFO app.agents.base agent=lab_analysis case=LATENCY-c40fe876 score=0.050 ms=0
+2026-05-03 18:24:34,057 INFO app.agents.base agent=vitals case=LATENCY-c40fe876 score=0.050 ms=0
+2026-05-03 18:24:34,058 INFO app.agents.base agent=patient_context case=LATENCY-f6955ee5 score=0.000 ms=0
+2026-05-03 18:24:34,058 INFO app.agents.base agent=diagnosis case=LATENCY-f6955ee5 score=0.100 ms=0
+2026-05-03 18:24:34,058 INFO app.agents.base agent=drug_interaction case=LATENCY-f6955ee5 score=0.050 ms=0
+2026-05-03 18:24:34,058 INFO app.agents.base agent=lab_analysis case=LATENCY-f6955ee5 score=0.050 ms=0
+2026-05-03 18:24:34,058 INFO app.agents.base agent=vitals case=LATENCY-f6955ee5 score=0.050 ms=0
+2026-05-03 18:24:34,059 INFO app.agents.base agent=patient_context case=LATENCY-b37271f5 score=0.000 ms=0
+2026-05-03 18:24:34,059 INFO app.agents.base agent=diagnosis case=LATENCY-b37271f5 score=0.100 ms=0
+2026-05-03 18:24:34,059 INFO app.agents.base agent=drug_interaction case=LATENCY-b37271f5 score=0.050 ms=0
+2026-05-03 18:24:34,059 INFO app.agents.base agent=lab_analysis case=LATENCY-b37271f5 score=0.050 ms=0
+2026-05-03 18:24:34,059 INFO app.agents.base agent=vitals case=LATENCY-b37271f5 score=0.050 ms=0
+2026-05-03 18:24:34,060 INFO app.agents.base agent=patient_context case=LATENCY-f881d7b7 score=0.000 ms=0
+2026-05-03 18:24:34,060 INFO app.agents.base agent=diagnosis case=LATENCY-f881d7b7 score=0.100 ms=0
+2026-05-03 18:24:34,060 INFO app.agents.base agent=drug_interaction case=LATENCY-f881d7b7 score=0.050 ms=0
+2026-05-03 18:24:34,060 INFO app.agents.base agent=lab_analysis case=LATENCY-f881d7b7 score=0.050 ms=0
+2026-05-03 18:24:34,061 INFO app.agents.base agent=vitals case=LATENCY-f881d7b7 score=0.050 ms=0
+2026-05-03 18:24:34,061 INFO app.agents.base agent=patient_context case=LATENCY-a23a1d30 score=0.000 ms=0
+2026-05-03 18:24:34,061 INFO app.agents.base agent=diagnosis case=LATENCY-a23a1d30 score=0.100 ms=0
+2026-05-03 18:24:34,061 INFO app.agents.base agent=drug_interaction case=LATENCY-a23a1d30 score=0.050 ms=0
+2026-05-03 18:24:34,061 INFO app.agents.base agent=lab_analysis case=LATENCY-a23a1d30 score=0.050 ms=0
+2026-05-03 18:24:34,062 INFO app.agents.base agent=vitals case=LATENCY-a23a1d30 score=0.050 ms=0
+2026-05-03 18:24:34,062 INFO app.agents.base agent=patient_context case=LATENCY-82d844af score=0.000 ms=0
+2026-05-03 18:24:34,062 INFO app.agents.base agent=diagnosis case=LATENCY-82d844af score=0.100 ms=0
+2026-05-03 18:24:34,062 INFO app.agents.base agent=drug_interaction case=LATENCY-82d844af score=0.050 ms=0
+2026-05-03 18:24:34,063 INFO app.agents.base agent=lab_analysis case=LATENCY-82d844af score=0.050 ms=0
+2026-05-03 18:24:34,063 INFO app.agents.base agent=vitals case=LATENCY-82d844af score=0.050 ms=0
+2026-05-03 18:24:34,063 INFO app.agents.base agent=patient_context case=LATENCY-7be1f4c4 score=0.000 ms=0
+2026-05-03 18:24:34,063 INFO app.agents.base agent=diagnosis case=LATENCY-7be1f4c4 score=0.100 ms=0
+2026-05-03 18:24:34,063 INFO app.agents.base agent=drug_interaction case=LATENCY-7be1f4c4 score=0.050 ms=0
+2026-05-03 18:24:34,064 INFO app.agents.base agent=lab_analysis case=LATENCY-7be1f4c4 score=0.050 ms=0
+2026-05-03 18:24:34,064 INFO app.agents.base agent=vitals case=LATENCY-7be1f4c4 score=0.050 ms=0
+2026-05-03 18:24:34,064 INFO app.orchestrator.orchestrator orchestrator.done case=LATENCY-f100a3f8 risk=low score=0.065 ms=30
+2026-05-03 18:24:34,065 INFO app.orchestrator.orchestrator orchestrator.done case=LATENCY-3be191fd risk=low score=0.065 ms=30
+2026-05-03 18:24:34,065 INFO app.orchestrator.orchestrator orchestrator.done case=LATENCY-52a640d7 risk=low score=0.065 ms=29
+2026-05-03 18:24:34,065 INFO app.orchestrator.orchestrator orchestrator.done case=LATENCY-fc09819f risk=low score=0.065 ms=30
+2026-05-03 18:24:34,066 INFO app.orchestrator.orchestrator orchestrator.done case=LATENCY-d447d248 risk=low score=0.065 ms=30
+2026-05-03 18:24:34,066 INFO app.orchestrator.orchestrator orchestrator.done case=LATENCY-d5ff2dfc risk=low score=0.065 ms=30
+2026-05-03 18:24:34,067 INFO app.orchestrator.orchestrator orchestrator.done case=LATENCY-22b35e70 risk=low score=0.065 ms=30
+2026-05-03 18:24:34,067 INFO app.orchestrator.orchestrator orchestrator.done case=LATENCY-12ec8f19 risk=low score=0.065 ms=29
+2026-05-03 18:24:34,067 INFO app.orchestrator.orchestrator orchestrator.done case=LATENCY-72783a06 risk=low score=0.065 ms=29
+2026-05-03 18:24:34,068 INFO app.orchestrator.orchestrator orchestrator.done case=LATENCY-300c3d29 risk=low score=0.065 ms=29
+2026-05-03 18:24:34,068 INFO app.orchestrator.orchestrator orchestrator.done case=LATENCY-06acf36d risk=low score=0.065 ms=29
+2026-05-03 18:24:34,068 INFO app.orchestrator.orchestrator orchestrator.done case=LATENCY-23ebca13 risk=low score=0.065 ms=29
+2026-05-03 18:24:34,069 INFO app.orchestrator.orchestrator orchestrator.done case=LATENCY-a5a756bd risk=low score=0.065 ms=29
+2026-05-03 18:24:34,069 INFO app.orchestrator.orchestrator orchestrator.done case=LATENCY-c40fe876 risk=low score=0.065 ms=29
+2026-05-03 18:24:34,070 INFO app.orchestrator.orchestrator orchestrator.done case=LATENCY-f6955ee5 risk=low score=0.065 ms=29
+2026-05-03 18:24:34,070 INFO app.orchestrator.orchestrator orchestrator.done case=LATENCY-b37271f5 risk=low score=0.065 ms=29
+2026-05-03 18:24:34,070 INFO app.orchestrator.orchestrator orchestrator.done case=LATENCY-f881d7b7 risk=low score=0.065 ms=29
+2026-05-03 18:24:34,071 INFO app.orchestrator.orchestrator orchestrator.done case=LATENCY-a23a1d30 risk=low score=0.065 ms=29
+2026-05-03 18:24:34,071 INFO app.orchestrator.orchestrator orchestrator.done case=LATENCY-82d844af risk=low score=0.065 ms=29
+2026-05-03 18:24:34,071 INFO app.orchestrator.orchestrator orchestrator.done case=LATENCY-7be1f4c4 risk=low score=0.065 ms=29
+2026-05-03 18:24:34,075 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,075 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,076 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,076 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,077 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,077 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,077 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,078 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,078 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,078 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,079 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,079 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,080 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,080 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,080 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,081 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,081 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,081 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,081 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,082 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,123 INFO app.a2a.adapter a2a.invoke trace_id=deploy-trace-c13d1e9c caller=deployment-test-suite capability=clinical_risk_analysis
+2026-05-03 18:24:34,124 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:34,124 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:34,125 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:34,125 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:34,126 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:34,126 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:34,126 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:34,127 INFO httpx HTTP Request: POST http://test/api/v1/a2a/invoke "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,139 INFO app.a2a.adapter a2a.invoke trace_id=deploy-trace-c13d1e9c caller=deployment-test-suite capability=clinical_risk_analysis
+2026-05-03 18:24:34,140 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:34,140 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:34,141 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:34,141 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:34,142 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:34,142 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:34,142 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:34,143 INFO httpx HTTP Request: POST http://test/api/v1/a2a/invoke "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,153 INFO app.a2a.adapter a2a.invoke trace_id=deploy-trace-c13d1e9c caller=deployment-test-suite capability=clinical_risk_analysis
+2026-05-03 18:24:34,153 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:34,154 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:34,154 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:34,155 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:34,155 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:34,156 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:34,156 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:34,157 INFO httpx HTTP Request: POST http://test/api/v1/a2a/invoke "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,169 INFO app.a2a.adapter a2a.invoke trace_id=deploy-trace-c13d1e9c caller=deployment-test-suite capability=clinical_risk_analysis
+2026-05-03 18:24:34,169 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:34,170 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:34,170 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:34,171 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:34,171 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:34,171 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:34,172 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:34,172 INFO httpx HTTP Request: POST http://test/api/v1/a2a/invoke "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,189 INFO app.a2a.adapter a2a.invoke trace_id=deploy-trace-c13d1e9c caller=deployment-test-suite capability=nonexistent_capability
+2026-05-03 18:24:34,189 INFO httpx HTTP Request: POST http://test/api/v1/a2a/invoke "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,200 INFO app.a2a.adapter a2a.invoke trace_id=0ad18bfa-2086-441f-893e-fc91df1388ab caller=deployment-test-suite capability=drug_interaction_check
+2026-05-03 18:24:34,201 INFO app.agents.base agent=drug_interaction case=drug-check-test score=0.400 ms=0
+2026-05-03 18:24:34,201 INFO httpx HTTP Request: POST http://test/api/v1/a2a/invoke "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,209 INFO httpx HTTP Request: GET http://test/api/v1/agent-card "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,218 INFO httpx HTTP Request: GET http://test/api/v1/health "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,227 INFO httpx HTTP Request: GET http://test/api/v1/a2a/health "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,236 INFO httpx HTTP Request: GET http://test/api/v1/a2a/health "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,246 INFO httpx HTTP Request: GET http://test/api/v1/a2a/health "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,256 INFO httpx HTTP Request: GET http://test/api/v1/a2a/health "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,264 INFO httpx HTTP Request: GET http://test/api/v1/a2a/health "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,274 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:34,275 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:34,275 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:34,276 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:34,276 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:34,277 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:34,277 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:34,278 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,289 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:34,290 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:34,290 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:34,291 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:34,291 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:34,292 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:34,292 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:34,293 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,308 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:34,309 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:34,309 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:34,310 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:34,311 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:34,311 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:34,311 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:34,312 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,324 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:34,325 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:34,326 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:34,326 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:34,327 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:34,327 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:34,327 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:34,328 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,341 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:34,341 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:34,342 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:34,343 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:34,343 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:34,343 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:34,344 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:34,344 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,356 INFO app.a2a.adapter a2a.invoke trace_id=deploy-trace-c13d1e9c caller=deployment-test-suite capability=clinical_risk_analysis
+2026-05-03 18:24:34,356 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:34,357 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:34,357 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:34,358 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:34,358 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:34,359 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:34,359 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:34,360 INFO httpx HTTP Request: POST http://test/api/v1/a2a/invoke "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,370 INFO app.orchestrator.orchestrator orchestrator.start case=DEPLOY-CRITICAL-dcd48ff9 patient=DEPLOY-TEST-001
+2026-05-03 18:24:34,370 INFO app.agents.base agent=patient_context case=DEPLOY-CRITICAL-dcd48ff9 score=0.000 ms=0
+2026-05-03 18:24:34,371 INFO app.agents.base agent=diagnosis case=DEPLOY-CRITICAL-dcd48ff9 score=0.850 ms=0
+2026-05-03 18:24:34,371 INFO app.agents.base agent=drug_interaction case=DEPLOY-CRITICAL-dcd48ff9 score=0.750 ms=0
+2026-05-03 18:24:34,372 INFO app.agents.base agent=lab_analysis case=DEPLOY-CRITICAL-dcd48ff9 score=1.000 ms=0
+2026-05-03 18:24:34,372 INFO app.agents.base agent=vitals case=DEPLOY-CRITICAL-dcd48ff9 score=0.050 ms=0
+2026-05-03 18:24:34,372 INFO app.orchestrator.orchestrator orchestrator.done case=DEPLOY-CRITICAL-dcd48ff9 risk=critical score=0.950 ms=2
+2026-05-03 18:24:34,373 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,576 INFO httpx HTTP Request: GET http://test/api/v1/audit/73fb25c6-7f3b-409c-98c1-e1399ed1be79 "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,583 INFO app.orchestrator.orchestrator orchestrator.start case=CASE-CRITICAL-001 patient=SYNTH-001
+2026-05-03 18:24:34,583 INFO app.agents.base agent=patient_context case=CASE-CRITICAL-001 score=0.000 ms=0
+2026-05-03 18:24:34,583 INFO app.agents.base agent=diagnosis case=CASE-CRITICAL-001 score=0.800 ms=0
+2026-05-03 18:24:34,584 INFO app.agents.base agent=drug_interaction case=CASE-CRITICAL-001 score=0.950 ms=0
+2026-05-03 18:24:34,584 INFO app.agents.base agent=lab_analysis case=CASE-CRITICAL-001 score=0.900 ms=0
+2026-05-03 18:24:34,584 INFO app.agents.base agent=vitals case=CASE-CRITICAL-001 score=0.850 ms=0
+2026-05-03 18:24:34,585 INFO app.orchestrator.orchestrator orchestrator.done case=CASE-CRITICAL-001 risk=critical score=1.000 ms=1
+2026-05-03 18:24:34,585 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,592 INFO app.orchestrator.orchestrator orchestrator.start case=CASE-LOW-001 patient=SYNTH-004
+2026-05-03 18:24:34,592 INFO app.agents.base agent=patient_context case=CASE-LOW-001 score=0.000 ms=0
+2026-05-03 18:24:34,592 INFO app.agents.base agent=diagnosis case=CASE-LOW-001 score=0.150 ms=0
+2026-05-03 18:24:34,593 INFO app.agents.base agent=drug_interaction case=CASE-LOW-001 score=0.500 ms=0
+2026-05-03 18:24:34,593 INFO app.agents.base agent=lab_analysis case=CASE-LOW-001 score=0.250 ms=0
+2026-05-03 18:24:34,593 INFO app.agents.base agent=vitals case=CASE-LOW-001 score=0.050 ms=0
+2026-05-03 18:24:34,593 INFO app.orchestrator.orchestrator orchestrator.done case=CASE-LOW-001 risk=low score=0.233 ms=1
+2026-05-03 18:24:34,594 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,600 INFO app.orchestrator.orchestrator orchestrator.start case=CASE-ALLERGY-001 patient=SYNTH-005
+2026-05-03 18:24:34,600 INFO app.agents.base agent=patient_context case=CASE-ALLERGY-001 score=0.000 ms=0
+2026-05-03 18:24:34,601 INFO app.agents.base agent=diagnosis case=CASE-ALLERGY-001 score=0.800 ms=0
+2026-05-03 18:24:34,601 INFO app.agents.base agent=drug_interaction case=CASE-ALLERGY-001 score=0.950 ms=0
+2026-05-03 18:24:34,601 INFO app.agents.base agent=lab_analysis case=CASE-ALLERGY-001 score=0.800 ms=0
+2026-05-03 18:24:34,602 INFO app.agents.base agent=vitals case=CASE-ALLERGY-001 score=0.900 ms=0
+2026-05-03 18:24:34,602 INFO app.orchestrator.orchestrator orchestrator.done case=CASE-ALLERGY-001 risk=critical score=0.863 ms=1
+2026-05-03 18:24:34,603 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,609 INFO app.orchestrator.orchestrator orchestrator.start case=CASE-MEDIUM-001 patient=SYNTH-003
+2026-05-03 18:24:34,609 INFO app.agents.base agent=patient_context case=CASE-MEDIUM-001 score=0.000 ms=0
+2026-05-03 18:24:34,609 INFO app.agents.base agent=diagnosis case=CASE-MEDIUM-001 score=0.300 ms=0
+2026-05-03 18:24:34,610 INFO app.agents.base agent=drug_interaction case=CASE-MEDIUM-001 score=0.500 ms=0
+2026-05-03 18:24:34,610 INFO app.agents.base agent=lab_analysis case=CASE-MEDIUM-001 score=0.250 ms=0
+2026-05-03 18:24:34,610 INFO app.agents.base agent=vitals case=CASE-MEDIUM-001 score=0.050 ms=0
+2026-05-03 18:24:34,611 INFO app.orchestrator.orchestrator orchestrator.done case=CASE-MEDIUM-001 risk=low score=0.278 ms=1
+2026-05-03 18:24:34,611 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,621 INFO app.orchestrator.orchestrator orchestrator.start case=CASE-CRITICAL-001 patient=SYNTH-001
+2026-05-03 18:24:34,621 INFO app.agents.base agent=patient_context case=CASE-CRITICAL-001 score=0.000 ms=0
+2026-05-03 18:24:34,621 INFO app.agents.base agent=diagnosis case=CASE-CRITICAL-001 score=0.800 ms=0
+2026-05-03 18:24:34,622 INFO app.agents.base agent=drug_interaction case=CASE-CRITICAL-001 score=0.950 ms=0
+2026-05-03 18:24:34,622 INFO app.agents.base agent=lab_analysis case=CASE-CRITICAL-001 score=0.900 ms=0
+2026-05-03 18:24:34,622 INFO app.agents.base agent=vitals case=CASE-CRITICAL-001 score=0.850 ms=0
+2026-05-03 18:24:34,623 INFO app.orchestrator.orchestrator orchestrator.done case=CASE-CRITICAL-001 risk=critical score=1.000 ms=1
+2026-05-03 18:24:34,623 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,631 INFO app.orchestrator.orchestrator orchestrator.start case=CASE-HIGH-001 patient=SYNTH-002
+2026-05-03 18:24:34,631 INFO app.agents.base agent=patient_context case=CASE-HIGH-001 score=0.000 ms=0
+2026-05-03 18:24:34,631 INFO app.agents.base agent=diagnosis case=CASE-HIGH-001 score=0.850 ms=0
+2026-05-03 18:24:34,632 INFO app.agents.base agent=drug_interaction case=CASE-HIGH-001 score=0.500 ms=0
+2026-05-03 18:24:34,632 INFO app.agents.base agent=lab_analysis case=CASE-HIGH-001 score=0.800 ms=0
+2026-05-03 18:24:34,632 INFO app.agents.base agent=vitals case=CASE-HIGH-001 score=0.050 ms=0
+2026-05-03 18:24:34,632 INFO app.orchestrator.orchestrator orchestrator.done case=CASE-HIGH-001 risk=medium score=0.552 ms=1
+2026-05-03 18:24:34,633 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,640 INFO app.orchestrator.orchestrator orchestrator.start case=CASE-LOW-001 patient=SYNTH-004
+2026-05-03 18:24:34,640 INFO app.agents.base agent=patient_context case=CASE-LOW-001 score=0.000 ms=0
+2026-05-03 18:24:34,640 INFO app.agents.base agent=diagnosis case=CASE-LOW-001 score=0.150 ms=0
+2026-05-03 18:24:34,641 INFO app.agents.base agent=drug_interaction case=CASE-LOW-001 score=0.500 ms=0
+2026-05-03 18:24:34,641 INFO app.agents.base agent=lab_analysis case=CASE-LOW-001 score=0.250 ms=0
+2026-05-03 18:24:34,641 INFO app.agents.base agent=vitals case=CASE-LOW-001 score=0.050 ms=0
+2026-05-03 18:24:34,641 INFO app.orchestrator.orchestrator orchestrator.done case=CASE-LOW-001 risk=low score=0.233 ms=1
+2026-05-03 18:24:34,642 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,648 INFO app.orchestrator.orchestrator orchestrator.start case=CASE-MEDIUM-001 patient=SYNTH-003
+2026-05-03 18:24:34,649 INFO app.agents.base agent=patient_context case=CASE-MEDIUM-001 score=0.000 ms=0
+2026-05-03 18:24:34,649 INFO app.agents.base agent=diagnosis case=CASE-MEDIUM-001 score=0.300 ms=0
+2026-05-03 18:24:34,649 INFO app.agents.base agent=drug_interaction case=CASE-MEDIUM-001 score=0.500 ms=0
+2026-05-03 18:24:34,649 INFO app.agents.base agent=lab_analysis case=CASE-MEDIUM-001 score=0.250 ms=0
+2026-05-03 18:24:34,650 INFO app.agents.base agent=vitals case=CASE-MEDIUM-001 score=0.050 ms=0
+2026-05-03 18:24:34,650 INFO app.orchestrator.orchestrator orchestrator.done case=CASE-MEDIUM-001 risk=low score=0.278 ms=1
+2026-05-03 18:24:34,651 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,657 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 422 Unprocessable Entity"
+2026-05-03 18:24:34,662 INFO app.a2a.adapter a2a.invoke trace_id=test-001 caller=pytest capability=clinical_risk_analysis
+2026-05-03 18:24:34,662 INFO app.orchestrator.orchestrator orchestrator.start case=CASE-CRITICAL-001 patient=SYNTH-001
+2026-05-03 18:24:34,662 INFO app.agents.base agent=patient_context case=CASE-CRITICAL-001 score=0.000 ms=0
+2026-05-03 18:24:34,663 INFO app.agents.base agent=diagnosis case=CASE-CRITICAL-001 score=0.800 ms=0
+2026-05-03 18:24:34,663 INFO app.agents.base agent=drug_interaction case=CASE-CRITICAL-001 score=0.950 ms=0
+2026-05-03 18:24:34,663 INFO app.agents.base agent=lab_analysis case=CASE-CRITICAL-001 score=0.900 ms=0
+2026-05-03 18:24:34,664 INFO app.agents.base agent=vitals case=CASE-CRITICAL-001 score=0.850 ms=0
+2026-05-03 18:24:34,664 INFO app.orchestrator.orchestrator orchestrator.done case=CASE-CRITICAL-001 risk=critical score=1.000 ms=1
+2026-05-03 18:24:34,665 INFO httpx HTTP Request: POST http://test/api/v1/a2a/invoke "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,671 INFO app.a2a.adapter a2a.invoke trace_id=test-002 caller=pytest capability=nonexistent_capability
+2026-05-03 18:24:34,671 INFO httpx HTTP Request: POST http://test/api/v1/a2a/invoke "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,675 INFO httpx HTTP Request: GET http://test/api/v1/agent-card "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,680 INFO app.a2a.adapter a2a.invoke trace_id=test-003 caller=pytest capability=drug_interaction_check
+2026-05-03 18:24:34,680 INFO app.agents.base agent=drug_interaction case=dc-test score=0.950 ms=0
+2026-05-03 18:24:34,681 INFO httpx HTTP Request: POST http://test/api/v1/a2a/invoke "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,685 INFO httpx HTTP Request: GET http://test/api/v1/health "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,689 INFO httpx HTTP Request: GET http://test/api/v1/a2a/health "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,693 INFO httpx HTTP Request: GET http://test/api/v1/impact "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,698 INFO app.orchestrator.orchestrator orchestrator.start case=CASE-LOW-001 patient=SYNTH-004
+2026-05-03 18:24:34,698 INFO app.agents.base agent=patient_context case=CASE-LOW-001 score=0.000 ms=0
+2026-05-03 18:24:34,698 INFO app.agents.base agent=diagnosis case=CASE-LOW-001 score=0.150 ms=0
+2026-05-03 18:24:34,699 INFO app.agents.base agent=drug_interaction case=CASE-LOW-001 score=0.500 ms=0
+2026-05-03 18:24:34,699 INFO app.agents.base agent=lab_analysis case=CASE-LOW-001 score=0.250 ms=0
+2026-05-03 18:24:34,699 INFO app.agents.base agent=vitals case=CASE-LOW-001 score=0.050 ms=0
+2026-05-03 18:24:34,699 INFO app.orchestrator.orchestrator orchestrator.done case=CASE-LOW-001 risk=low score=0.233 ms=1
+2026-05-03 18:24:34,700 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,701 INFO app.orchestrator.orchestrator orchestrator.start case=CASE-LOW-001 patient=SYNTH-004
+2026-05-03 18:24:34,702 INFO app.agents.base agent=patient_context case=CASE-LOW-001 score=0.000 ms=0
+2026-05-03 18:24:34,702 INFO app.agents.base agent=diagnosis case=CASE-LOW-001 score=0.150 ms=0
+2026-05-03 18:24:34,702 INFO app.agents.base agent=drug_interaction case=CASE-LOW-001 score=0.500 ms=0
+2026-05-03 18:24:34,702 INFO app.agents.base agent=lab_analysis case=CASE-LOW-001 score=0.250 ms=0
+2026-05-03 18:24:34,703 INFO app.agents.base agent=vitals case=CASE-LOW-001 score=0.050 ms=0
+2026-05-03 18:24:34,703 INFO app.orchestrator.orchestrator orchestrator.done case=CASE-LOW-001 risk=low score=0.233 ms=1
+2026-05-03 18:24:34,704 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,711 INFO app.orchestrator.orchestrator orchestrator.start case=CASE-LOW-001 patient=SYNTH-004
+2026-05-03 18:24:34,712 INFO app.agents.base agent=patient_context case=CASE-LOW-001 score=0.000 ms=0
+2026-05-03 18:24:34,712 INFO app.agents.base agent=diagnosis case=CASE-LOW-001 score=0.150 ms=0
+2026-05-03 18:24:34,712 INFO app.agents.base agent=drug_interaction case=CASE-LOW-001 score=0.500 ms=0
+2026-05-03 18:24:34,712 INFO app.agents.base agent=lab_analysis case=CASE-LOW-001 score=0.250 ms=0
+2026-05-03 18:24:34,713 INFO app.agents.base agent=vitals case=CASE-LOW-001 score=0.050 ms=0
+2026-05-03 18:24:34,713 INFO app.orchestrator.orchestrator orchestrator.done case=CASE-LOW-001 risk=low score=0.233 ms=1
+2026-05-03 18:24:34,714 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,715 INFO app.orchestrator.orchestrator orchestrator.start case=CASE-LOW-001 patient=SYNTH-004
+2026-05-03 18:24:34,715 INFO app.agents.base agent=patient_context case=CASE-LOW-001 score=0.000 ms=0
+2026-05-03 18:24:34,715 INFO app.agents.base agent=diagnosis case=CASE-LOW-001 score=0.150 ms=0
+2026-05-03 18:24:34,716 INFO app.agents.base agent=drug_interaction case=CASE-LOW-001 score=0.500 ms=0
+2026-05-03 18:24:34,716 INFO app.agents.base agent=lab_analysis case=CASE-LOW-001 score=0.250 ms=0
+2026-05-03 18:24:34,716 INFO app.agents.base agent=vitals case=CASE-LOW-001 score=0.050 ms=0
+2026-05-03 18:24:34,716 INFO app.orchestrator.orchestrator orchestrator.done case=CASE-LOW-001 risk=low score=0.233 ms=1
+2026-05-03 18:24:34,717 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,718 WARNING slowapi ratelimit 2 per 1 minute (127.0.0.1) exceeded at endpoint: /api/v1/analyze
+2026-05-03 18:24:34,719 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 429 Too Many Requests"
+2026-05-03 18:24:34,726 INFO app.orchestrator.orchestrator orchestrator.start case=CASE-LOW-001 patient=SYNTH-004
+2026-05-03 18:24:34,727 INFO app.agents.base agent=patient_context case=CASE-LOW-001 score=0.000 ms=0
+2026-05-03 18:24:34,727 INFO app.agents.base agent=diagnosis case=CASE-LOW-001 score=0.150 ms=0
+2026-05-03 18:24:34,727 INFO app.agents.base agent=drug_interaction case=CASE-LOW-001 score=0.500 ms=0
+2026-05-03 18:24:34,727 INFO app.agents.base agent=lab_analysis case=CASE-LOW-001 score=0.250 ms=0
+2026-05-03 18:24:34,728 INFO app.agents.base agent=vitals case=CASE-LOW-001 score=0.050 ms=0
+2026-05-03 18:24:34,728 INFO app.orchestrator.orchestrator orchestrator.done case=CASE-LOW-001 risk=low score=0.233 ms=1
+2026-05-03 18:24:34,728 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,730 WARNING slowapi ratelimit 1 per 1 minute (127.0.0.1) exceeded at endpoint: /api/v1/analyze
+2026-05-03 18:24:34,730 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 429 Too Many Requests"
+2026-05-03 18:24:34,736 INFO httpx HTTP Request: GET http://test/api/v1/audit "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,738 INFO httpx HTTP Request: GET http://test/api/v1/audit "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,742 INFO httpx HTTP Request: GET http://test/api/v1/audit "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,743 INFO httpx HTTP Request: GET http://test/api/v1/audit "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,743 WARNING slowapi ratelimit 2 per 1 minute (127.0.0.1) exceeded at endpoint: /api/v1/audit
+2026-05-03 18:24:34,744 INFO httpx HTTP Request: GET http://test/api/v1/audit "HTTP/1.1 429 Too Many Requests"
+2026-05-03 18:24:34,749 INFO app.a2a.adapter a2a.invoke trace_id=rl-test-001 caller=pytest capability=clinical_risk_analysis
+2026-05-03 18:24:34,749 INFO app.orchestrator.orchestrator orchestrator.start case=CASE-LOW-001 patient=SYNTH-004
+2026-05-03 18:24:34,749 INFO app.agents.base agent=patient_context case=CASE-LOW-001 score=0.000 ms=0
+2026-05-03 18:24:34,750 INFO app.agents.base agent=diagnosis case=CASE-LOW-001 score=0.150 ms=0
+2026-05-03 18:24:34,750 INFO app.agents.base agent=drug_interaction case=CASE-LOW-001 score=0.500 ms=0
+2026-05-03 18:24:34,750 INFO app.agents.base agent=lab_analysis case=CASE-LOW-001 score=0.250 ms=0
+2026-05-03 18:24:34,750 INFO app.agents.base agent=vitals case=CASE-LOW-001 score=0.050 ms=0
+2026-05-03 18:24:34,750 INFO app.orchestrator.orchestrator orchestrator.done case=CASE-LOW-001 risk=low score=0.233 ms=1
+2026-05-03 18:24:34,751 INFO httpx HTTP Request: POST http://test/api/v1/a2a/invoke "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,757 INFO app.a2a.adapter a2a.invoke trace_id=rl-test-001 caller=pytest capability=clinical_risk_analysis
+2026-05-03 18:24:34,757 INFO app.orchestrator.orchestrator orchestrator.start case=CASE-LOW-001 patient=SYNTH-004
+2026-05-03 18:24:34,757 INFO app.agents.base agent=patient_context case=CASE-LOW-001 score=0.000 ms=0
+2026-05-03 18:24:34,758 INFO app.agents.base agent=diagnosis case=CASE-LOW-001 score=0.150 ms=0
+2026-05-03 18:24:34,758 INFO app.agents.base agent=drug_interaction case=CASE-LOW-001 score=0.500 ms=0
+2026-05-03 18:24:34,758 INFO app.agents.base agent=lab_analysis case=CASE-LOW-001 score=0.250 ms=0
+2026-05-03 18:24:34,758 INFO app.agents.base agent=vitals case=CASE-LOW-001 score=0.050 ms=0
+2026-05-03 18:24:34,759 INFO app.orchestrator.orchestrator orchestrator.done case=CASE-LOW-001 risk=low score=0.233 ms=1
+2026-05-03 18:24:34,759 INFO httpx HTTP Request: POST http://test/api/v1/a2a/invoke "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,761 WARNING slowapi ratelimit 1 per 1 minute (127.0.0.1) exceeded at endpoint: /api/v1/a2a/invoke
+2026-05-03 18:24:34,762 INFO httpx HTTP Request: POST http://test/api/v1/a2a/invoke "HTTP/1.1 429 Too Many Requests"
+2026-05-03 18:24:34,769 INFO app.orchestrator.orchestrator orchestrator.start case=CASE-LOW-001 patient=SYNTH-004
+2026-05-03 18:24:34,770 INFO app.agents.base agent=patient_context case=CASE-LOW-001 score=0.000 ms=0
+2026-05-03 18:24:34,770 INFO app.agents.base agent=diagnosis case=CASE-LOW-001 score=0.150 ms=0
+2026-05-03 18:24:34,770 INFO app.agents.base agent=drug_interaction case=CASE-LOW-001 score=0.500 ms=0
+2026-05-03 18:24:34,771 INFO app.agents.base agent=lab_analysis case=CASE-LOW-001 score=0.250 ms=0
+2026-05-03 18:24:34,771 INFO app.agents.base agent=vitals case=CASE-LOW-001 score=0.050 ms=0
+2026-05-03 18:24:34,771 INFO app.orchestrator.orchestrator orchestrator.done case=CASE-LOW-001 risk=low score=0.233 ms=1
+2026-05-03 18:24:34,772 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,773 INFO app.orchestrator.orchestrator orchestrator.start case=CASE-LOW-001 patient=SYNTH-004
+2026-05-03 18:24:34,773 INFO app.agents.base agent=patient_context case=CASE-LOW-001 score=0.000 ms=0
+2026-05-03 18:24:34,773 INFO app.agents.base agent=diagnosis case=CASE-LOW-001 score=0.150 ms=0
+2026-05-03 18:24:34,774 INFO app.agents.base agent=drug_interaction case=CASE-LOW-001 score=0.500 ms=0
+2026-05-03 18:24:34,774 INFO app.agents.base agent=lab_analysis case=CASE-LOW-001 score=0.250 ms=0
+2026-05-03 18:24:34,774 INFO app.agents.base agent=vitals case=CASE-LOW-001 score=0.050 ms=0
+2026-05-03 18:24:34,775 INFO app.orchestrator.orchestrator orchestrator.done case=CASE-LOW-001 risk=low score=0.233 ms=1
+2026-05-03 18:24:34,775 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,776 INFO app.orchestrator.orchestrator orchestrator.start case=CASE-LOW-001 patient=SYNTH-004
+2026-05-03 18:24:34,777 INFO app.agents.base agent=patient_context case=CASE-LOW-001 score=0.000 ms=0
+2026-05-03 18:24:34,777 INFO app.agents.base agent=diagnosis case=CASE-LOW-001 score=0.150 ms=0
+2026-05-03 18:24:34,777 INFO app.agents.base agent=drug_interaction case=CASE-LOW-001 score=0.500 ms=0
+2026-05-03 18:24:34,778 INFO app.agents.base agent=lab_analysis case=CASE-LOW-001 score=0.250 ms=0
+2026-05-03 18:24:34,778 INFO app.agents.base agent=vitals case=CASE-LOW-001 score=0.050 ms=0
+2026-05-03 18:24:34,778 INFO app.orchestrator.orchestrator orchestrator.done case=CASE-LOW-001 risk=low score=0.233 ms=1
+2026-05-03 18:24:34,779 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,780 INFO app.orchestrator.orchestrator orchestrator.start case=CASE-LOW-001 patient=SYNTH-004
+2026-05-03 18:24:34,781 INFO app.agents.base agent=patient_context case=CASE-LOW-001 score=0.000 ms=0
+2026-05-03 18:24:34,781 INFO app.agents.base agent=diagnosis case=CASE-LOW-001 score=0.150 ms=0
+2026-05-03 18:24:34,781 INFO app.agents.base agent=drug_interaction case=CASE-LOW-001 score=0.500 ms=0
+2026-05-03 18:24:34,782 INFO app.agents.base agent=lab_analysis case=CASE-LOW-001 score=0.250 ms=0
+2026-05-03 18:24:34,782 INFO app.agents.base agent=vitals case=CASE-LOW-001 score=0.050 ms=0
+2026-05-03 18:24:34,782 INFO app.orchestrator.orchestrator orchestrator.done case=CASE-LOW-001 risk=low score=0.233 ms=1
+2026-05-03 18:24:34,783 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,784 INFO app.orchestrator.orchestrator orchestrator.start case=CASE-LOW-001 patient=SYNTH-004
+2026-05-03 18:24:34,785 INFO app.agents.base agent=patient_context case=CASE-LOW-001 score=0.000 ms=0
+2026-05-03 18:24:34,785 INFO app.agents.base agent=diagnosis case=CASE-LOW-001 score=0.150 ms=0
+2026-05-03 18:24:34,785 INFO app.agents.base agent=drug_interaction case=CASE-LOW-001 score=0.500 ms=0
+2026-05-03 18:24:34,786 INFO app.agents.base agent=lab_analysis case=CASE-LOW-001 score=0.250 ms=0
+2026-05-03 18:24:34,786 INFO app.agents.base agent=vitals case=CASE-LOW-001 score=0.050 ms=0
+2026-05-03 18:24:34,786 INFO app.orchestrator.orchestrator orchestrator.done case=CASE-LOW-001 risk=low score=0.233 ms=1
+2026-05-03 18:24:34,787 INFO httpx HTTP Request: POST http://test/api/v1/analyze "HTTP/1.1 200 OK"
+2026-05-03 18:24:34,809 WARNING app.safety.sanitize safety.input_injection_detected field=test_field pattern=ignore_previous
+2026-05-03 18:24:34,810 WARNING app.safety.sanitize safety.input_injection_detected field=test_field pattern=ignore_previous
+2026-05-03 18:24:34,811 WARNING app.safety.sanitize safety.input_injection_detected field=test_field pattern=ignore_previous
+2026-05-03 18:24:34,811 WARNING app.safety.sanitize safety.input_injection_detected field=test_field pattern=role_prefix_system
+2026-05-03 18:24:34,812 WARNING app.safety.sanitize safety.input_injection_detected field=test_field pattern=role_prefix_assistant
+2026-05-03 18:24:34,813 WARNING app.safety.sanitize safety.input_injection_detected field=test_field pattern=role_prefix_user
+2026-05-03 18:24:34,814 WARNING app.safety.sanitize safety.input_injection_detected field=test_field pattern=role_prefix_human
+2026-05-03 18:24:34,815 WARNING app.safety.sanitize safety.input_injection_detected field=test_field pattern=forget_instructions
+2026-05-03 18:24:34,816 WARNING app.safety.sanitize safety.input_injection_detected field=test_field pattern=forget_instructions
+2026-05-03 18:24:34,816 WARNING app.safety.sanitize safety.input_injection_detected field=test_field pattern=you_are_now
+2026-05-03 18:24:34,817 WARNING app.safety.sanitize safety.input_injection_detected field=test_field pattern=act_as
+2026-05-03 18:24:34,818 WARNING app.safety.sanitize safety.input_injection_detected field=test_field pattern=pretend_you_are
+2026-05-03 18:24:34,819 WARNING app.safety.sanitize safety.input_injection_detected field=test_field pattern=pretend_you_are
+2026-05-03 18:24:34,820 WARNING app.safety.sanitize safety.input_injection_detected field=test_field pattern=im_tokens
+2026-05-03 18:24:34,821 WARNING app.safety.sanitize safety.input_injection_detected field=test_field pattern=inst_tokens
+2026-05-03 18:24:34,821 WARNING app.safety.sanitize safety.input_injection_detected field=test_field pattern=xml_role_tags
+2026-05-03 18:24:34,822 WARNING app.safety.sanitize safety.input_injection_detected field=test_field pattern=xml_role_tags
+2026-05-03 18:24:34,823 WARNING app.safety.sanitize safety.input_injection_detected field=test_field pattern=new_instruction
+2026-05-03 18:24:34,824 WARNING app.safety.sanitize safety.input_injection_detected field=test_field pattern=override_instruction
+2026-05-03 18:24:34,825 WARNING app.safety.sanitize safety.input_injection_detected field=test_field pattern=override_instruction
+2026-05-03 18:24:34,826 WARNING app.safety.sanitize safety.input_injection_detected field=test_field pattern=disregard
+2026-05-03 18:24:34,827 WARNING app.safety.sanitize safety.input_injection_detected field=allergies[1] pattern=ignore_previous
+2026-05-03 18:24:34,831 WARNING app.safety.sanitize safety.prompt_injection_stripped field=allergy match='ignore previous'
+2026-05-03 18:24:34,832 WARNING app.safety.sanitize safety.prompt_injection_stripped field=unknown match='system:'
+2026-05-03 18:24:34,833 WARNING app.safety.sanitize safety.prompt_injection_stripped field=unknown match='override instructions'
+2026-05-03 18:24:34,833 WARNING app.safety.sanitize safety.prompt_injection_stripped field=unknown match='ignore all previous'
+2026-05-03 18:24:34,833 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='ignore previous'
+2026-05-03 18:24:34,833 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='ignore all previous'
+2026-05-03 18:24:34,834 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='IGNORE ALL PREVIOUS'
+2026-05-03 18:24:34,834 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='system:'
+2026-05-03 18:24:34,834 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='you are now'
+2026-05-03 18:24:34,834 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='assistant:'
+2026-05-03 18:24:34,834 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='user:'
+2026-05-03 18:24:34,834 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='human:'
+2026-05-03 18:24:34,834 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='disregard your '
+2026-05-03 18:24:34,834 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='forget everything'
+2026-05-03 18:24:34,834 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='forget all'
+2026-05-03 18:24:34,834 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='you are now'
+2026-05-03 18:24:34,834 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='act as a'
+2026-05-03 18:24:34,834 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='pretend you are'
+2026-05-03 18:24:34,835 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='pretend to be'
+2026-05-03 18:24:34,835 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='<|im_start|>'
+2026-05-03 18:24:34,835 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='[INST]'
+2026-05-03 18:24:34,835 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='[/INST]'
+2026-05-03 18:24:34,835 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='<system>'
+2026-05-03 18:24:34,835 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='</system>'
+2026-05-03 18:24:34,835 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='<assistant>'
+2026-05-03 18:24:34,835 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='</assistant>'
+2026-05-03 18:24:34,835 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='new instruction:'
+2026-05-03 18:24:34,835 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='override all instructions'
+2026-05-03 18:24:34,835 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='override previous instructions'
+2026-05-03 18:24:34,835 WARNING app.safety.sanitize safety.prompt_injection_stripped field=test match='disregard all '
+2026-05-03 18:24:34,837 WARNING app.safety.sanitize safety.input_injection_detected field=context.allergies[0] pattern=ignore_previous
+2026-05-03 18:24:34,838 WARNING app.safety.sanitize safety.input_injection_detected field=context.comorbidities[0] pattern=role_prefix_system
+2026-05-03 18:24:34,841 WARNING app.safety.sanitize safety.input_injection_detected field=diagnosis.description pattern=ignore_previous
+2026-05-03 18:24:34,843 WARNING app.safety.sanitize safety.input_injection_detected field=medication.name pattern=role_prefix_system
+2026-05-03 18:24:34,843 WARNING app.safety.sanitize safety.input_injection_detected field=medication.frequency pattern=ignore_previous
+2026-05-03 18:24:34,844 WARNING app.safety.sanitize safety.input_injection_detected field=medication.route pattern=you_are_now
+2026-05-03 18:24:34,846 WARNING app.safety.sanitize safety.input_injection_detected field=lab_result.test_name pattern=ignore_previous
+2026-05-03 18:24:34,847 WARNING app.safety.sanitize safety.input_injection_detected field=lab_result.unit pattern=role_prefix_system
+2026-05-03 18:24:34,848 WARNING app.safety.sanitize safety.input_injection_detected field=vital_sign.sign_name pattern=you_are_now
+2026-05-03 18:24:34,849 WARNING app.safety.sanitize safety.input_injection_detected field=vital_sign.unit pattern=inst_tokens
+2026-05-03 18:24:34,851 WARNING app.safety.sanitize safety.input_injection_detected field=clinical_notes pattern=ignore_previous
+2026-05-03 18:24:34,853 WARNING app.safety.sanitize safety.prompt_injection_stripped field=allergy match='ignore previous'
+2026-05-03 18:24:34,853 WARNING app.safety.sanitize safety.prompt_injection_stripped field=comorbidity match='system:'
+2026-05-03 18:24:34,853 WARNING app.safety.sanitize safety.prompt_injection_stripped field=comorbidity match='you are now'
+2026-05-03 18:24:34,854 WARNING app.safety.sanitize safety.prompt_injection_stripped field=diagnosis.description match='ignore previous'
