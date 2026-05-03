@@ -19,15 +19,6 @@ from app.safety.email_guard import _is_trusted_sender
 # Helpers
 # ---------------------------------------------------------------------------
 
-def _with_trusted(domains: str):
-    """Context manager: temporarily override ``settings.trusted_sender_domains``."""
-    return patch("app.safety.email_guard.settings", **{"trusted_sender_domains": domains})
-
-
-# The canonical trusted domain used across tests.
-TRUSTED = "company.com"
-TRUSTED_SETTING = "company.com"
-
 
 # ---------------------------------------------------------------------------
 # Valid senders
