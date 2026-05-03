@@ -14,6 +14,7 @@ a fresh UUID is returned for every request.  Since each request has its own
 unique bucket, no counter ever reaches a configured limit — effectively
 disabling enforcement without changing any decorator signatures.
 """
+
 from __future__ import annotations
 
 import uuid

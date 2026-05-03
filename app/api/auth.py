@@ -22,12 +22,13 @@ Security notes
 * Public endpoints (/health, /agent-card, /a2a/schema, /a2a/capabilities,
   /a2a/health) intentionally do *not* use this dependency.
 """
+
 from __future__ import annotations
 
 import logging
 import secrets
 
-from fastapi import Depends, Header, HTTPException
+from fastapi import Header, HTTPException
 
 from app.config import settings
 

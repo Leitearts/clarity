@@ -1,5 +1,4 @@
 from __future__ import annotations
-import time
 from fastapi import APIRouter, Depends, HTTPException, Request, Query
 from app.api.auth import require_api_key
 from app.api.limiter import limiter
@@ -47,7 +46,9 @@ async def health():
 async def get_audit(analysis_id: str, request: Request):
     record = await request.app.state.audit_logger.get(analysis_id)
     if not record:
-        raise HTTPException(status_code=404, detail=f"Audit record not found: {analysis_id}")
+        raise HTTPException(
+            status_code=404, detail=f"Audit record not found: {analysis_id}"
+        )
     return record
 
 
