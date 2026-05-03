@@ -6,6 +6,7 @@ Covers:
 - Public endpoints remain accessible without any key.
 - Auth is a no-op when CLARITY_API_KEY is not configured (backward compat).
 """
+
 from __future__ import annotations
 
 import pytest
@@ -36,7 +37,11 @@ _ANALYZE_PAYLOAD = {
         "allergies": [],
     },
     "diagnoses": [
-        {"code": "J06.9", "description": "Upper respiratory infection", "is_primary": True},
+        {
+            "code": "J06.9",
+            "description": "Upper respiratory infection",
+            "is_primary": True,
+        },
     ],
     "medications": [],
     "lab_results": [],
@@ -53,6 +58,7 @@ _A2A_PAYLOAD = {
 # ---------------------------------------------------------------------------
 # Fixtures
 # ---------------------------------------------------------------------------
+
 
 @pytest_asyncio.fixture
 async def authed_client():
@@ -131,6 +137,7 @@ async def unconfigured_client():
 # Helper to mock LLM so we don't need a real Anthropic key
 # ---------------------------------------------------------------------------
 
+
 @pytest.fixture
 def mock_llm():
     with patch("app.llm.service.LLMService.complete", new_callable=AsyncMock) as mock:
@@ -173,8 +180,8 @@ def mock_llm():
 # 403 when key is configured and request provides no key
 # ---------------------------------------------------------------------------
 
-class TestUnauthorizedRequests:
 
+class TestUnauthorizedRequests:
     @pytest.mark.asyncio
     async def test_analyze_no_key_returns_403(self, unauthed_client):
         resp = await unauthed_client.post("/api/v1/analyze", json=_ANALYZE_PAYLOAD)
@@ -223,8 +230,8 @@ class TestUnauthorizedRequests:
 # 200 when key is configured and request provides the correct key
 # ---------------------------------------------------------------------------
 
-class TestAuthorizedRequests:
 
+class TestAuthorizedRequests:
     @pytest.mark.asyncio
     async def test_analyze_with_key_succeeds(self, authed_client, mock_llm):
         resp = await authed_client.post("/api/v1/analyze", json=_ANALYZE_PAYLOAD)
@@ -250,8 +257,8 @@ class TestAuthorizedRequests:
 # Public endpoints remain accessible without any key (even when key is set)
 # ---------------------------------------------------------------------------
 
-class TestPublicEndpoints:
 
+class TestPublicEndpoints:
     @pytest.mark.asyncio
     async def test_health_no_key(self, unauthed_client):
         resp = await unauthed_client.get("/api/v1/health")
@@ -282,8 +289,8 @@ class TestPublicEndpoints:
 # Backward compatibility: no key configured → all requests pass through
 # ---------------------------------------------------------------------------
 
-class TestUnconfiguredAuth:
 
+class TestUnconfiguredAuth:
     @pytest.mark.asyncio
     async def test_analyze_no_config_passes(self, unconfigured_client, mock_llm):
         resp = await unconfigured_client.post("/api/v1/analyze", json=_ANALYZE_PAYLOAD)
