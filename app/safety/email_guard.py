@@ -12,6 +12,7 @@ Security notes
 * Normalises all domains to lowercase before comparison.
 * Returns ``False`` — never raises — for any malformed or empty input.
 """
+
 from __future__ import annotations
 
 import email.utils
@@ -30,11 +31,7 @@ def _get_trusted_domains() -> frozenset[str]:
     from app.config import settings
 
     raw = settings.trusted_sender_domains
-    return frozenset(
-        part.lower().strip()
-        for part in raw.split(",")
-        if part.strip()
-    )
+    return frozenset(part.lower().strip() for part in raw.split(",") if part.strip())
 
 
 def _is_trusted_sender(email_address: str) -> bool:
@@ -84,5 +81,7 @@ def _is_trusted_sender(email_address: str) -> bool:
         return domain_lower in trusted
 
     except Exception:  # pragma: no cover — belt-and-suspenders safety net
-        logger.warning("email_guard._is_trusted_sender raised unexpectedly", exc_info=True)
+        logger.warning(
+            "email_guard._is_trusted_sender raised unexpectedly", exc_info=True
+        )
         return False

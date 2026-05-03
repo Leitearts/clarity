@@ -17,7 +17,9 @@ class Diagnosis(BaseModel):
     def validate_icd10(cls, v: str) -> str:
         v = v.strip().upper()
         if not re.match(r"^[A-Z]\d{2}(\.\d{1,4})?$", v):
-            raise ValueError(f"Invalid ICD-10 code: '{v}'. Expected format: A00 or A00.0")
+            raise ValueError(
+                f"Invalid ICD-10 code: '{v}'. Expected format: A00 or A00.0"
+            )
         return v
 
     @field_validator("description")
@@ -111,7 +113,7 @@ class PatientContext(BaseModel):
     comorbidities: list[str] = Field(default_factory=list)
     care_setting: str = Field(
         default="inpatient",
-        pattern="^(inpatient|outpatient|icu|emergency|primary_care)$"
+        pattern="^(inpatient|outpatient|icu|emergency|primary_care)$",
     )
 
     @field_validator("allergies")

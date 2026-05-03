@@ -43,6 +43,7 @@ class RiskScore(BaseModel):
     @property
     def level(self) -> RiskLevel:
         from app.config import settings
+
         s = self.total_score
         if s >= settings.threshold_critical:
             return RiskLevel.CRITICAL
@@ -56,16 +57,28 @@ class RiskScore(BaseModel):
     @property
     def contributions(self) -> list[AgentContribution]:
         return [
-            AgentContribution(agent_type="diagnosis", raw_score=self.diagnosis_score,
-                              weight=self.w_diagnosis,
-                              weighted_score=round(self.w_diagnosis * self.diagnosis_score, 4)),
-            AgentContribution(agent_type="drug_interaction", raw_score=self.medication_score,
-                              weight=self.w_medication,
-                              weighted_score=round(self.w_medication * self.medication_score, 4)),
-            AgentContribution(agent_type="lab_analysis", raw_score=self.lab_score,
-                              weight=self.w_lab,
-                              weighted_score=round(self.w_lab * self.lab_score, 4)),
-            AgentContribution(agent_type="vitals", raw_score=self.vitals_score,
-                              weight=self.w_vitals,
-                              weighted_score=round(self.w_vitals * self.vitals_score, 4)),
+            AgentContribution(
+                agent_type="diagnosis",
+                raw_score=self.diagnosis_score,
+                weight=self.w_diagnosis,
+                weighted_score=round(self.w_diagnosis * self.diagnosis_score, 4),
+            ),
+            AgentContribution(
+                agent_type="drug_interaction",
+                raw_score=self.medication_score,
+                weight=self.w_medication,
+                weighted_score=round(self.w_medication * self.medication_score, 4),
+            ),
+            AgentContribution(
+                agent_type="lab_analysis",
+                raw_score=self.lab_score,
+                weight=self.w_lab,
+                weighted_score=round(self.w_lab * self.lab_score, 4),
+            ),
+            AgentContribution(
+                agent_type="vitals",
+                raw_score=self.vitals_score,
+                weight=self.w_vitals,
+                weighted_score=round(self.w_vitals * self.vitals_score, 4),
+            ),
         ]

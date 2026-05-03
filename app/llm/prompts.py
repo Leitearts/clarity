@@ -1,5 +1,11 @@
 from __future__ import annotations
-from app.models.patient import Diagnosis, Medication, LabResult, PatientContext, VitalSign
+from app.models.patient import (
+    Diagnosis,
+    Medication,
+    LabResult,
+    PatientContext,
+    VitalSign,
+)
 from app.safety.sanitize import safe_embed as _se
 
 DIAGNOSIS_SYSTEM = """\
@@ -97,7 +103,11 @@ def build_drug_prompt(
         f" {_se(m.frequency, 'medication.frequency')} ({_se(m.route, 'medication.route')})"
         for m in medications
     )
-    allergy_str = ", ".join(_se(a, "allergy") for a in allergies) if allergies else "None documented"
+    allergy_str = (
+        ", ".join(_se(a, "allergy") for a in allergies)
+        if allergies
+        else "None documented"
+    )
     diag_codes = ", ".join(d.code for d in diagnoses)
     return f"""\
 Analyze the following medication list for safety concerns.
@@ -123,11 +133,14 @@ Return a JSON object with EXACTLY this structure:
 
 
 def build_lab_prompt(lab_results: list[LabResult], context: PatientContext) -> str:
-    lab_list = "\n".join(
-        f"  - {_se(l.test_name, 'lab.test_name')}: {l.value} {_se(l.unit, 'lab.unit')}"
-        f" (ref: {l.reference_low}-{l.reference_high})"
-        for l in lab_results
-    ) or "  None provided"
+    lab_list = (
+        "\n".join(
+            f"  - {_se(l.test_name, 'lab.test_name')}: {l.value} {_se(l.unit, 'lab.unit')}"
+            f" (ref: {l.reference_low}-{l.reference_high})"
+            for l in lab_results
+        )
+        or "  None provided"
+    )
     return f"""\
 Analyze the following lab results for clinical significance.
 
@@ -150,11 +163,14 @@ Return a JSON object with EXACTLY this structure:
 
 
 def build_vitals_prompt(vitals: list[VitalSign], context: PatientContext) -> str:
-    vitals_list = "\n".join(
-        f"  - {_se(v.sign_name, 'vital.sign_name')}: {v.value} {_se(v.unit, 'vital.unit')}"
-        f" (ref: {v.reference_low}-{v.reference_high})"
-        for v in vitals
-    ) or "  None provided"
+    vitals_list = (
+        "\n".join(
+            f"  - {_se(v.sign_name, 'vital.sign_name')}: {v.value} {_se(v.unit, 'vital.unit')}"
+            f" (ref: {v.reference_low}-{v.reference_high})"
+            for v in vitals
+        )
+        or "  None provided"
+    )
     return f"""\
 Analyze the following vital signs for clinical significance and hemodynamic stability.
 
@@ -180,11 +196,13 @@ Return a JSON object with EXACTLY this structure:
 def build_context_prompt(context: PatientContext) -> str:
     comorbidity_str = (
         ", ".join(_se(c, "comorbidity") for c in context.comorbidities)
-        if context.comorbidities else "None"
+        if context.comorbidities
+        else "None"
     )
     allergy_str = (
         ", ".join(_se(a, "allergy") for a in context.allergies)
-        if context.allergies else "None"
+        if context.allergies
+        else "None"
     )
     return f"""\
 Evaluate patient context for risk stratification.
@@ -192,7 +210,7 @@ Evaluate patient context for risk stratification.
 PATIENT DEMOGRAPHICS:
   Age: {context.age}
   Sex: {context.sex}
-  Weight: {context.weight_kg or 'unknown'} kg
+  Weight: {context.weight_kg or "unknown"} kg
   Care setting: {context.care_setting}
   Comorbidities: {comorbidity_str}
   Known allergies: {allergy_str}

@@ -55,9 +55,7 @@ class AuditLogger:
             con.execute(
                 "CREATE INDEX IF NOT EXISTS idx_analysis ON audit_records(analysis_id)"
             )
-            con.execute(
-                "CREATE INDEX IF NOT EXISTS idx_case ON audit_records(case_id)"
-            )
+            con.execute("CREATE INDEX IF NOT EXISTS idx_case ON audit_records(case_id)")
             con.execute(
                 "CREATE INDEX IF NOT EXISTS idx_level ON audit_records(risk_level)"
             )
@@ -209,7 +207,9 @@ def _build_record(
         context_multiplier=response.risk.context_multiplier,
         total_risk_score=response.risk.total_score,
         risk_level=response.risk.level.value,
-        agent_reasoning={r.agent_type.value: r.reasoning for r in response.agent_responses},
+        agent_reasoning={
+            r.agent_type.value: r.reasoning for r in response.agent_responses
+        },
         model_version=response.model_version,
         processing_time_ms=response.processing_time_ms,
         had_errors=had_errors,

@@ -9,6 +9,7 @@ The limiter uses an in-memory backend (``MemoryStorage``), cleared via
 ``limiter._limiter.storage.reset()`` before and after each test so counters
 from one test never bleed into another.
 """
+
 from __future__ import annotations
 
 import json
@@ -36,9 +37,11 @@ def _payload(case_id: str) -> dict:
 # Helpers
 # ─────────────────────────────────────────────────────────────────────────────
 
+
 def _reset_limiter() -> None:
     """Reset all in-memory rate limit counters."""
     from app.api.limiter import limiter
+
     limiter._limiter.storage.reset()
 
 
@@ -141,8 +144,8 @@ async def rl_a2a(mock_llm):
 # /analyze  — strict limit
 # ─────────────────────────────────────────────────────────────────────────────
 
-class TestAnalyzeRateLimit:
 
+class TestAnalyzeRateLimit:
     @pytest.mark.asyncio
     async def test_requests_within_limit_succeed(self, rl_analyze):
         """Two requests within a "2/minute" limit should both return 200."""
@@ -161,18 +164,14 @@ class TestAnalyzeRateLimit:
             )
             assert resp.status_code == 200
 
-        resp = await rl_analyze.post(
-            "/api/v1/analyze", json=_payload("CASE-LOW-001")
-        )
+        resp = await rl_analyze.post("/api/v1/analyze", json=_payload("CASE-LOW-001"))
         assert resp.status_code == 429
 
     @pytest.mark.asyncio
     async def test_429_response_is_json(self, rl_analyze_1):
         """The 429 error body must be a JSON object with an 'error' key."""
         await rl_analyze_1.post("/api/v1/analyze", json=_payload("CASE-LOW-001"))
-        resp = await rl_analyze_1.post(
-            "/api/v1/analyze", json=_payload("CASE-LOW-001")
-        )
+        resp = await rl_analyze_1.post("/api/v1/analyze", json=_payload("CASE-LOW-001"))
         assert resp.status_code == 429
         body = resp.json()
         assert "error" in body
@@ -182,8 +181,8 @@ class TestAnalyzeRateLimit:
 # /audit  — moderate limit
 # ─────────────────────────────────────────────────────────────────────────────
 
-class TestAuditRateLimit:
 
+class TestAuditRateLimit:
     @pytest.mark.asyncio
     async def test_audit_list_within_limit(self, rl_audit):
         """Two requests within a "2/minute" audit limit should succeed."""
@@ -204,8 +203,8 @@ class TestAuditRateLimit:
 # /a2a/invoke  — configurable limit
 # ─────────────────────────────────────────────────────────────────────────────
 
-class TestA2ARateLimit:
 
+class TestA2ARateLimit:
     def _a2a_payload(self) -> dict:
         return {
             "trace_id": "rl-test-001",
@@ -232,8 +231,8 @@ class TestA2ARateLimit:
 # Configuration
 # ─────────────────────────────────────────────────────────────────────────────
 
-class TestRateLimitConfiguration:
 
+class TestRateLimitConfiguration:
     def test_defaults_are_present(self):
         """Config must expose all rate limit fields."""
         assert hasattr(settings, "rate_limit_enabled")
@@ -279,4 +278,3 @@ class TestRateLimitConfiguration:
         finally:
             settings.rate_limit_analyze = orig_limit
             _reset_limiter()
-
