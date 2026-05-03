@@ -1,7 +1,11 @@
 from __future__ import annotations
+import logging
 from app.agents.base import BaseAgent
+from app.errors import log_error, CATEGORY_DETECTION, CATEGORY_INIT
 from app.models.agent import AgentRequest, AgentResponse, AgentType, Finding, FindingSeverity
 from app.models.patient import VitalSign, PatientContext
+
+logger = logging.getLogger(__name__)
 
 
 class VitalsAgent(BaseAgent):
@@ -15,6 +19,8 @@ class VitalsAgent(BaseAgent):
             from app.llm.service import LLMService
             self._llm = LLMService()
         except Exception:
+            log_error(logger, CATEGORY_INIT, "VitalsAgent.__init__",
+                      "LLM service unavailable; agent will use rule-based analysis only")
             self._llm = None
 
     async def _analyze(self, request: AgentRequest) -> AgentResponse:
@@ -82,7 +88,8 @@ class VitalsAgent(BaseAgent):
                     metadata={"llm_raw": result.data},
                 )
             except Exception:
-                pass
+                log_error(logger, CATEGORY_DETECTION, "VitalsAgent._analyze",
+                          "LLM vital-signs analysis failed; falling back to rule-based scoring")
 
         from app.agents._vitals_rules import vitals_rules
         return vitals_rules(request, vitals, self)

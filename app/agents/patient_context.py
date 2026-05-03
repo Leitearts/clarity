@@ -1,7 +1,11 @@
 from __future__ import annotations
+import logging
 from app.agents.base import BaseAgent
+from app.errors import log_error, CATEGORY_DETECTION, CATEGORY_INIT
 from app.models.agent import AgentRequest, AgentResponse, AgentType, Finding, FindingSeverity
 from app.models.patient import PatientContext
+
+logger = logging.getLogger(__name__)
 
 
 class PatientContextAgent(BaseAgent):
@@ -15,6 +19,8 @@ class PatientContextAgent(BaseAgent):
             from app.llm.service import LLMService
             self._llm = LLMService()
         except Exception:
+            log_error(logger, CATEGORY_INIT, "PatientContextAgent.__init__",
+                      "LLM service unavailable; agent will use rule-based analysis only")
             self._llm = None
 
     async def _analyze(self, request: AgentRequest) -> AgentResponse:
@@ -62,7 +68,8 @@ class PatientContextAgent(BaseAgent):
                     metadata={"context_multiplier": multiplier, "llm_raw": result.data},
                 )
             except Exception:
-                pass
+                log_error(logger, CATEGORY_DETECTION, "PatientContextAgent._analyze",
+                          "LLM patient-context analysis failed; falling back to rule-based scoring")
 
         from app.agents._context_rules import context_rules
         return context_rules(request, context, self)

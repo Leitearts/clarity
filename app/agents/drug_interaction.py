@@ -1,7 +1,11 @@
 from __future__ import annotations
+import logging
 from app.agents.base import BaseAgent
+from app.errors import log_error, CATEGORY_DETECTION, CATEGORY_INIT
 from app.models.agent import AgentRequest, AgentResponse, AgentType, Finding, FindingSeverity
 from app.models.patient import Medication, Diagnosis
+
+logger = logging.getLogger(__name__)
 
 _SEVERITY_MAP = {
     "critical": FindingSeverity.CRITICAL,
@@ -22,6 +26,8 @@ class DrugInteractionAgent(BaseAgent):
             from app.llm.service import LLMService
             self._llm = LLMService()
         except Exception:
+            log_error(logger, CATEGORY_INIT, "DrugInteractionAgent.__init__",
+                      "LLM service unavailable; agent will use rule-based analysis only")
             self._llm = None
 
     async def _analyze(self, request: AgentRequest) -> AgentResponse:
