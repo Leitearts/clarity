@@ -14,12 +14,10 @@ from app.api.impact import router as impact_router
 from app.a2a.adapter import A2AAdapter
 from app.audit.logger import AuditLogger
 from app.config import settings
+from app.logging_utils import setup_logging
 from app.orchestrator.orchestrator import Orchestrator
 
-logging.basicConfig(
-    level=logging.DEBUG if settings.debug else logging.INFO,
-    format="%(asctime)s %(levelname)s %(name)s %(message)s",
-)
+setup_logging()
 
 
 @asynccontextmanager
