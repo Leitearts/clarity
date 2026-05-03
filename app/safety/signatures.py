@@ -6,6 +6,7 @@ always case-insensitive).
 
 Add new signatures by appending to :data:`SIGNATURES`.
 """
+
 from __future__ import annotations
 
 import re
@@ -31,7 +32,9 @@ class RegexSignature:
 
     name: str
     pattern: str  # raw regex string (ASCII / bytes-compatible)
-    _compiled: re.Pattern[bytes] = field(init=False, compare=False, hash=False, repr=False)
+    _compiled: re.Pattern[bytes] = field(
+        init=False, compare=False, hash=False, repr=False
+    )
 
     def __post_init__(self) -> None:
         # Bypass frozen to cache the compiled pattern once at construction time.
@@ -54,18 +57,18 @@ Signature = Union[LiteralSignature, RegexSignature]
 
 SIGNATURES: list[Signature] = [
     # ── Ransomware families ──────────────────────────────────────────────────
-    LiteralSignature("WannaCry",     "WannaCry"),
+    LiteralSignature("WannaCry", "WannaCry"),
     LiteralSignature("WannaCry_msg", "Wanna Decryptor"),
-    LiteralSignature("Locky",        "Locky"),
-    LiteralSignature("Petya",        "Petya"),
-    LiteralSignature("NotPetya",     "GoldenEye"),
-    LiteralSignature("REvil",        "REvil"),
-    LiteralSignature("Ryuk",         "Ryuk"),
-    LiteralSignature("Conti",        "Conti"),
+    LiteralSignature("Locky", "Locky"),
+    LiteralSignature("Petya", "Petya"),
+    LiteralSignature("NotPetya", "GoldenEye"),
+    LiteralSignature("REvil", "REvil"),
+    LiteralSignature("Ryuk", "Ryuk"),
+    LiteralSignature("Conti", "Conti"),
     # ── Remote access / backdoors ────────────────────────────────────────────
     LiteralSignature("Cobalt_Strike", "cobaltstrike"),
-    LiteralSignature("Mimikatz",      "mimikatz"),
-    LiteralSignature("Metasploit",    "meterpreter"),
+    LiteralSignature("Mimikatz", "mimikatz"),
+    LiteralSignature("Metasploit", "meterpreter"),
     # ── Suspicious string patterns (regex) ──────────────────────────────────
     RegexSignature(
         "Base64_PE_header",

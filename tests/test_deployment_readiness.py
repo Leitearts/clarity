@@ -16,18 +16,16 @@ from __future__ import annotations
 
 import asyncio
 import json
-import tempfile
 import time
 import uuid
 from pathlib import Path
-from unittest.mock import AsyncMock, patch
+from unittest.mock import patch
 
 import pytest
 import pytest_asyncio
 from httpx import AsyncClient, ASGITransport
 
 from app.main import app
-from app.models.patient import PatientCase
 
 # ---------------------------------------------------------------------------
 # Sample payloads
@@ -52,20 +50,72 @@ CRITICAL_PAYLOAD: dict = {
         "allergies": ["sulfa"],
     },
     "diagnoses": [
-        {"code": "I21.9", "description": "Acute MI, unspecified", "is_primary": True, "onset_days": 1},
-        {"code": "I50.9", "description": "Heart failure, unspecified", "is_primary": False},
+        {
+            "code": "I21.9",
+            "description": "Acute MI, unspecified",
+            "is_primary": True,
+            "onset_days": 1,
+        },
+        {
+            "code": "I50.9",
+            "description": "Heart failure, unspecified",
+            "is_primary": False,
+        },
     ],
     "medications": [
-        {"name": "warfarin",   "dose_mg": 5.0,   "frequency": "once daily", "route": "oral"},
-        {"name": "amiodarone", "dose_mg": 200.0, "frequency": "once daily", "route": "oral"},
-        {"name": "aspirin",    "dose_mg": 81.0,  "frequency": "once daily", "route": "oral"},
-        {"name": "lisinopril", "dose_mg": 10.0,  "frequency": "once daily", "route": "oral"},
-        {"name": "metformin",  "dose_mg": 500.0, "frequency": "once daily", "route": "oral"},
+        {
+            "name": "warfarin",
+            "dose_mg": 5.0,
+            "frequency": "once daily",
+            "route": "oral",
+        },
+        {
+            "name": "amiodarone",
+            "dose_mg": 200.0,
+            "frequency": "once daily",
+            "route": "oral",
+        },
+        {
+            "name": "aspirin",
+            "dose_mg": 81.0,
+            "frequency": "once daily",
+            "route": "oral",
+        },
+        {
+            "name": "lisinopril",
+            "dose_mg": 10.0,
+            "frequency": "once daily",
+            "route": "oral",
+        },
+        {
+            "name": "metformin",
+            "dose_mg": 500.0,
+            "frequency": "once daily",
+            "route": "oral",
+        },
     ],
     "lab_results": [
-        {"test_name": "troponin",   "value": 2.1, "unit": "ng/mL",  "reference_low": 0.0,  "reference_high": 0.04},
-        {"test_name": "INR",        "value": 4.8, "unit": "ratio",  "reference_low": 0.8,  "reference_high": 1.2},
-        {"test_name": "hemoglobin", "value": 6.8, "unit": "g/dL",   "reference_low": 13.5, "reference_high": 17.5},
+        {
+            "test_name": "troponin",
+            "value": 2.1,
+            "unit": "ng/mL",
+            "reference_low": 0.0,
+            "reference_high": 0.04,
+        },
+        {
+            "test_name": "INR",
+            "value": 4.8,
+            "unit": "ratio",
+            "reference_low": 0.8,
+            "reference_high": 1.2,
+        },
+        {
+            "test_name": "hemoglobin",
+            "value": 6.8,
+            "unit": "g/dL",
+            "reference_low": 13.5,
+            "reference_high": 17.5,
+        },
     ],
 }
 
@@ -81,7 +131,11 @@ LOW_RISK_PAYLOAD: dict = {
         "allergies": [],
     },
     "diagnoses": [
-        {"code": "J06.9", "description": "Acute upper respiratory infection", "is_primary": True},
+        {
+            "code": "J06.9",
+            "description": "Acute upper respiratory infection",
+            "is_primary": True,
+        },
     ],
     "medications": [],
     "lab_results": [],
@@ -99,6 +153,7 @@ A2A_CRITICAL_REQUEST: dict = {
 # ---------------------------------------------------------------------------
 # Fixtures
 # ---------------------------------------------------------------------------
+
 
 @pytest_asyncio.fixture
 async def deploy_client(tmp_path: Path):
@@ -132,6 +187,7 @@ async def deploy_client(tmp_path: Path):
 # 1. End-to-End Critical Case Test
 # ---------------------------------------------------------------------------
 
+
 class TestCriticalCaseEndToEnd:
     """
     Validates the full analysis pipeline against a high-risk patient case.
@@ -142,7 +198,9 @@ class TestCriticalCaseEndToEnd:
     async def test_status_code_is_200(self, deploy_client: AsyncClient):
         """POST /analyze must return HTTP 200 for a valid payload."""
         resp = await deploy_client.post("/api/v1/analyze", json=CRITICAL_PAYLOAD)
-        assert resp.status_code == 200, f"Expected 200, got {resp.status_code}: {resp.text}"
+        assert resp.status_code == 200, (
+            f"Expected 200, got {resp.status_code}: {resp.text}"
+        )
 
     @pytest.mark.asyncio
     async def test_risk_score_is_critical(self, deploy_client: AsyncClient):
@@ -150,17 +208,26 @@ class TestCriticalCaseEndToEnd:
         resp = await deploy_client.post("/api/v1/analyze", json=CRITICAL_PAYLOAD)
         data = resp.json()
         total_score = data["risk"]["total_score"]
-        risk_level  = data["risk"]["level"]
+        risk_level = data["risk"]["level"]
         assert total_score >= 0.85, f"Expected total_score >= 0.85, got {total_score}"
-        assert risk_level == "critical", f"Expected level='critical', got '{risk_level}'"
+        assert risk_level == "critical", (
+            f"Expected level='critical', got '{risk_level}'"
+        )
 
     @pytest.mark.asyncio
     async def test_response_json_structure_is_valid(self, deploy_client: AsyncClient):
         """Response must contain all top-level fields defined in AnalysisResponse."""
         required_keys = {
-            "analysis_id", "case_id", "patient_id", "timestamp",
-            "risk", "agent_responses", "explanation",
-            "recommended_actions", "processing_time_ms", "model_version",
+            "analysis_id",
+            "case_id",
+            "patient_id",
+            "timestamp",
+            "risk",
+            "agent_responses",
+            "explanation",
+            "recommended_actions",
+            "processing_time_ms",
+            "model_version",
         }
         resp = await deploy_client.post("/api/v1/analyze", json=CRITICAL_PAYLOAD)
         data = resp.json()
@@ -188,9 +255,9 @@ class TestCriticalCaseEndToEnd:
         contributions = risk["contributions"]
         assert len(contributions) >= 1, "Expected at least one contribution entry"
         for c in contributions:
-            assert "agent_type"    in c, "Contribution missing 'agent_type'"
-            assert "raw_score"     in c, "Contribution missing 'raw_score'"
-            assert "weight"        in c, "Contribution missing 'weight'"
+            assert "agent_type" in c, "Contribution missing 'agent_type'"
+            assert "raw_score" in c, "Contribution missing 'raw_score'"
+            assert "weight" in c, "Contribution missing 'weight'"
             assert "weighted_score" in c, "Contribution missing 'weighted_score'"
 
     @pytest.mark.asyncio
@@ -209,8 +276,9 @@ class TestCriticalCaseEndToEnd:
         actions = resp.json().get("recommended_actions", [])
         assert len(actions) >= 1, "Expected recommended actions for critical patient"
         # At least one action must mention immediate review
-        assert any("CRITICAL" in a or "Immediate" in a for a in actions), \
+        assert any("CRITICAL" in a or "Immediate" in a for a in actions), (
             f"No immediate-review action found: {actions}"
+        )
 
     @pytest.mark.asyncio
     async def test_processing_time_is_recorded(self, deploy_client: AsyncClient):
@@ -225,6 +293,7 @@ class TestCriticalCaseEndToEnd:
 # 2. Audit Log Validation Test
 # ---------------------------------------------------------------------------
 
+
 class TestAuditLogValidation:
     """
     Verifies that analysis results are persisted to an immutable append-only audit log
@@ -232,7 +301,9 @@ class TestAuditLogValidation:
     """
 
     @pytest.mark.asyncio
-    async def test_audit_record_created_after_analysis(self, deploy_client: AsyncClient):
+    async def test_audit_record_created_after_analysis(
+        self, deploy_client: AsyncClient
+    ):
         """Audit record for the analysis must exist and be retrievable."""
         resp = await deploy_client.post("/api/v1/analyze", json=CRITICAL_PAYLOAD)
         assert resp.status_code == 200
@@ -242,11 +313,14 @@ class TestAuditLogValidation:
         await asyncio.sleep(0.2)
 
         audit_resp = await deploy_client.get(f"/api/v1/audit/{analysis_id}")
-        assert audit_resp.status_code == 200, \
+        assert audit_resp.status_code == 200, (
             f"Audit record not found for analysis_id={analysis_id}"
+        )
 
     @pytest.mark.asyncio
-    async def test_audit_record_contains_required_fields(self, deploy_client: AsyncClient):
+    async def test_audit_record_contains_required_fields(
+        self, deploy_client: AsyncClient
+    ):
         """Audit record must include all fields needed for post-hoc investigation."""
         resp = await deploy_client.post("/api/v1/analyze", json=CRITICAL_PAYLOAD)
         analysis_id = resp.json()["analysis_id"]
@@ -254,9 +328,18 @@ class TestAuditLogValidation:
 
         audit = (await deploy_client.get(f"/api/v1/audit/{analysis_id}")).json()
         required = {
-            "audit_id", "analysis_id", "case_id", "patient_id", "timestamp",
-            "diagnosis_score", "medication_score", "lab_score", "context_multiplier",
-            "total_risk_score", "risk_level", "agent_reasoning",
+            "audit_id",
+            "analysis_id",
+            "case_id",
+            "patient_id",
+            "timestamp",
+            "diagnosis_score",
+            "medication_score",
+            "lab_score",
+            "context_multiplier",
+            "total_risk_score",
+            "risk_level",
+            "agent_reasoning",
         }
         missing = required - set(audit.keys())
         assert not missing, f"Audit record missing fields: {missing}"
@@ -271,7 +354,7 @@ class TestAuditLogValidation:
         audit = (await deploy_client.get(f"/api/v1/audit/{analysis_id}")).json()
         assert audit["input_diagnosis_count"] == len(CRITICAL_PAYLOAD["diagnoses"])
         assert audit["input_medication_count"] == len(CRITICAL_PAYLOAD["medications"])
-        assert audit["input_lab_count"]        == len(CRITICAL_PAYLOAD["lab_results"])
+        assert audit["input_lab_count"] == len(CRITICAL_PAYLOAD["lab_results"])
 
     @pytest.mark.asyncio
     async def test_audit_record_has_agent_reasoning(self, deploy_client: AsyncClient):
@@ -289,6 +372,7 @@ class TestAuditLogValidation:
     async def test_audit_record_timestamps_exist(self, deploy_client: AsyncClient):
         """Timestamp must be present and parseable as ISO-8601."""
         from datetime import datetime
+
         resp = await deploy_client.post("/api/v1/analyze", json=CRITICAL_PAYLOAD)
         analysis_id = resp.json()["analysis_id"]
         await asyncio.sleep(0.2)
@@ -306,7 +390,10 @@ class TestAuditLogValidation:
         than overwriting the first — verifying the append-only contract.
         """
         # First analysis
-        payload = {**CRITICAL_PAYLOAD, "case_id": f"IMMUTABLE-TEST-{uuid.uuid4().hex[:6]}"}
+        payload = {
+            **CRITICAL_PAYLOAD,
+            "case_id": f"IMMUTABLE-TEST-{uuid.uuid4().hex[:6]}",
+        }
         r1 = await deploy_client.post("/api/v1/analyze", json=payload)
         id1 = r1.json()["analysis_id"]
         await asyncio.sleep(0.2)
@@ -327,6 +414,7 @@ class TestAuditLogValidation:
 # ---------------------------------------------------------------------------
 # 3. Reasoning Trace Test
 # ---------------------------------------------------------------------------
+
 
 class TestReasoningTrace:
     """
@@ -367,8 +455,9 @@ class TestReasoningTrace:
         data = (await deploy_client.get(f"/api/v1/reasoning/{analysis_id}")).json()
         for agent, text in data["agent_reasoning"].items():
             assert isinstance(text, str), f"Reasoning for {agent} is not a string"
-            assert len(text.strip()) >= 10, \
+            assert len(text.strip()) >= 10, (
                 f"Reasoning for {agent} is too short (< 10 chars): '{text}'"
+            )
 
     @pytest.mark.asyncio
     async def test_reasoning_includes_formula_trace(self, deploy_client: AsyncClient):
@@ -381,7 +470,9 @@ class TestReasoningTrace:
         formula = data.get("formula_trace", "")
         assert formula, "formula_trace must not be empty"
         # Must reference the formula structure: R = (...) × multiplier = score
-        assert "=" in formula, f"formula_trace does not look like a formula: '{formula}'"
+        assert "=" in formula, (
+            f"formula_trace does not look like a formula: '{formula}'"
+        )
 
     @pytest.mark.asyncio
     async def test_unknown_analysis_id_returns_404(self, deploy_client: AsyncClient):
@@ -393,6 +484,7 @@ class TestReasoningTrace:
 # ---------------------------------------------------------------------------
 # 4. LLM Failure / Fallback Test
 # ---------------------------------------------------------------------------
+
 
 class TestLLMFallback:
     """
@@ -408,8 +500,9 @@ class TestLLMFallback:
             side_effect=Exception("Simulated LLM outage"),
         ):
             resp = await deploy_client.post("/api/v1/analyze", json=CRITICAL_PAYLOAD)
-        assert resp.status_code == 200, \
+        assert resp.status_code == 200, (
             f"Expected 200 during LLM outage, got {resp.status_code}"
+        )
 
     @pytest.mark.asyncio
     async def test_fallback_response_is_valid_json(self, deploy_client: AsyncClient):
@@ -434,12 +527,12 @@ class TestLLMFallback:
             resp = await deploy_client.post("/api/v1/analyze", json=CRITICAL_PAYLOAD)
         agents = resp.json()["agent_responses"]
         fallback_agents = [
-            a for a in agents
-            if a.get("metadata", {}).get("fallback") is True
+            a for a in agents if a.get("metadata", {}).get("fallback") is True
         ]
         # Diagnosis, drug, lab, and context agents all have rule-based fallbacks
-        assert len(fallback_agents) >= 3, \
+        assert len(fallback_agents) >= 3, (
             f"Expected >= 3 agents in fallback mode, got {len(fallback_agents)}"
+        )
 
     @pytest.mark.asyncio
     async def test_fallback_produces_bounded_scores(self, deploy_client: AsyncClient):
@@ -451,8 +544,9 @@ class TestLLMFallback:
             resp = await deploy_client.post("/api/v1/analyze", json=CRITICAL_PAYLOAD)
         for agent in resp.json()["agent_responses"]:
             score = agent["risk_score"]
-            assert 0.0 <= score <= 1.0, \
+            assert 0.0 <= score <= 1.0, (
                 f"Agent {agent['agent_type']} returned out-of-range score: {score}"
+            )
 
     @pytest.mark.asyncio
     async def test_fallback_still_scores_critical(self, deploy_client: AsyncClient):
@@ -463,14 +557,16 @@ class TestLLMFallback:
         ):
             resp = await deploy_client.post("/api/v1/analyze", json=CRITICAL_PAYLOAD)
         data = resp.json()
-        assert data["risk"]["level"] == "critical", \
+        assert data["risk"]["level"] == "critical", (
             f"Expected 'critical' in fallback mode, got '{data['risk']['level']}'"
+        )
         assert data["risk"]["total_score"] >= 0.85
 
 
 # ---------------------------------------------------------------------------
 # 5. Input Validation Test
 # ---------------------------------------------------------------------------
+
 
 class TestInputValidation:
     """
@@ -490,7 +586,9 @@ class TestInputValidation:
         """A diagnosis code that does not match ICD-10 format must fail validation."""
         bad = {
             **CRITICAL_PAYLOAD,
-            "diagnoses": [{"code": "NOT-VALID", "description": "Bad code", "is_primary": True}],
+            "diagnoses": [
+                {"code": "NOT-VALID", "description": "Bad code", "is_primary": True}
+            ],
         }
         resp = await deploy_client.post("/api/v1/analyze", json=bad)
         assert resp.status_code == 422
@@ -500,7 +598,14 @@ class TestInputValidation:
         """Medication with dose_mg <= 0 must be rejected."""
         bad = {
             **CRITICAL_PAYLOAD,
-            "medications": [{"name": "warfarin", "dose_mg": -1.0, "frequency": "daily", "route": "oral"}],
+            "medications": [
+                {
+                    "name": "warfarin",
+                    "dose_mg": -1.0,
+                    "frequency": "daily",
+                    "route": "oral",
+                }
+            ],
         }
         resp = await deploy_client.post("/api/v1/analyze", json=bad)
         assert resp.status_code == 422
@@ -542,7 +647,9 @@ class TestInputValidation:
         assert "detail" in body, "Validation error must include 'detail'"
 
     @pytest.mark.asyncio
-    async def test_no_audit_record_created_for_invalid_input(self, deploy_client: AsyncClient):
+    async def test_no_audit_record_created_for_invalid_input(
+        self, deploy_client: AsyncClient
+    ):
         """An invalid request must not create any audit log entry."""
         bad = {**CRITICAL_PAYLOAD}
         bad["diagnoses"] = [{"code": "INVALID", "description": "x", "is_primary": True}]
@@ -562,6 +669,7 @@ class TestInputValidation:
 # 6. Concurrency Test
 # ---------------------------------------------------------------------------
 
+
 class TestConcurrency:
     """
     Stress-tests the async pipeline with 20 simultaneous requests to verify
@@ -580,11 +688,14 @@ class TestConcurrency:
             *[deploy_client.post("/api/v1/analyze", json=p) for p in payloads]
         )
         failures = [r for r in responses if r.status_code != 200]
-        assert not failures, \
+        assert not failures, (
             f"{len(failures)}/{n} requests failed: {[r.status_code for r in failures]}"
+        )
 
     @pytest.mark.asyncio
-    async def test_concurrent_responses_have_unique_analysis_ids(self, deploy_client: AsyncClient):
+    async def test_concurrent_responses_have_unique_analysis_ids(
+        self, deploy_client: AsyncClient
+    ):
         """Each concurrent analysis must produce a distinct analysis_id."""
         n = 20
         payloads = [
@@ -595,10 +706,14 @@ class TestConcurrency:
             *[deploy_client.post("/api/v1/analyze", json=p) for p in payloads]
         )
         ids = [r.json()["analysis_id"] for r in responses if r.status_code == 200]
-        assert len(ids) == len(set(ids)), "Duplicate analysis_ids detected under concurrency"
+        assert len(ids) == len(set(ids)), (
+            "Duplicate analysis_ids detected under concurrency"
+        )
 
     @pytest.mark.asyncio
-    async def test_concurrent_audit_logs_not_corrupted(self, deploy_client: AsyncClient):
+    async def test_concurrent_audit_logs_not_corrupted(
+        self, deploy_client: AsyncClient
+    ):
         """Concurrent writes must not corrupt the audit log — every record must be parseable."""
         n = 20
         payloads = [
@@ -616,9 +731,9 @@ class TestConcurrency:
         assert audit_resp.status_code == 200
         records = audit_resp.json()
         for rec in records:
-            assert "analysis_id"    in rec, f"Corrupt audit record: {rec}"
+            assert "analysis_id" in rec, f"Corrupt audit record: {rec}"
             assert "total_risk_score" in rec, f"Corrupt audit record: {rec}"
-            assert "risk_level"     in rec, f"Corrupt audit record: {rec}"
+            assert "risk_level" in rec, f"Corrupt audit record: {rec}"
 
     @pytest.mark.asyncio
     async def test_concurrent_average_latency(self, deploy_client: AsyncClient):
@@ -636,14 +751,18 @@ class TestConcurrency:
         successes = sum(1 for r in responses if r.status_code == 200)
         avg_ms = (elapsed / n) * 1000 if n else 0
 
-        assert successes == n, f"Not all concurrent requests succeeded ({successes}/{n})"
-        assert elapsed < 5.0, \
+        assert successes == n, (
+            f"Not all concurrent requests succeeded ({successes}/{n})"
+        )
+        assert elapsed < 5.0, (
             f"Concurrent batch took {elapsed:.2f}s (>{5}s limit). avg={avg_ms:.0f}ms/req"
+        )
 
 
 # ---------------------------------------------------------------------------
 # 7. A2A Endpoint Test
 # ---------------------------------------------------------------------------
+
 
 class TestA2AEndpoint:
     """
@@ -665,8 +784,13 @@ class TestA2AEndpoint:
         resp = await deploy_client.post("/api/v1/a2a/invoke", json=A2A_CRITICAL_REQUEST)
         data = resp.json()
         required = {
-            "trace_id", "status", "analysis_id", "case_id",
-            "risk_score", "risk_level", "agent_contributions",
+            "trace_id",
+            "status",
+            "analysis_id",
+            "case_id",
+            "risk_score",
+            "risk_level",
+            "agent_contributions",
         }
         missing = required - set(data.keys())
         assert not missing, f"A2A response missing machine-readable fields: {missing}"
@@ -688,7 +812,9 @@ class TestA2AEndpoint:
         assert 0.0 <= float(data["risk_score"]) <= 1.0
 
     @pytest.mark.asyncio
-    async def test_a2a_unknown_capability_returns_rejected(self, deploy_client: AsyncClient):
+    async def test_a2a_unknown_capability_returns_rejected(
+        self, deploy_client: AsyncClient
+    ):
         """Requests for unknown capabilities must return status='rejected' with error code."""
         bad = {**A2A_CRITICAL_REQUEST, "capability": "nonexistent_capability"}
         resp = await deploy_client.post("/api/v1/a2a/invoke", json=bad)
@@ -708,8 +834,18 @@ class TestA2AEndpoint:
                 "case_id": "drug-check-test",
                 "patient_id": "p-test",
                 "medications": [
-                    {"name": "warfarin",   "dose_mg": 5.0,   "frequency": "daily", "route": "oral"},
-                    {"name": "amiodarone", "dose_mg": 200.0, "frequency": "daily", "route": "oral"},
+                    {
+                        "name": "warfarin",
+                        "dose_mg": 5.0,
+                        "frequency": "daily",
+                        "route": "oral",
+                    },
+                    {
+                        "name": "amiodarone",
+                        "dose_mg": 200.0,
+                        "frequency": "daily",
+                        "route": "oral",
+                    },
                 ],
                 "allergies": [],
             },
@@ -734,6 +870,7 @@ class TestA2AEndpoint:
 # ---------------------------------------------------------------------------
 # 8. Health Check Test
 # ---------------------------------------------------------------------------
+
 
 class TestHealthChecks:
     """
@@ -760,7 +897,12 @@ class TestHealthChecks:
         """A2A health response must enumerate all four analysis agents."""
         resp = await deploy_client.get("/api/v1/a2a/health")
         agents = resp.json()["agents"]
-        for name in ("diagnosis", "drug_interaction", "lab_analysis", "patient_context"):
+        for name in (
+            "diagnosis",
+            "drug_interaction",
+            "lab_analysis",
+            "patient_context",
+        ):
             assert name in agents, f"Agent '{name}' missing from health report"
 
     @pytest.mark.asyncio
@@ -768,16 +910,20 @@ class TestHealthChecks:
         """Each agent listed in the health response must have status='ok'."""
         resp = await deploy_client.get("/api/v1/a2a/health")
         for name, info in resp.json()["agents"].items():
-            assert info.get("status") == "ok", \
+            assert info.get("status") == "ok", (
                 f"Agent '{name}' reports status='{info.get('status')}', expected 'ok'"
+            )
 
     @pytest.mark.asyncio
-    async def test_a2a_health_reports_fallback_availability(self, deploy_client: AsyncClient):
+    async def test_a2a_health_reports_fallback_availability(
+        self, deploy_client: AsyncClient
+    ):
         """Each agent must confirm fallback_available=True for resilience."""
         resp = await deploy_client.get("/api/v1/a2a/health")
         for name, info in resp.json()["agents"].items():
-            assert info.get("fallback_available") is True, \
+            assert info.get("fallback_available") is True, (
                 f"Agent '{name}' does not report fallback_available=True"
+            )
 
     @pytest.mark.asyncio
     async def test_a2a_health_includes_version(self, deploy_client: AsyncClient):
@@ -792,6 +938,7 @@ class TestHealthChecks:
 # 9. JSON Schema Enforcement Test
 # ---------------------------------------------------------------------------
 
+
 class TestJSONSchemaEnforcement:
     """
     Validates that all API responses strictly match the expected schema and
@@ -800,8 +947,14 @@ class TestJSONSchemaEnforcement:
 
     # Expected RiskScore fields (all must be numeric)
     RISK_NUMERIC_FIELDS = (
-        "diagnosis_score", "medication_score", "lab_score",
-        "w_diagnosis", "w_medication", "w_lab", "context_multiplier", "total_score",
+        "diagnosis_score",
+        "medication_score",
+        "lab_score",
+        "w_diagnosis",
+        "w_medication",
+        "w_lab",
+        "context_multiplier",
+        "total_score",
     )
 
     @pytest.mark.asyncio
@@ -810,15 +963,19 @@ class TestJSONSchemaEnforcement:
         resp = await deploy_client.post("/api/v1/analyze", json=CRITICAL_PAYLOAD)
         data = resp.json()
 
-        assert isinstance(data["analysis_id"],        str),  "analysis_id must be str"
-        assert isinstance(data["case_id"],            str),  "case_id must be str"
-        assert isinstance(data["patient_id"],         str),  "patient_id must be str"
-        assert isinstance(data["timestamp"],          str),  "timestamp must be str"
-        assert isinstance(data["risk"],               dict), "risk must be a dict"
-        assert isinstance(data["agent_responses"],    list), "agent_responses must be a list"
-        assert isinstance(data["explanation"],        str),  "explanation must be str"
-        assert isinstance(data["recommended_actions"], list), "recommended_actions must be a list"
-        assert isinstance(data["model_version"],      str),  "model_version must be str"
+        assert isinstance(data["analysis_id"], str), "analysis_id must be str"
+        assert isinstance(data["case_id"], str), "case_id must be str"
+        assert isinstance(data["patient_id"], str), "patient_id must be str"
+        assert isinstance(data["timestamp"], str), "timestamp must be str"
+        assert isinstance(data["risk"], dict), "risk must be a dict"
+        assert isinstance(data["agent_responses"], list), (
+            "agent_responses must be a list"
+        )
+        assert isinstance(data["explanation"], str), "explanation must be str"
+        assert isinstance(data["recommended_actions"], list), (
+            "recommended_actions must be a list"
+        )
+        assert isinstance(data["model_version"], str), "model_version must be str"
 
     @pytest.mark.asyncio
     async def test_risk_score_fields_are_numeric(self, deploy_client: AsyncClient):
@@ -827,36 +984,49 @@ class TestJSONSchemaEnforcement:
         risk = resp.json()["risk"]
         for field in self.RISK_NUMERIC_FIELDS:
             assert field in risk, f"RiskScore missing field: {field}"
-            assert isinstance(risk[field], (int, float)), \
+            assert isinstance(risk[field], (int, float)), (
                 f"RiskScore.{field} must be numeric, got {type(risk[field])}"
+            )
         # Bounded scores
-        for field in ("diagnosis_score", "medication_score", "lab_score", "total_score"):
-            assert 0.0 <= risk[field] <= 1.0, \
+        for field in (
+            "diagnosis_score",
+            "medication_score",
+            "lab_score",
+            "total_score",
+        ):
+            assert 0.0 <= risk[field] <= 1.0, (
                 f"RiskScore.{field}={risk[field]} out of [0, 1]"
+            )
 
     @pytest.mark.asyncio
     async def test_risk_level_is_valid_enum(self, deploy_client: AsyncClient):
         """risk.level must be one of: low, medium, high, critical."""
         resp = await deploy_client.post("/api/v1/analyze", json=CRITICAL_PAYLOAD)
         level = resp.json()["risk"]["level"]
-        assert level in ("low", "medium", "high", "critical"), \
+        assert level in ("low", "medium", "high", "critical"), (
             f"Unexpected risk level: '{level}'"
+        )
 
     @pytest.mark.asyncio
     async def test_agent_response_schema(self, deploy_client: AsyncClient):
         """Each AgentResponse must have all required fields with correct types."""
         resp = await deploy_client.post("/api/v1/analyze", json=CRITICAL_PAYLOAD)
         for ar in resp.json()["agent_responses"]:
-            assert "agent_type"  in ar, "AgentResponse missing 'agent_type'"
-            assert "case_id"     in ar, "AgentResponse missing 'case_id'"
-            assert "risk_score"  in ar, "AgentResponse missing 'risk_score'"
-            assert "findings"    in ar, "AgentResponse missing 'findings'"
-            assert "reasoning"   in ar, "AgentResponse missing 'reasoning'"
-            assert "confidence"  in ar, "AgentResponse missing 'confidence'"
-            assert isinstance(ar["findings"],  list), "AgentResponse.findings must be a list"
-            assert isinstance(ar["reasoning"], str),  "AgentResponse.reasoning must be a str"
-            assert 0.0 <= ar["risk_score"] <= 1.0, \
+            assert "agent_type" in ar, "AgentResponse missing 'agent_type'"
+            assert "case_id" in ar, "AgentResponse missing 'case_id'"
+            assert "risk_score" in ar, "AgentResponse missing 'risk_score'"
+            assert "findings" in ar, "AgentResponse missing 'findings'"
+            assert "reasoning" in ar, "AgentResponse missing 'reasoning'"
+            assert "confidence" in ar, "AgentResponse missing 'confidence'"
+            assert isinstance(ar["findings"], list), (
+                "AgentResponse.findings must be a list"
+            )
+            assert isinstance(ar["reasoning"], str), (
+                "AgentResponse.reasoning must be a str"
+            )
+            assert 0.0 <= ar["risk_score"] <= 1.0, (
                 f"AgentResponse risk_score out of range: {ar['risk_score']}"
+            )
 
     @pytest.mark.asyncio
     async def test_no_raw_text_leakage_in_response(self, deploy_client: AsyncClient):
@@ -880,12 +1050,13 @@ class TestJSONSchemaEnforcement:
         resp = await deploy_client.post("/api/v1/a2a/invoke", json=A2A_CRITICAL_REQUEST)
         data = resp.json()
 
-        assert isinstance(data["trace_id"],     str),  "trace_id must be str"
-        assert isinstance(data["status"],       str),  "status must be str"
-        assert isinstance(data["analysis_id"],  str),  "analysis_id must be str"
-        assert isinstance(data["case_id"],      str),  "case_id must be str"
-        assert data["status"] in ("success", "partial", "error", "rejected"), \
+        assert isinstance(data["trace_id"], str), "trace_id must be str"
+        assert isinstance(data["status"], str), "status must be str"
+        assert isinstance(data["analysis_id"], str), "analysis_id must be str"
+        assert isinstance(data["case_id"], str), "case_id must be str"
+        assert data["status"] in ("success", "partial", "error", "rejected"), (
             f"A2AResponse.status invalid: '{data['status']}'"
+        )
 
     @pytest.mark.asyncio
     async def test_audit_record_schema(self, deploy_client: AsyncClient):
@@ -895,11 +1066,16 @@ class TestJSONSchemaEnforcement:
         await asyncio.sleep(0.2)
 
         audit = (await deploy_client.get(f"/api/v1/audit/{analysis_id}")).json()
-        assert isinstance(audit["audit_id"],          str),   "audit_id must be str"
-        assert isinstance(audit["analysis_id"],       str),   "analysis_id must be str"
-        assert isinstance(audit["total_risk_score"],  float), "total_risk_score must be float"
-        assert isinstance(audit["risk_level"],        str),   "risk_level must be str"
-        assert isinstance(audit["agent_reasoning"],   dict),  "agent_reasoning must be dict"
-        assert isinstance(audit["had_errors"],        bool),  "had_errors must be bool"
-        assert audit["risk_level"] in ("low", "medium", "high", "critical"), \
+        assert isinstance(audit["audit_id"], str), "audit_id must be str"
+        assert isinstance(audit["analysis_id"], str), "analysis_id must be str"
+        assert isinstance(audit["total_risk_score"], float), (
+            "total_risk_score must be float"
+        )
+        assert isinstance(audit["risk_level"], str), "risk_level must be str"
+        assert isinstance(audit["agent_reasoning"], dict), (
+            "agent_reasoning must be dict"
+        )
+        assert isinstance(audit["had_errors"], bool), "had_errors must be bool"
+        assert audit["risk_level"] in ("low", "medium", "high", "critical"), (
             f"AuditRecord.risk_level invalid: '{audit['risk_level']}'"
+        )

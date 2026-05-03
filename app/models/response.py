@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 from typing import Any, Optional
 import uuid
 from pydantic import BaseModel, Field, computed_field
-from app.models.agent import AgentResponse, FindingSeverity
+from app.models.agent import AgentResponse
 from app.models.risk import RiskScore
 
 

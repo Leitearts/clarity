@@ -29,13 +29,14 @@ Design notes
   problem is solved in both modes).
 * Flexible mode (default) runs all signatures including regex patterns.
 """
+
 from __future__ import annotations
 
 import re
 from dataclasses import dataclass
 from typing import Sequence
 
-from app.safety.signatures import LiteralSignature, RegexSignature, Signature
+from app.safety.signatures import RegexSignature, Signature
 
 
 @dataclass(frozen=True, slots=True)

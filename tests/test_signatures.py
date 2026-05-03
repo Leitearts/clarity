@@ -10,11 +10,12 @@ Covers:
   - Clean content returns no matches
   - memoryview / bytearray inputs
 """
+
 from __future__ import annotations
 
 import pytest
 
-from app.safety.scanner import MatchResult, Scanner
+from app.safety.scanner import Scanner
 from app.safety.signatures import (
     SIGNATURES,
     LiteralSignature,
@@ -25,6 +26,7 @@ from app.safety.signatures import (
 # ---------------------------------------------------------------------------
 # Fixtures / helpers
 # ---------------------------------------------------------------------------
+
 
 @pytest.fixture(scope="module")
 def scanner() -> Scanner:
@@ -46,16 +48,20 @@ def _encode(text: str) -> bytes:
 # Case-insensitivity — literal signatures
 # ---------------------------------------------------------------------------
 
+
 class TestCaseInsensitiveLiteralDetection:
     """WannaCry must be detected regardless of capitalisation."""
 
-    @pytest.mark.parametrize("variant", [
-        "wannacry",
-        "WannaCry",
-        "WANNACRY",
-        "wAnNaCrY",
-        "Wannacry",
-    ])
+    @pytest.mark.parametrize(
+        "variant",
+        [
+            "wannacry",
+            "WannaCry",
+            "WANNACRY",
+            "wAnNaCrY",
+            "Wannacry",
+        ],
+    )
     def test_wannacry_variants(self, scanner: Scanner, variant: str):
         matches = scanner.scan(_encode(variant))
         names = [m.name for m in matches]
@@ -79,6 +85,7 @@ class TestCaseInsensitiveLiteralDetection:
 # ---------------------------------------------------------------------------
 # Regex signature detection
 # ---------------------------------------------------------------------------
+
 
 class TestRegexSignatureDetection:
     """Regex signatures must fire on matching byte content."""
@@ -115,6 +122,7 @@ class TestRegexSignatureDetection:
 # Strict mode — regex signatures skipped
 # ---------------------------------------------------------------------------
 
+
 class TestStrictMode:
     def test_literal_detected_in_strict_mode(self, scanner_strict: Scanner):
         assert scanner_strict.strict is True
@@ -136,6 +144,7 @@ class TestStrictMode:
 # Clean content
 # ---------------------------------------------------------------------------
 
+
 class TestCleanContent:
     def test_clean_bytes_no_match(self, scanner: Scanner):
         assert scanner.scan(b"hello world, this is clean text") == []
@@ -150,6 +159,7 @@ class TestCleanContent:
 # ---------------------------------------------------------------------------
 # MatchResult fields
 # ---------------------------------------------------------------------------
+
 
 class TestMatchResult:
     def test_offset_is_correct(self, scanner: Scanner):
@@ -175,6 +185,7 @@ class TestMatchResult:
 # Alternative input types
 # ---------------------------------------------------------------------------
 
+
 class TestInputTypes:
     def test_bytearray_input(self, scanner: Scanner):
         assert scanner.contains_malware(bytearray(b"mimikatz"))
@@ -187,6 +198,7 @@ class TestInputTypes:
 # ---------------------------------------------------------------------------
 # Custom signature sets
 # ---------------------------------------------------------------------------
+
 
 class TestCustomSignatures:
     def test_custom_literal_signature(self):

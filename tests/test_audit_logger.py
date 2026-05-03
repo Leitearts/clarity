@@ -7,6 +7,7 @@ Covers:
 - In-memory cache correctness (get_recent served without I/O)
 - Record isolation between AuditLogger instances sharing the same DB
 """
+
 from __future__ import annotations
 
 import asyncio
@@ -58,7 +59,6 @@ def _make_record(
 
 
 class TestAuditLoggerWrites:
-
     def test_sync_write_persists_to_sqlite(self, tmp_path: Path):
         """A record written via _sync_write can be retrieved from SQLite."""
         al = AuditLogger(log_path=str(tmp_path / "audit.jsonl"))
@@ -73,16 +73,17 @@ class TestAuditLoggerWrites:
     @pytest.mark.asyncio
     async def test_async_log_persists_record(self, tmp_path: Path):
         """log() dispatches a write via asyncio.to_thread and updates the cache."""
-        from unittest.mock import AsyncMock, MagicMock, patch
-        from app.models.agent import AgentResponse, AgentType
+        from unittest.mock import MagicMock
         from app.models.risk import RiskScore
         from app.models.response import AnalysisResponse
         from app.models.patient import PatientCase
 
         # Build the minimal objects that _build_record requires.
         risk = RiskScore(
-            diagnosis_score=0.5, medication_score=0.5,
-            lab_score=0.5, vitals_score=0.5,
+            diagnosis_score=0.5,
+            medication_score=0.5,
+            lab_score=0.5,
+            vitals_score=0.5,
         )
         response = MagicMock(spec=AnalysisResponse)
         response.analysis_id = str(uuid.uuid4())
@@ -115,16 +116,13 @@ class TestAuditLoggerWrites:
         n = 20
         records = [_make_record() for _ in range(n)]
 
-        await asyncio.gather(
-            *[asyncio.to_thread(al._sync_write, r) for r in records]
-        )
+        await asyncio.gather(*[asyncio.to_thread(al._sync_write, r) for r in records])
 
         written_ids = {r.analysis_id for r in records}
         recent = await al.get_recent(limit=n + 5)
         retrieved_ids = {r.analysis_id for r in recent}
         assert written_ids == retrieved_ids, (
-            f"Missing records after concurrent writes: "
-            f"{written_ids - retrieved_ids}"
+            f"Missing records after concurrent writes: {written_ids - retrieved_ids}"
         )
 
     def test_duplicate_audit_id_does_not_crash(self, tmp_path: Path):
@@ -139,7 +137,13 @@ class TestAuditLoggerWrites:
             con.execute(
                 "INSERT INTO audit_records (audit_id, analysis_id, case_id, risk_level, data) "
                 "VALUES (?, ?, ?, ?, ?)",
-                (rec.audit_id, rec.analysis_id, rec.case_id, rec.risk_level, rec.model_dump_json()),
+                (
+                    rec.audit_id,
+                    rec.analysis_id,
+                    rec.case_id,
+                    rec.risk_level,
+                    rec.model_dump_json(),
+                ),
             )
             con.commit()
         except sqlite3.IntegrityError:
@@ -152,7 +156,6 @@ class TestAuditLoggerWrites:
 
 
 class TestAuditLoggerReads:
-
     @pytest.mark.asyncio
     async def test_get_returns_none_for_unknown_id(self, tmp_path: Path):
         al = AuditLogger(log_path=str(tmp_path / "audit.jsonl"))
@@ -217,7 +220,6 @@ class TestAuditLoggerReads:
 
 
 class TestAuditLoggerCacheWarm:
-
     @pytest.mark.asyncio
     async def test_new_instance_warms_cache_from_existing_db(self, tmp_path: Path):
         """A second AuditLogger on the same DB must reload existing records."""
