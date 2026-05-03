@@ -23,6 +23,7 @@ from slowapi import Limiter
 from slowapi.util import get_remote_address
 
 from app.config import settings
+from app.utils.network import is_internal_ip
 
 
 def _key_func(request: Request) -> str:
@@ -30,10 +31,16 @@ def _key_func(request: Request) -> str:
 
     Uses the real remote address when rate limiting is enabled; returns a
     random UUID per request when disabled so limits are never reached.
+
+    Internal (RFC-1918) source addresses share a single ``internal`` bucket
+    so that trusted intra-cluster callers are not throttled individually.
     """
     if not settings.rate_limit_enabled:
         return str(uuid.uuid4())
-    return get_remote_address(request)
+    remote = get_remote_address(request)
+    if is_internal_ip(remote):
+        return "internal"
+    return remote
 
 
 limiter = Limiter(key_func=_key_func)
