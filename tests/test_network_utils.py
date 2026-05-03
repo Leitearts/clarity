@@ -1,7 +1,7 @@
 """Unit tests for app.utils.network.is_internal_ip."""
+
 from __future__ import annotations
 
-import pytest
 
 from app.utils.network import is_internal_ip
 

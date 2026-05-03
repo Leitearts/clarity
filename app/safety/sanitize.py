@@ -28,6 +28,7 @@ inject new instructions:
 The patterns are intentionally conservative to avoid rejecting legitimate
 clinical text such as "patient overrides previous treatment preference".
 """
+
 from __future__ import annotations
 
 import logging
@@ -43,25 +44,28 @@ logger = logging.getLogger(__name__)
 # Each tuple: (human-readable name, compiled regex)
 _RAW_PATTERNS: list[tuple[str, str]] = [
     # Conversation-role hijack attempts
-    ("role_prefix_system",    r"(?:^|\n)\s*system\s*:"),
+    ("role_prefix_system", r"(?:^|\n)\s*system\s*:"),
     ("role_prefix_assistant", r"(?:^|\n)\s*assistant\s*:"),
-    ("role_prefix_user",      r"(?:^|\n)\s*user\s*:"),
-    ("role_prefix_human",     r"(?:^|\n)\s*human\s*:"),
+    ("role_prefix_user", r"(?:^|\n)\s*user\s*:"),
+    ("role_prefix_human", r"(?:^|\n)\s*human\s*:"),
     # Meta-instruction phrases
-    ("ignore_previous",       r"\bignore\s+(all\s+)?previous\b"),
-    ("disregard",             r"\bdisregard\s+(all\s+|previous\s+|your\s+)"),
-    ("forget_instructions",   r"\bforget\s+(everything|all|previous|your\s+instructions)\b"),
+    ("ignore_previous", r"\bignore\s+(all\s+)?previous\b"),
+    ("disregard", r"\bdisregard\s+(all\s+|previous\s+|your\s+)"),
+    (
+        "forget_instructions",
+        r"\bforget\s+(everything|all|previous|your\s+instructions)\b",
+    ),
     # Jailbreak openers
-    ("you_are_now",           r"\byou\s+are\s+now\b"),
-    ("act_as",                r"\bact\s+as\s+(a|an)\b"),
-    ("pretend_you_are",       r"\bpretend\s+(you\s+are|to\s+be)\b"),
+    ("you_are_now", r"\byou\s+are\s+now\b"),
+    ("act_as", r"\bact\s+as\s+(a|an)\b"),
+    ("pretend_you_are", r"\bpretend\s+(you\s+are|to\s+be)\b"),
     # Special LLM control tokens / XML injection
-    ("im_tokens",             r"<\|(?:im_start|im_end|endoftext|pad)\|>"),
-    ("inst_tokens",           r"\[/?INST\]"),
-    ("xml_role_tags",         r"</?(?:system|assistant|user|prompt|instruction)>"),
+    ("im_tokens", r"<\|(?:im_start|im_end|endoftext|pad)\|>"),
+    ("inst_tokens", r"\[/?INST\]"),
+    ("xml_role_tags", r"</?(?:system|assistant|user|prompt|instruction)>"),
     # New-instruction anchors
-    ("new_instruction",       r"\bnew\s+instruction\s*:"),
-    ("override_instruction",  r"\boverride\s+(all\s+|previous\s+)?instructions?\b"),
+    ("new_instruction", r"\bnew\s+instruction\s*:"),
+    ("override_instruction", r"\boverride\s+(all\s+|previous\s+)?instructions?\b"),
 ]
 
 INJECTION_PATTERNS: list[tuple[str, re.Pattern[str]]] = [
@@ -90,8 +94,7 @@ def strip_control_chars(text: str) -> str:
     Strips everything in Unicode category ``Cc`` (control) that isn't those two.
     """
     return "".join(
-        ch for ch in text
-        if ch in ("\n", "\t") or unicodedata.category(ch) != "Cc"
+        ch for ch in text if ch in ("\n", "\t") or unicodedata.category(ch) != "Cc"
     )
 
 
