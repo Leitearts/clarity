@@ -12,15 +12,21 @@ class DetectionResult:
     file_path: Optional[str] = None
 
     def __post_init__(self) -> None:
-        if not isinstance(self.verdict, str) or not self.verdict.strip():
+        if not isinstance(self.verdict, str):
+            raise TypeError("verdict must be a string")
+        if not self.verdict.strip():
             raise ValueError("verdict must be a non-empty str")
-        if not isinstance(self.action, str) or not self.action.strip():
+        if not isinstance(self.action, str):
+            raise TypeError("action must be a string")
+        if not self.action.strip():
             raise ValueError("action must be a non-empty str")
         if not isinstance(self.confidence, (int, float)):
-            raise ValueError("confidence must be a float")
+            raise TypeError("confidence must be a numeric value")
         self.confidence = float(self.confidence)
+        if not 0.0 <= self.confidence <= 1.0:
+            raise ValueError("confidence must be between 0.0 and 1.0")
         if self.file_path is not None and not isinstance(self.file_path, str):
-            raise ValueError("file_path must be Optional[str]")
+            raise TypeError("file_path must be a string or None")
 
 
 def evaluate_file(file_path: str) -> DetectionResult:
