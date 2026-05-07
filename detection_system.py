@@ -20,7 +20,9 @@ class DetectionResult:
             raise TypeError("action must be a string")
         if not self.action.strip():
             raise ValueError("action must be a non-empty str")
-        if not isinstance(self.confidence, (int, float)):
+        if isinstance(self.confidence, bool) or not isinstance(
+            self.confidence, (int, float)
+        ):
             raise TypeError("confidence must be a numeric value")
         self.confidence = float(self.confidence)
         if not 0.0 <= self.confidence <= 1.0:

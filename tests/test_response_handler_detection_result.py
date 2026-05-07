@@ -4,7 +4,7 @@ from detection_system import DetectionResult
 from response_handler import handle_threat
 
 
-def test_handle_threat_accepts_detection_result_without_exceptions(monkeypatch):
+def test_handle_threat_triggers_quarantine_and_alert_for_malicious_verdict(monkeypatch):
     calls = {"quarantine": 0, "alert": 0}
 
     def fake_quarantine(_: str) -> None:
